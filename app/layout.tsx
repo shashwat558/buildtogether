@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Jersey_15 } from "next/font/google";
 import "./globals.css";
 import { BackgroundBeams } from "@/components/ui/background-beams";
+import NavBar from "@/components/NavBar";
 
 
 
@@ -25,9 +26,10 @@ export default function RootLayout({
     <html lang="en">
       <head></head>
       <body
-        className={`${jersey.className} antialiased bg-zinc-900`}
+        className={`${jersey.className} antialiased bg-zinc-900 scroll-m-0`}
       >
         <BackgroundBeams />
+        <NavBar />
         {children}
       </body>
     </html>
