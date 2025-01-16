@@ -10,6 +10,10 @@ const page = () => {
             signin
         
         </button>
+        <button onClick={() => signIn("github")}>
+            github
+
+        </button>
     </div>
   )
 }
