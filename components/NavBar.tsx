@@ -1,6 +1,8 @@
+"use client"
 import Image from 'next/image'
 import React from 'react'
 import { Button } from './ui/button'
+import Link from 'next/link'
 
 
 const NavBar = () => {
@@ -14,13 +16,17 @@ const NavBar = () => {
               width={100}
               className=''
             />
-        <div className='cursor-pointer'>
-            <Button variant="outline" className='bg-transparent text-white text-lg '>
-                Login/signup
-            </Button>
             
+        <div className=''>
+          <Link href="/signin">
+          
+            <Button onClick={() => console.log("jdljfl")}  variant="outline" className='bg-transparent text-white text-lg cursor-pointer '>
+                Login
+            </Button>
+          </Link>            
 
         </div>
+        
 
         </div>
     </div>

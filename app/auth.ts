@@ -1,10 +1,20 @@
-import NextAuth from "next-auth"
+import { prisma } from "@/lib/prisma"
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import NextAuth, { NextAuthConfig } from "next-auth"
 import GitHub from "next-auth/providers/github"
 import Google from "next-auth/providers/google"
 
+const adapter = PrismaAdapter(prisma);
 
 
-export const config = {
+export const config:NextAuthConfig = {
+    session: {
+        strategy: "jwt"
+    
+    },
+    adapter,
+    
+
     providers:[
         Google({
             clientId: process.env.AUTH_GOOGLE_ID,
@@ -18,6 +28,86 @@ export const config = {
 
     pages:{
         signIn: "/signin"
+    },
+
+    callbacks: {
+        async signIn({account, profile}){
+            if(!profile?.email){
+                throw new Error("No profile")
+
+            }
+            const existingUser = await prisma.user.findFirst({
+                where:{
+                    email: profile?.email
+                }
+            })
+            if(existingUser){
+                const linkedAccount = await prisma.account.findFirst({
+                    where:{
+                        provider: account?.provider,
+                        providerAccountId: account?.providerAccountId
+                    }
+                });
+                if(!linkedAccount){
+                    await prisma.account.create({
+                        data:{
+                            userId: existingUser.id,
+                            provider: account?.provider as string,
+                            providerAccountId: account?.providerAccountId as string,
+                            access_token: account?.access_token,
+                            refresh_token: account?.refresh_token,
+                            type: "oauth"
+                        }
+                    })
+                }
+            } else{
+                await prisma.user.create({
+                    data: {
+                        email: profile?.email,
+                        name: profile?.name,
+                        accounts:{
+                            create:{
+                                provider: account?.provider ?? "",
+                                providerAccountId: account?.providerAccountId ?? "",
+                                access_token: account?.access_token,
+                                refresh_token: account?.refresh_token,
+                                type: "oauth"
+                            }
+                        }
+                    }
+                })
+            }
+            return true;
+        },
+        
+        async jwt({token, account, user}){
+            if(account){
+                token.accessToken = account.access_token;
+                token.provider = account.provider
+            }
+            if(user){
+                token.id = user.id
+                token.email = user.email
+                token.name = user.name
+            }
+            return token;
+
+
+
+        },
+        async session({session, token}){
+            if(token){
+                session.user = {
+                    
+                    id: token.id as string,
+                    email: token.email as string,
+                    name: token.name,
+                    emailVerified: null
+                } 
+            }
+            return session;
+
+        }
     }
 }
  

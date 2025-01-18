@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${jersey.className} antialiased bg-zinc-900 scroll-m-0`}
       >
-        <BackgroundBeams />
+        <BackgroundBeams className="z-[-10]"/>
         <NavBar />
         {children}
       </body>
