@@ -4,7 +4,7 @@ import React from 'react'
 import { Button } from './ui/button'
 import Link from 'next/link'
 import { auth, signOut } from '@/app/auth'
-
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 
 const NavBar = async () => {
@@ -24,8 +24,12 @@ const NavBar = async () => {
       </Link>
         
             
-        <div className=''>
-          
+        <div className='flex flex-row items-center gap-5'>
+          {session && <Link href={"/profile"}>
+            <div className='text-white '>
+              <AccountCircleOutlinedIcon className="text-[40px] tracking-tighter" />
+            </div>
+          </Link>}
           
             {session?<Button onClick={async () => {
               "use server"
@@ -37,6 +41,7 @@ const NavBar = async () => {
                 Login
             </Button>
             </Link>}
+            
                   
 
         
