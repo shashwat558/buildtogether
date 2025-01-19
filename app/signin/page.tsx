@@ -1,9 +1,12 @@
 
+import { redirect } from "next/navigation"
 import { auth, signIn } from "../auth"
  
 export default async function SignIn() {
   const session = await auth( )
-  console.log(session)
+  if(session){
+    redirect("/")
+  }
   return (
     <form
       action={async () => {
