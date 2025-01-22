@@ -19,6 +19,8 @@ model User {
   email         String          @unique
   emailVerified DateTime?
   image         String?
+  college       College? @relation(fields: [collegeId], references: [id])
+  collegeId     String
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
@@ -81,4 +83,14 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
  
   @@id([userId, credentialID])
+}
+
+model College {
+  id                 String  @id @default(uuid())
+  name               String
+  city               String
+  state              String
+  users              User[]
+  createdAt          DateTime    @default(now())
+
 }
