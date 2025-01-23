@@ -15,12 +15,13 @@ datasource db {
 
 model User {
   id            String          @id @default(cuid())
+  username      String?          @unique @default("default")
   name          String?
   email         String          @unique
   emailVerified DateTime?
   image         String?
-  // college       College? @relation(fields: [collegeId], references: [id])
-  // collegeId     String?
+  college       College? @relation(fields: [collegeId], references: [id])
+  collegeId     String?
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
@@ -90,7 +91,7 @@ model College {
   name               String
   city               String
   state              String?
-  // users              User[]
+  users              User[]
   createdAt          DateTime    @default(now())
 
 }

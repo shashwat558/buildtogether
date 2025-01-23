@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { prisma } from "@/lib/prisma"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import NextAuth, { NextAuthConfig } from "next-auth"
@@ -5,6 +6,8 @@ import GitHub from "next-auth/providers/github"
 import Google from "next-auth/providers/google"
 
 const adapter = PrismaAdapter(prisma);
+
+
 
 
 export const config:NextAuthConfig = {
@@ -65,6 +68,7 @@ export const config:NextAuthConfig = {
                     data: {
                         email: profile?.email,
                         name: profile?.name,
+                        username: "default",
                         accounts:{
                             create:{
                                 provider: account?.provider ?? "",
@@ -86,9 +90,21 @@ export const config:NextAuthConfig = {
                 token.provider = account.provider
             }
             if(user){
+                
+                
+
+            }
+            if(user){
+                const dbUser = await prisma.user.findUnique({
+                    where:{
+                        email: user.email ?? ""
+                    }
+                })
+                token.username = dbUser?.username || "default"
                 token.id = user.id
                 token.email = user.email
                 token.name = user.name
+            
             }
             return token;
 
@@ -102,6 +118,8 @@ export const config:NextAuthConfig = {
                     id: token.id as string,
                     email: token.email as string,
                     name: token.name,
+                    //@ts-expect-error
+                    username: token.username as string,
                     emailVerified: null
                 } 
             }

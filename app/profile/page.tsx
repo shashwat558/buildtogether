@@ -5,11 +5,14 @@ import { getUserDetails } from '@/lib/actions';
 
 const page = async() => {
     const session = await auth();
+    
     const email = session?.user?.email as string;
+
     const userInfo = await getUserDetails(email)
+
     if(!session){
         redirect("/")
-    }
+    } else if(!session)
     console.log(JSON.stringify(userInfo))
     console.log((email))
   return (
