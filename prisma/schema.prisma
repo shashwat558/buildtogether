@@ -19,8 +19,8 @@ model User {
   email         String          @unique
   emailVerified DateTime?
   image         String?
-  college       College? @relation(fields: [collegeId], references: [id])
-  collegeId     String
+  // college       College? @relation(fields: [collegeId], references: [id])
+  // collegeId     String?
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
@@ -89,8 +89,8 @@ model College {
   id                 String  @id @default(uuid())
   name               String
   city               String
-  state              String
-  users              User[]
+  state              String?
+  // users              User[]
   createdAt          DateTime    @default(now())
 
 }

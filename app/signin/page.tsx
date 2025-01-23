@@ -12,6 +12,7 @@ export default async function SignIn() {
       action={async () => {
         "use server"
         await signIn("google")
+        
       }}
     >
       <button type="submit">Signin with Google</button>
