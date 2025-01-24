@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Card from './ui/Card'
+import Card from './ui/myCard'
 import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';

@@ -3,6 +3,7 @@ import { Jersey_15 } from "next/font/google";
 import "./globals.css";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import NavBar from "@/components/NavBar";
+import { SessionProvider } from "next-auth/react";
 
 
 
@@ -30,7 +31,8 @@ export default function RootLayout({
       >
         <BackgroundBeams className="z-[-10]"/>
         <NavBar />
-        {children}
+        <SessionProvider>{children}</SessionProvider>
+        
       </body>
     </html>
   );
