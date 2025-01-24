@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { prisma } from "@/lib/prisma"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import NextAuth, { NextAuthConfig } from "next-auth"
@@ -118,8 +117,7 @@ export const config:NextAuthConfig = {
                     id: token.id as string,
                     email: token.email as string,
                     name: token.name,
-                    //@ts-expect-error
-                    username: token.username as string,
+                    
                     emailVerified: null
                 } 
             }

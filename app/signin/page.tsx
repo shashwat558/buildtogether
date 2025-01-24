@@ -12,7 +12,7 @@ export default async function SignIn() {
       action={async () => {
         "use server"
         await signIn("google")
-        redirect("/")
+        redirect("/completeProfile")
       }}
     >
       <button type="submit">Signin with Google</button>

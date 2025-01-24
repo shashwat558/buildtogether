@@ -6,7 +6,7 @@ const page = async() => {
     const session = await auth()
     if(!session){
         redirect("/signin")
-    }else if()
+    }
   return (
     <div>page</div>
   )
