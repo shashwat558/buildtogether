@@ -14,7 +14,7 @@ const Page = () => {
     const userId = data?.user?.id;
     const [username, setUsername] =useState<string>("");
     const [colleges, setColleges] = useState<College[]>([]);
-    const [college, setCollege] = useState<string>("");
+    const [college, setCollege] = useState<College | null>(null);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -55,7 +55,7 @@ const Page = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({userId ,username, college})
+            body: JSON.stringify({userId ,username, collegeId: college?.id})
         });
 
         if(response.ok){
@@ -74,7 +74,7 @@ const Page = () => {
             <label className='text-white text-2xl' htmlFor="username">Username</label>
             <Input onChange={(e) => setUsername(e.target.value)} type='text' value={username} placeholder='username' className='w-1/2'/>
             <label htmlFor="college" className='text-white text-2xl'>Select your College</label>
-            <Input className='w-1/2' value={college} onChange={(e) => setSearchQuery(e.target.value)}/>
+            <Input className='w-1/2' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
             {loading && <p>Loading colleges</p>}
             <ul>
                 {colleges.map((college) => (
