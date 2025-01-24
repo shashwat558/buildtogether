@@ -7,12 +7,14 @@ const page = async() => {
     const session = await auth();
     
     const email = session?.user?.email as string;
-
+    
     const userInfo = await getUserDetails(email)
 
     if(!session){
         redirect("/")
-    } else if(!session)
+    } else if(!session.user?.username || session.user.username){
+      redirect("/completeProfile")
+    }
     console.log(JSON.stringify(userInfo))
     console.log((email))
   return (

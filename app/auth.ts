@@ -1,20 +1,22 @@
 import { prisma } from "@/lib/prisma"
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import NextAuth, { NextAuthConfig } from "next-auth"
+
+import NextAuth, { NextAuthConfig, } from "next-auth"
 import GitHub from "next-auth/providers/github"
 import Google from "next-auth/providers/google"
 
-const adapter = PrismaAdapter(prisma);
 
-
-
+declare module "next-auth" {
+    interface User {
+        username: string;
+    }
+}
 
 export const config:NextAuthConfig = {
     session: {
         strategy: "jwt"
     
     },
-    adapter,
+   
     
 
     providers:[
@@ -99,12 +101,14 @@ export const config:NextAuthConfig = {
                         email: user.email ?? ""
                     }
                 })
-                token.username = dbUser?.username || "default"
+                console.log(dbUser?.username + "this is my username")
+                token.username = dbUser?.username
                 token.id = user.id
                 token.email = user.email
                 token.name = user.name
             
             }
+            
             return token;
 
 
@@ -117,7 +121,7 @@ export const config:NextAuthConfig = {
                     id: token.id as string,
                     email: token.email as string,
                     name: token.name,
-                    
+                    username : (token.username as string),
                     emailVerified: null
                 } 
             }

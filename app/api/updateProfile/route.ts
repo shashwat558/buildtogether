@@ -2,7 +2,11 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request){
-    const {userId, username, collegeId} = await req.json();
+    const body = await req.json();
+    const {userId, username, collegeId} = body;
+
+    console.log("reached here")
+    
 
     if(!userId || !username){
         return NextResponse.json({
@@ -11,14 +15,16 @@ export async function POST(req: Request){
             status: 400
         })
     }
+    console.log("hii")
     const updatedUser = await prisma.user.update({
         where:{
             id: userId
         },
         data: {
-            username: username,
-            collegeId: collegeId
+            username: username || null,
+            collegeId: collegeId || null
         }
     })
+    console.log("here")
     return NextResponse.json({success: true, message: "Profile update succesfully", user: updatedUser}, {status: 200})
 }

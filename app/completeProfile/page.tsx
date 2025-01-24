@@ -16,7 +16,9 @@ interface College {
 
 const Page = () => {
   const { data } = useSession()
+  
   const userId = data?.user?.id
+  console.log(userId)
   const [username, setUsername] = useState<string>("")
   const [colleges, setColleges] = useState<College[]>([])
   const [college, setCollege] = useState<College | null>(null)
@@ -57,12 +59,13 @@ const Page = () => {
       },
       body: JSON.stringify({ userId, username, collegeId: college?.id }),
     })
+    console.log(userId, username, college?.id)
 
     if (response.ok) {
       console.log("Profile updated successfully")
       redirect("/dashboard")
     } else {
-      console.log("Failed to update profile")
+      console.error("Failed to update profile")
     }
   }
 
