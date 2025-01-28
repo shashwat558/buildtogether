@@ -13,7 +13,8 @@ declare module "next-auth" {
 
 export const config:NextAuthConfig = {
     session: {
-        strategy: "jwt"
+        strategy: "jwt",
+        maxAge: 30 * 60
     
     },
    
@@ -127,6 +128,15 @@ export const config:NextAuthConfig = {
             }
             return session;
 
+        },
+        
+
+    },
+    events: {
+        async signOut(message) {
+            console.log(`User signed out ${message}`)
+        
+            
         }
     }
 }

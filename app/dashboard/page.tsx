@@ -8,6 +8,7 @@ const page = async() => {
     if(!session){
         redirect("/signin")
     } 
+    console.log(`${session.user?.username} ${session.user?.email}`)
 
   return (
     <div>page</div>

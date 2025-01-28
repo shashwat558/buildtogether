@@ -3,7 +3,7 @@
 import type React from "react"
 import { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -15,16 +15,25 @@ interface College {
 }
 
 const Page = () => {
-  const { data } = useSession()
+  const { data } = useSession();
+  const router = useRouter();
+
+  if(data?.user?.username !== "default"){
+    router.push("/dashboard")
+  }
+  
+ 
+
+  
   
   const userId = data?.user?.id
-  console.log(userId)
+  console.log(userId + "-----------------------------------")
   const [username, setUsername] = useState<string>("")
   const [colleges, setColleges] = useState<College[]>([])
   const [college, setCollege] = useState<College | null>(null)
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
-
+  
   useEffect(() => {
     if (searchQuery.length < 3) {
       setColleges([])
@@ -63,7 +72,7 @@ const Page = () => {
 
     if (response.ok) {
       console.log("Profile updated successfully")
-      redirect("/dashboard")
+      router.push("/dashboard")
     } else {
       console.error("Failed to update profile")
     }
