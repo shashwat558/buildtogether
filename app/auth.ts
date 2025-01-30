@@ -14,7 +14,6 @@ declare module "next-auth" {
 export const config:NextAuthConfig = {
     session: {
         strategy: "jwt",
-        maxAge: 30 * 60
     
     },
    

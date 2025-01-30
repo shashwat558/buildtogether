@@ -3,7 +3,9 @@ import { Jersey_15 } from "next/font/google";
 import "./globals.css";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import NavBar from "@/components/NavBar";
-import { SessionProvider } from "next-auth/react";
+
+import { auth } from "./auth";
+import SessionProviderComponent from "@/components/SessionProviderComponent";
 
 
 
@@ -12,6 +14,8 @@ const jersey = Jersey_15({
   subsets: ["latin"],
   weight: "400"
 })
+
+const session = await auth();
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,10 +33,11 @@ export default function RootLayout({
       <body
         className={`${jersey.className} antialiased bg-zinc-900 scroll-m-0 flex flex-col justify-center items-center`}
       >
+        <SessionProviderComponent session={session}>
         <BackgroundBeams className="z-[-10]"/>
         <NavBar />
-        <SessionProvider>{children}</SessionProvider>
-        
+        {children}
+        </SessionProviderComponent>
       </body>
     </html>
   );

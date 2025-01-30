@@ -9,31 +9,34 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 
+
+
+
 interface College {
   id: string
   name: string
 }
 
+
+
 const Page = () => {
-  const { data } = useSession();
+  const {data:session} = useSession()
+  const userId = session?.user?.id
+  console.log(userId + "--------")
   const router = useRouter();
 
-  if(data?.user?.username !== "default"){
-    router.push("/dashboard")
-  }
-  
- 
 
   
-  
-  const userId = data?.user?.id
-  console.log(userId + "-----------------------------------")
   const [username, setUsername] = useState<string>("")
   const [colleges, setColleges] = useState<College[]>([])
   const [college, setCollege] = useState<College | null>(null)
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
   
+  
+ 
+ 
+
   useEffect(() => {
     if (searchQuery.length < 3) {
       setColleges([])
