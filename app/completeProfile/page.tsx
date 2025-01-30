@@ -3,7 +3,7 @@
 import type React from "react"
 import { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -24,7 +24,13 @@ const Page = () => {
   const userId = session?.user?.id
   console.log(userId + "--------")
   const router = useRouter();
-
+  
+  if(!session){
+    redirect("/signin")
+  }
+  if(session && session.user?.username !== "default"){
+    redirect("/dashboard")
+  }
 
   
   const [username, setUsername] = useState<string>("")

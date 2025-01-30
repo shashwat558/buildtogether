@@ -1,8 +1,17 @@
 
 import FeatureCards from "@/components/FeatureCards"
+import { auth } from "./auth";
+import { redirect } from "next/navigation";
+
 
 
 export default async function Home() {
+
+  const session = await auth();
+
+  if(session){
+    redirect("/dashboard")
+  }
   
   return (
     <div className="w-screen h-screen ">

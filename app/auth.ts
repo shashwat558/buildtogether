@@ -90,11 +90,7 @@ export const config:NextAuthConfig = {
                 token.accessToken = account.access_token;
                 token.provider = account.provider
             }
-            if(user){
-                
-                
-
-            }
+            
             if(user){
                 const dbUser = await prisma.user.findUnique({
                     where:{
@@ -103,7 +99,7 @@ export const config:NextAuthConfig = {
                 })
                 console.log(dbUser?.username + "this is my username")
                 token.username = dbUser?.username
-                token.id = user.id
+                token.id = dbUser?.id
                 token.email = user.email
                 token.name = user.name
             
