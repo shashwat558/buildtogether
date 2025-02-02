@@ -18,6 +18,7 @@ model User {
   username      String?         @default("")
   name          String?
   email         String          @unique
+  githubLink    String?
   emailVerified DateTime?
   image         String?
   college       College? @relation(fields: [collegeId], references: [id])

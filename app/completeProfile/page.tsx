@@ -31,10 +31,12 @@ const Page = () => {
   if(session && session.user?.username !== "default"){
     redirect("/dashboard")
   }
+  console.log(session)
 
   
   const [username, setUsername] = useState<string>("")
-  const [colleges, setColleges] = useState<College[]>([])
+  const [colleges, setColleges] = useState<College[]>([]);
+ 
   const [college, setCollege] = useState<College | null>(null)
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
