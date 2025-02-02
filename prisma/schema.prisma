@@ -20,6 +20,7 @@ model User {
   email         String          @unique
   githubUsername    String?
   emailVerified DateTime?
+  profileImage  String?
   image         String?
   college       College? @relation(fields: [collegeId], references: [id])
   collegeId     String?

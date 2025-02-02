@@ -3,11 +3,15 @@
 import type React from "react"
 import { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
-import { redirect, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
+import ImageUploader from "@/components/ImageUploader"
+import { useImage } from "@/context/imageContext"
+import Image from "next/image"
+
 
 
 
@@ -25,12 +29,12 @@ const Page = () => {
   console.log(userId + "--------")
   const router = useRouter();
   
-  if(!session){
-    redirect("/signin")
-  }
-  if(session && session.user?.username !== "default"){
-    redirect("/dashboard")
-  }
+  // if(!session){
+  //   redirect("/signin")
+  // }
+  // if(session && session.user?.username !== "default"){
+  //   redirect("/dashboard")
+  // }
   console.log(session)
 
   
@@ -39,7 +43,8 @@ const Page = () => {
   const [githubUsername, setGithubUsername] = useState<string>("");
   const [college, setCollege] = useState<College | null>(null)
   const [searchQuery, setSearchQuery] = useState<string>("")
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
+  const {base64Image} = useImage();
   
   
  
@@ -79,7 +84,7 @@ const Page = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userId, username, collegeId: college?.id }),
+      body: JSON.stringify({ userId, username, collegeId: college?.id , profileImage: base64Image}),
     })
     console.log(userId, username, college?.id)
 
@@ -156,6 +161,8 @@ const Page = () => {
                 </ul>
               )}
             </div>
+            <ImageUploader />
+            {base64Image && <Image width={100} height={100} src={base64Image} alt="preview"/>}
             <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
               Submit
             </Button>

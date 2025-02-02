@@ -6,6 +6,7 @@ import NavBar from "@/components/NavBar";
 
 import { auth } from "./auth";
 import SessionProviderComponent from "@/components/SessionProviderComponent";
+import { ImageProvider } from "@/context/imageContext";
 
 
 
@@ -36,7 +37,10 @@ export default function RootLayout({
         <SessionProviderComponent session={session}>
         <BackgroundBeams className="z-[-10]"/>
         <NavBar />
-        {children}
+        <ImageProvider>
+          {children}
+        </ImageProvider>
+        
         </SessionProviderComponent>
       </body>
     </html>

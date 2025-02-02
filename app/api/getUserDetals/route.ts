@@ -25,7 +25,8 @@ export async function GET(){
                     }
                 },
                 email: true,
-                githubUsername: true
+                githubUsername: true,
+                profileImage: true
 
             }
         })

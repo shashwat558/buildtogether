@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request){
     const body = await req.json();
-    const {userId, username, collegeId, githubUsername} = body;
+    const {userId, username, collegeId, githubUsername, profileImage} = body;
 
     console.log("reached here")
     
@@ -23,7 +23,8 @@ export async function POST(req: Request){
         data: {
             username: username || null,
             collegeId: collegeId || null,
-            githubUsername: githubUsername || null
+            githubUsername: githubUsername || null,
+            profileImage: profileImage || null
         }
     })
     console.log("here")
