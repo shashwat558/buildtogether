@@ -20,7 +20,7 @@ interface College {
 
 
 const Page = () => {
-  const {data:session} = useSession()
+  const {data:session, update:sessionUpdate} = useSession()
   const userId = session?.user?.id
   console.log(userId + "--------")
   const router = useRouter();
@@ -36,7 +36,7 @@ const Page = () => {
   
   const [username, setUsername] = useState<string>("")
   const [colleges, setColleges] = useState<College[]>([]);
- 
+  const [githubUsername, setGithubUsername] = useState<string>("");
   const [college, setCollege] = useState<College | null>(null)
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
@@ -69,7 +69,9 @@ const Page = () => {
     return () => clearTimeout(timeOutId)
   }, [searchQuery])
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  
+
+  const handleSubmitAndUpdateSession = async (e: React.FormEvent) => {
     e.preventDefault()
 
     const response = await fetch("/api/updateProfile", {
@@ -82,6 +84,9 @@ const Page = () => {
     console.log(userId, username, college?.id)
 
     if (response.ok) {
+      await sessionUpdate({
+        newData: {username: username}
+      })
       console.log("Profile updated successfully")
       router.push("/dashboard")
     } else {
@@ -96,7 +101,7 @@ const Page = () => {
           <CardTitle className="text-2xl font-bold text-white">Complete Your Profile</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmitAndUpdateSession} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="username" className="text-white text-xl">
                 Username
@@ -109,6 +114,16 @@ const Page = () => {
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full text-white bg-gray-700 border-gray-600"
               />
+              <Label htmlFor="githubUsername" className="text-white text-xl mt-2">
+                Github Username
+              </Label>
+              <Input
+                id="githubLink"
+                type="text"
+                placeholder="Enter your github username"
+                value={githubUsername}
+                onChange={(e) => setGithubUsername(e.target.value)}
+                className="w-full text-white bg-gray-700 border-gray-600" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="college" className="text-white text-xl">

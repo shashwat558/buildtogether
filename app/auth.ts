@@ -85,7 +85,10 @@ export const config:NextAuthConfig = {
             return true;
         },
         
-        async jwt({token, account, user}){
+        async jwt({token, trigger, account, user, session}){
+            if(trigger == 'update' && session?.newData){
+                return {...token, ...session.newData}
+            }
             if(account){
                 token.accessToken = account.access_token;
                 token.provider = account.provider
