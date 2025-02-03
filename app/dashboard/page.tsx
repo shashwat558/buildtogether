@@ -1,10 +1,12 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { auth } from '../auth'
 import { redirect } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import { Button } from '@/components/ui/button'
 
 const Page = () => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
     const {data: session }= useSession();
     console.log(session?.user);
     
@@ -16,7 +18,9 @@ const Page = () => {
    
 
   return (
-    <div>page</div>
+    <div>
+      <Button></Button>
+    </div>
   )
 }
 
