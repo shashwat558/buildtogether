@@ -14,7 +14,7 @@ const ProjectCard = ({title, description, gitHubLink, author, currentlyWorking}:
 
 
   return (
-    <div className='bg-gray-800 w-[250px] h-[250px] p-3 rounded-xl border-[0.3px] border-gray-300'>
+    <div className='bg-gray-800 flex-shrink-0 w-[250px] h-[250px] p-3 rounded-xl border-[0.3px] border-gray-300'>
         <div className='flex flex-col justify-center items-center gap-2'>
             <div className='flex justify-between w-full item-center'>
                 <h1 className='text-[30px] underline text-yellow-50 '>{title}</h1>

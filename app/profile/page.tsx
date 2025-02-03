@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { School, MapPin, Github, Mail, User } from 'lucide-react';
 import Image from 'next/image';
 import ProjectCard from '@/components/ProjectCard';
+import ProfileSkeleton from '@/components/ui/ProfileSkeleton';
 
 interface UserDetailsType {
   username: string;
@@ -38,15 +39,13 @@ function Profile() {
 
   if (!userDetails) {
     return (
-      <div className="min-h-screen w-full flex items-center justify-center">
-        <div className="text-gray-400">Loading...</div>
-      </div>
+      <ProfileSkeleton />
     );
   }
 
   return (
     <div className="min-h-screen w-full flex  justify-center p-4">
-      <div className="profile-border w-full max-w-3xl flex flex-col gap-5">
+      <div className="profile-border w-full max-w-3xl flex flex-col gap-5 p-1">
         <div className="backdrop-blur-sm bg-slate-900/50 p-8 rounded-xl">
           <div className="flex flex-col md:flex-row gap-8 items-start">
             {/* Profile Image Section */}
@@ -119,11 +118,12 @@ function Profile() {
           </div>
         </div>
         
-          <div className='flex backdrop-blur-sm bg-slate-900/50 flex-col gap-3 w-full rounded-xl h-[300px]'>
+          <div className='flex backdrop-blur-sm bg-slate-900/50 flex-col gap-3 w-full rounded-xl h-[360px] p-1'>
             <h1 className='text-5xl ml-3 mt-3 underline text-pretty items-center text-white'>Currently Live projects</h1>
 
-            <div className='flex overflow-x-scroll scroll-smooth h-full text-center'>
+            <div className='flex gap-2 overflow-x-scroll scroll-smooth h-full text-center'>
               <ProjectCard author='shashwat' title='project' description='a very good project' gitHubLink='git' currentlyWorking={true}/>
+              <ProjectCard author='shashwat' title='project' description='a very good project' gitHubLink='git' currentlyWorking={true}/><ProjectCard author='shashwat' title='project' description='a very good project' gitHubLink='git' currentlyWorking={true}/><ProjectCard author='shashwat' title='project' description='a very good project' gitHubLink='git' currentlyWorking={true}/><ProjectCard author='shashwat' title='project' description='a very good project' gitHubLink='git' currentlyWorking={true}/>
             </div>
 
           <div>
