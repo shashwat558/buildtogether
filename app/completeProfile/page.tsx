@@ -84,7 +84,7 @@ const Page = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userId, username, collegeId: college?.id , profileImage: base64Image}),
+      body: JSON.stringify({ userId, username, collegeId: college?.id , profileImage: base64Image, githubUsername}),
     })
     console.log(userId, username, college?.id)
 

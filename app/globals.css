@@ -2,8 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 body {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  .profile-border {
+    @apply relative rounded-xl bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-blue-500/20 p-[1px] before:absolute before:inset-0 before:-z-10 before:animate-pulse before:bg-gradient-to-r before:from-pink-500 before:via-purple-500 before:to-blue-500 before:blur-xl;
+  }
+
+  .hover-effect {
+    @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/20;
+  }
 }
 
 @layer base {
