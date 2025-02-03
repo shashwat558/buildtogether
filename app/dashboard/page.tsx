@@ -1,9 +1,11 @@
 "use client"
 import React, { useState } from 'react'
-import { auth } from '../auth'
+
 import { redirect } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
+import Modal from '@/components/Modal'
+import ProjectForm from '@/components/ProjectForm'
 
 const Page = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -19,7 +21,12 @@ const Page = () => {
 
   return (
     <div>
-      <Button></Button>
+      <Button variant={'outline'} onClick={() => setIsModalOpen(true)}>
+        New Project
+      </Button>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <ProjectForm />
+      </Modal>
     </div>
   )
 }

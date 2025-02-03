@@ -1,11 +1,9 @@
 import React from 'react';
 import { Github } from 'lucide-react';
 
-interface ProjectFormProps {
-  onSubmit: (e: React.FormEvent) => void;
-}
 
-const ProjectForm: React.FC<ProjectFormProps> = () => {
+
+const ProjectForm: React.FC= () => {
     
 
     const handleSubmit = async (e: React.FormEvent) => {
