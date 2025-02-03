@@ -1,13 +1,14 @@
-import React from 'react';
-import { Github } from 'lucide-react';
+import React, { useState } from 'react';
+import { Github, Loader2 } from 'lucide-react';
 
 
 
-const ProjectForm: React.FC= () => {
-    
+const ProjectForm: React.FC = () => {
+    const [loading, setLoading] = useState<boolean>(false)
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setLoading(true);
         const formData = new FormData(e.target as HTMLFormElement);
 
         const data = {
@@ -18,12 +19,13 @@ const ProjectForm: React.FC= () => {
         }
 
         try {
+
             const response = await fetch("/api/project", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({body: data})
+                body: JSON.stringify(data)
             });
 
             if(!response.ok){
@@ -31,10 +33,14 @@ const ProjectForm: React.FC= () => {
             }
 
             const result = await response.json();
+
+            
             console.log(result)
         } catch (error) {
             console.log(error)
             
+        }finally{
+            setLoading(false)
         }
 
     }
@@ -105,7 +111,7 @@ const ProjectForm: React.FC= () => {
         type="submit"
         className="w-full py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-lg transition-colors focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-900"
       >
-        Add Project
+        {loading?<span className='w-full text-center'><Loader2 /></span> : "Add Project"}
       </button>
     </form>
   );
