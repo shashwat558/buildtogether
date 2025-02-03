@@ -10,7 +10,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 const NavBar = async () => {
   const session =await auth()
   return (
-    <div className='w-[50%] py-5 m-5 flex flex-row justify-between px-10 items-center rounded-lg border-purple-400 border-[1px] shadow-md shadow-purple-500 bg-[#18181B] hover:scale-95 transition-all ease-in-out duration-300 hover:shadow-lg hover:shadow-purple-400'>
+    <div className=' w-[50%] py-5 m-5 flex flex-row justify-between px-10 items-center rounded-lg border-purple-400 border-[1px] shadow-md shadow-purple-500 bg-[#18181B] hover:scale-95 transition-all ease-in-out duration-300 hover:shadow-lg hover:shadow-purple-400'>
       <Link href={"/"}>
       <div className="">
             <Image 

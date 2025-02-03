@@ -69,22 +69,25 @@ function Profile() {
 
             {/* Profile Details Section */}
             <div className="flex-grow space-y-6">
-              <div className="space-y-2">
+              
+              
+
+              <div className="space-y-4">
+                <div className="space-y-2">
                 
-                <p className="text-gray-400 flex items-center gap-2">
-                  <User className="w-4 h-4" />
+                <p className="ml-[10px] text-white flex items-center gap-2">
+                  <User className="w-5 h-5 font-bold" />
                   <h1 className="text-4xl font-semibold tracking-tight">
-                    {userDetails.username}                
+                  {userDetails.username}
                 </h1>
                   
                 </p>
               </div>
-
-              <div className="space-y-4">
+                
                 <div className="flex items-center gap-3 text-gray-300 hover-effect p-2 rounded-lg">
                   <School className="w-5 h-5 text-purple-400" />
                   <div>
-                    <p className="font-medium">{userDetails.college.name}</p>
+                    <p className="font-medium text-2xl">{userDetails.college.name}</p>
                     <p className="text-sm text-gray-400 flex items-center gap-1">
                       <MapPin className="w-3 h-3" /> {userDetails.college.city}
                     </p>
@@ -94,7 +97,7 @@ function Profile() {
                 <div className="flex flex-col gap-3">
                   <a
                     href={`mailto:${userDetails.email}`}
-                    className="flex items-center gap-3 text-gray-300 hover-effect p-2 rounded-lg"
+                    className="flex items-center gap-3 text-gray-300 hover-effect p-2 rounded-lg text-xl"
                   >
                     <Mail className="w-5 h-5 text-pink-400" />
                     {userDetails.email}
@@ -104,7 +107,7 @@ function Profile() {
                     href={`https://github.com/${userDetails.githubUsername}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-gray-300 hover-effect p-2 rounded-lg"
+                    className="flex items-center gap-3 text-gray-300 hover-effect p-2 rounded-lg text-xl"
                   >
                     <Github className="w-5 h-5 text-blue-400" />
                     github.com/{userDetails.githubUsername}
