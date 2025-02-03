@@ -17,6 +17,7 @@ const Page = () => {
     } else if(session.user?.username === "default"){
       redirect("/completeProfile")
     }
+
    
 
   return (
@@ -24,9 +25,13 @@ const Page = () => {
       <Button variant={'outline'} onClick={() => setIsModalOpen(true)}>
         New Project
       </Button>
+
+      <h1 className=''>Your College Mates</h1>
+
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ProjectForm />
       </Modal>
+
     </div>
   )
 }

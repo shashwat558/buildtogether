@@ -20,12 +20,13 @@ interface ProjectDetailType {
   title: string;
   description: string;
   currentlyWorking: boolean;
-  author: 
+  authorName: string;
+  githubLink: string
 }
 
 function Profile() {
   const [userDetails, setUserDetails] = useState<UserDetailsType | null>(null);
-  const [projectDetails, setProjectDetails] = useState
+  const [allProjects, setAllProjects] = useState<ProjectDetailType[] | null>(null);
 
   useEffect(() => {
     const getUserDetails = async () => {
@@ -42,7 +43,27 @@ function Profile() {
         console.log("sorry");
       }
     };
+
+    const getProjects =async () => {
+      const response = await fetch("/api/project", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+
+      })
+      if(response.ok){
+        const {projects} =await response.json();
+        console.log(projects)
+        setAllProjects(projects);
+      } else {
+        console.log("sory")
+      }
+
+    }
+
     getUserDetails();
+    getProjects();
   }, []);
 
 
@@ -132,8 +153,12 @@ function Profile() {
             <h1 className='text-5xl ml-3 mt-3 underline text-pretty items-center text-white'>Currently Live projects</h1>
 
             <div className='flex gap-2 overflow-x-scroll scroll-smooth h-full text-center'>
-              <ProjectCard author='shashwat' title='project' description='a very good project' gitHubLink='git' currentlyWorking={true}/>
-              <ProjectCard author='shashwat' title='project' description='a very good project' gitHubLink='git' currentlyWorking={true}/><ProjectCard author='shashwat' title='project' description='a very good project' gitHubLink='git' currentlyWorking={true}/><ProjectCard author='shashwat' title='project' description='a very good project' gitHubLink='git' currentlyWorking={true}/><ProjectCard author='shashwat' title='project' description='a very good project' gitHubLink='git' currentlyWorking={true}/>
+              {allProjects && allProjects.map((project, index) => (
+                <ProjectCard key={index} author={project.authorName} title={project.title} description={project.description}  gitHubLink={project.githubLink} currentlyWorking={project.currentlyWorking}/>
+
+              ))}
+              
+            
             </div>
 
           <div>

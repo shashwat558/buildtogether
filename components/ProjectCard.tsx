@@ -10,7 +10,9 @@ const ProjectCard = ({title, description, gitHubLink, author, currentlyWorking}:
     currentlyWorking: boolean
 }) => {
 
-    const truncatedDescription = description && description.length > 50 ? `${description.substring(0, 50)}...`: description;
+    const truncatedDescription = description && description.length > 50 ? `${description.substring(0, 30)}...`: description;
+    const truncatedGitLink = gitHubLink && gitHubLink.length > 20 ? `
+    ${gitHubLink.substring(0, 20)}...`: gitHubLink;
 
 
   return (
@@ -32,8 +34,8 @@ const ProjectCard = ({title, description, gitHubLink, author, currentlyWorking}:
                 <div className='w-full text-start text-white'>
                     <div className='flex gap-2'>
                         <GithubIcon size={25}/>
-                        <a className='text-blue-400' href={gitHubLink}>
-                 {gitHubLink}
+                        <a target='_blank' className='text-blue-400' href={gitHubLink}>
+                 {truncatedGitLink}
                         </a>
                     </div>
                     

@@ -25,7 +25,7 @@ export async function POST(req:NextRequest){
                 }
             })
 
-            return NextResponse.json({newProject})
+            return NextResponse.json({newProject});
 
         } catch (error) {
             console.log(error)
@@ -34,4 +34,32 @@ export async function POST(req:NextRequest){
 
     }
 
+
+export async function GET(){
+    const session = await auth();
+    if(!session){
+        return null;
+    }
+
+    try{
+
+        const projects = await prisma.project.findMany({
+            where: {
+                authorName: session.user?.username
+            }, select :{
+                authorName: true,
+                title: true,
+                description: true,
+                currentlyWorking: true,
+                githubLink: true
+            }
+        })
+
+        return NextResponse.json({projects})
+
+    }catch(error){
+        console.log(error)
+    }
+
+}
 
