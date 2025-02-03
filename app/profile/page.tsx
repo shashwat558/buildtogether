@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { School, MapPin, Github, Mail, User } from 'lucide-react';
 import Image from 'next/image';
+import ProjectCard from '@/components/ProjectCard';
 
 interface UserDetailsType {
   username: string;
@@ -45,7 +46,7 @@ function Profile() {
 
   return (
     <div className="min-h-screen w-full flex  justify-center p-4">
-      <div className="profile-border w-full max-w-3xl">
+      <div className="profile-border w-full max-w-3xl flex flex-col gap-5">
         <div className="backdrop-blur-sm bg-slate-900/50 p-8 rounded-xl">
           <div className="flex flex-col md:flex-row gap-8 items-start">
             {/* Profile Image Section */}
@@ -116,6 +117,22 @@ function Profile() {
               </div>
             </div>
           </div>
+        </div>
+        
+          <div className='flex backdrop-blur-sm bg-slate-900/50 flex-col gap-3 w-full rounded-xl h-[300px]'>
+            <h1 className='text-5xl ml-3 mt-3 underline text-pretty items-center text-white'>Currently Live projects</h1>
+
+            <div className='flex overflow-x-scroll scroll-smooth h-full text-center'>
+              <ProjectCard author='shashwat' title='project' description='a very good project' gitHubLink='git' currentlyWorking={true}/>
+            </div>
+
+          <div>
+              
+        </div>
+          
+          
+
+          
         </div>
       </div>
     </div>

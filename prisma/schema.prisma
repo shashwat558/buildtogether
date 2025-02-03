@@ -21,6 +21,7 @@ model User {
   githubUsername    String?
   emailVerified DateTime?
   profileImage  String?
+  projects      Project[]
   image         String?
   college       College? @relation(fields: [collegeId], references: [id])
   collegeId     String?
@@ -96,4 +97,14 @@ model College {
   users              User[]
   createdAt          DateTime    @default(now())
 
+}
+
+model Project {
+  id                 String @id  @default(uuid())
+  title              String
+  description        String
+  githubLink         String
+  author             User   @relation(fields: [authorId], references: [id])
+  authorId           String
+  currentlyWorking   Boolean  @default(true)
 }
