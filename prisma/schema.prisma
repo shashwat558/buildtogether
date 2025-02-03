@@ -15,7 +15,7 @@ datasource db {
 
 model User {
   id            String          @id @default(cuid())
-  username      String?         @default("")
+  username      String?         @unique @default("")
   name          String?
   email         String          @unique
   githubUsername    String?
@@ -104,7 +104,7 @@ model Project {
   title              String
   description        String
   githubLink         String
-  author             User   @relation(fields: [authorId], references: [id])
-  authorId           String
+  author             User   @relation(fields: [authorName], references: [username])
+  authorName         String
   currentlyWorking   Boolean  @default(true)
 }

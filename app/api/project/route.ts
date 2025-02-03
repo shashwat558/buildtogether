@@ -10,7 +10,7 @@ export async function POST(req:NextRequest){
     }
     
         try {
-            const userId = session.user?.id;
+            const username = session.user?.username;
             const body = await req.json();
 
             const {title, description, githubLink}:
@@ -21,7 +21,7 @@ export async function POST(req:NextRequest){
                     title: title,
                     description: description,
                     githubLink: githubLink,
-                    author: { connect: { id: userId } }
+                    author: {connect: {username: username ?? ""}}
                 }
             })
 

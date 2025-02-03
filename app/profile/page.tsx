@@ -16,8 +16,16 @@ interface UserDetailsType {
   profileImage: string;
 }
 
+interface ProjectDetailType {
+  title: string;
+  description: string;
+  currentlyWorking: boolean;
+  author: 
+}
+
 function Profile() {
   const [userDetails, setUserDetails] = useState<UserDetailsType | null>(null);
+  const [projectDetails, setProjectDetails] = useState
 
   useEffect(() => {
     const getUserDetails = async () => {
@@ -36,6 +44,8 @@ function Profile() {
     };
     getUserDetails();
   }, []);
+
+
 
   if (!userDetails) {
     return (
