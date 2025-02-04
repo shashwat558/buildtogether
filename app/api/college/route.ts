@@ -29,6 +29,12 @@ export async function GET() {
                 select: {
                     username: true,
                     githubUsername: true,
+                    projects: {
+                        select: {
+                            title: true,
+                            currentlyWorking: true
+                        }
+                    }
                     
                 }
             }

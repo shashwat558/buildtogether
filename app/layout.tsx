@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Jersey_15 } from "next/font/google";
+import { Geist} from "next/font/google";
 import "./globals.css";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import NavBar from "@/components/NavBar";
@@ -8,13 +8,16 @@ import { auth } from "./auth";
 import SessionProviderComponent from "@/components/SessionProviderComponent";
 import { ImageProvider } from "@/context/imageContext";
 
-
-
-const jersey = Jersey_15({
-
-  subsets: ["latin"],
-  weight: "400"
+const giest = Geist({
+  weight: "500",
+  subsets: ["latin"]
 })
+
+// const jersey = Jersey_15({
+
+//   subsets: ["latin"],
+//   weight: "400"
+// })
 
 const session = await auth();
 
@@ -32,7 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <head></head>
       <body
-        className={`${jersey.className} antialiased bg-zinc-900 scroll-m-0 flex flex-col justify-center items-center`}
+        className={`${giest.className} antialiased bg-zinc-900 scroll-m-0 flex flex-col justify-center items-center`}
       >
         <SessionProviderComponent session={session}>
         <BackgroundBeams className="z-[-10]"/>
