@@ -11,10 +11,12 @@ import StudentCardList from '@/components/StudentCardList'
 
 
 
+
 const Page = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [sameCollegeGuys, setSameCollegeGuys] = useState([])
     const {data: session }= useSession();
+    
     
     
     if(!session){

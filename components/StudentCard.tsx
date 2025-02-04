@@ -5,6 +5,7 @@ import type React from "react"
 import { motion } from "framer-motion"
 import Blinker from "./ui/blinker"
 
+
 interface StudentCardProps {
   username: string
   githubUsername: string
@@ -13,6 +14,7 @@ interface StudentCardProps {
 }
 
 const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, projectTitle, currentlyWorking }) => {
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -37,9 +39,24 @@ const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, pro
       className="w-full bg-gradient-to-r from-gray-800 to-gray-900 p-4 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out"
     >
       <div className="flex items-center justify-around space-x-8">
-        <motion.h1 variants={itemVariants} className="text-white text-2xl font-bold truncate flex-shrink-0 ">
-          <a href={`/user/${username}`}>{username}</a>
+        <motion.div className="relative flex items-center gap-2"
+          whileHover="hover">
+        <motion.h1 whileHover={{scale: 1.2}} variants={itemVariants} className="text-white text-2xl font-bold truncate flex-shrink-0 hover:bg-white hover:text-black hover:rounded-md ">
+          <a >{username}</a>
+          <motion.span 
+            variants={{
+              hover: { opacity: 1, x: 5 },
+              initial: { opacity: 0, x: 0 }
+            }}
+            initial="hidden"
+            animate="visible"
+            className="text-[#1D2634] hover:text-[black] text-xl font-semibold rotate-[45deg]"
+          >
+            →
+          </motion.span>
         </motion.h1>
+        
+        </motion.div>
         <motion.a
           variants={itemVariants}
           href={`https://github.com/${githubUsername}`}
