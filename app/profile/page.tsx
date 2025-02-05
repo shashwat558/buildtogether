@@ -30,7 +30,7 @@ function Profile() {
 
   useEffect(() => {
     const getUserDetails = async () => {
-      const response = await fetch("/api/getUserDetals", {
+      const response = await fetch("/api/getMyDetals", {
         method: "GET",
         headers: {
           'Content-Type': "application/json"

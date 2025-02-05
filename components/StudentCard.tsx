@@ -5,6 +5,7 @@ import type React from "react"
 import { motion } from "framer-motion"
 import Blinker from "./ui/blinker"
 import Link from "next/link"
+import { useSession } from "next-auth/react"
 
 interface StudentCardProps {
   username: string
@@ -15,6 +16,7 @@ interface StudentCardProps {
 
 const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, projectTitle, currentlyWorking }) => {
 
+  const {data: session} = useSession();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -41,7 +43,7 @@ const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, pro
         <motion.div className="relative flex items-center gap-2"
           whileHover="hover">
           <motion.h1 whileHover={{scale: 1.2}} variants={itemVariants} className="text-white text-2xl font-bold truncate flex-shrink-0 hover:bg-white hover:text-black hover:rounded-md ">
-            <Link href={`/user/${username}`}>{username}</Link>
+            <Link href={session?.user?.username===username?"/profile": `/user/${username}`}>{username}</Link>
             <motion.span 
               variants={{
                 hover: { opacity: 1, x: 5 },
