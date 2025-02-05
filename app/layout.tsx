@@ -8,6 +8,7 @@ import { auth } from "./auth";
 import SessionProviderComponent from "@/components/SessionProviderComponent";
 import { ImageProvider } from "@/context/imageContext";
 import Drag from "@/components/cursorFollower";
+import NextTopLoader from 'nextjs-toploader';
 
 const giest = Geist({
   weight: "500",
@@ -40,8 +41,10 @@ export default async  function RootLayout({
         className={`${giest.className} antialiased bg-zinc-900 scroll-m-0 flex flex-col justify-center items-center`}
       >
         <SessionProviderComponent session={session}>
+          <NextTopLoader color="rgb(157, 0, 255)"/>
         <BackgroundBeams className="z-[-10]"/>
         <NavBar />
+
         <ImageProvider>
           
           {children}

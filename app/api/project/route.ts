@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req:NextRequest){
     const session = await auth();
     if(!session){
-        return null
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     
         try {
@@ -39,7 +39,8 @@ export async function POST(req:NextRequest){
 export async function GET(){
     const session = await auth();
     if(!session){
-        return null;
+        
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     try{
