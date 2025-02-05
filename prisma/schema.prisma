@@ -22,6 +22,8 @@ model User {
   emailVerified DateTime?
   profileImage  String?
   projects      Project[]
+  sentPings     Notification[] @relation("SentPings")  
+  receivedPings Notification[] @relation("ReceivedPings")    
   image         String?
   college       College? @relation(fields: [collegeId], references: [id])
   collegeId     String?
@@ -89,6 +91,8 @@ model Authenticator {
   @@id([userId, credentialID])
 }
 
+
+
 model College {
   id                 String  @id @default(uuid())
   name               String
@@ -107,4 +111,22 @@ model Project {
   author             User   @relation(fields: [authorName], references: [username])
   authorName         String
   currentlyWorking   Boolean  @default(true)
+}
+
+model Notification {
+  id         String  @id @default(uuid())
+  senderId   String
+  receiverId String
+  status     NotificationStatus @default(pending)
+
+  sender   User @relation("SentPings", fields: [senderId], references: [id])
+  receiver User @relation("ReceivedPings", fields: [receiverId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+enum NotificationStatus {
+  pending
+  sent
+  failed
 }
