@@ -7,6 +7,7 @@ import NavBar from "@/components/NavBar";
 import { auth } from "./auth";
 import SessionProviderComponent from "@/components/SessionProviderComponent";
 import { ImageProvider } from "@/context/imageContext";
+import Drag from "@/components/cursorFollower";
 
 const giest = Geist({
   weight: "500",
@@ -42,8 +43,10 @@ export default async  function RootLayout({
         <BackgroundBeams className="z-[-10]"/>
         <NavBar />
         <ImageProvider>
+          
           {children}
         </ImageProvider>
+        <Drag />
         
         </SessionProviderComponent>
       </body>

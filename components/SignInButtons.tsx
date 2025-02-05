@@ -17,6 +17,7 @@ export default function SignInButtons() {
         setLoading(true)
         
         signIn("google")
+        
         setLoading(false)
         }}>
         <Mail className="mr-2 h-4 w-4" />

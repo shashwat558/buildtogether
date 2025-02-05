@@ -41,7 +41,7 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json({ users: collegeStudents }, { status: 200 });
+    return NextResponse.json(collegeStudents , { status: 200 });
   } catch (error) {
     console.error("Error fetching college students:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

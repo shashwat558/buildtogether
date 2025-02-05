@@ -8,7 +8,7 @@ import Modal from '@/components/Modal'
 import ProjectForm from '@/components/ProjectForm'
 
 import StudentCardList from '@/components/StudentCardList'
-
+import { motion } from 'framer-motion';
 
 
 
@@ -44,11 +44,20 @@ const Page = () => {
 
   return (
     <div>
-      <Button variant={'outline'} onClick={() => setIsModalOpen(true)}>
+      <motion.div variants={{ hidden: {opacity: 0, y:-15},
+        visible: {
+            opacity: 1,
+            y:0,
+            transition: {
+                duration: 1
+            }
+        }}} initial="hidden" animate="visible">
+        <Button variant={'outline'} onClick={() => setIsModalOpen(true)}>
         New Project
       </Button>
+      </motion.div>
 
-      <h1 className=''>Your College Mates</h1>
+      <h1 className='text-white text-4xl '>Your College Mates</h1>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ProjectForm />

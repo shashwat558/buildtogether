@@ -80,4 +80,4 @@ const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, pro
   )
 }
 
-export default StudentCard
+export default StudentCard;
