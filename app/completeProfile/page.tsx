@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client"
 
 import type React from "react"
@@ -44,6 +45,7 @@ const Page = () => {
   const [college, setCollege] = useState<College | null>(null)
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false);
+  //@ts-ignore
   const {base64Image} = useImage();
   
   

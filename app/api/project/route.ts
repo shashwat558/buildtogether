@@ -29,6 +29,7 @@ export async function POST(req:NextRequest){
 
         } catch (error) {
             console.log(error)
+        return NextResponse.json({error: "Got an error"}, {status: 500})
         }
 
 
@@ -58,7 +59,9 @@ export async function GET(){
         return NextResponse.json({projects})
 
     }catch(error){
+        
         console.log(error)
+        return NextResponse.json({error: "Got an error"}, {status: 500})
     }
 
 }

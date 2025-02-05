@@ -1,15 +1,17 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useImage } from '@/context/imageContext'
 import React from 'react'
 
 const ImageUploader = () => {
-
+   //@ts-ignore
     const {setBase64Image} = useImage();
 
-    const handleImageUpload = (event:Fi) => {
+    const handleImageUpload = (event:React.ChangeEvent<HTMLInputElement>) => {
       event.preventDefault();
 
-      const file = event.target.files[0];
-      if(file) {
+      const files = event.target.files;
+      if (files && files[0]) {
+        const file = files[0];
         const reader = new FileReader();
         reader.onloadend =() => {
           setBase64Image(reader.result);
