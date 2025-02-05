@@ -19,18 +19,19 @@ const giest = Geist({
 //   weight: "400"
 // })
 
-const session = await auth();
+
 
 export const metadata: Metadata = {
   title: "buildtogether",
   description: "An app to see what your peers are working on",
 };
 
-export default function RootLayout({
+export default async  function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
     <html lang="en">
       <head></head>

@@ -4,7 +4,7 @@ import { Github } from "lucide-react"
 import type React from "react"
 import { motion } from "framer-motion"
 import Blinker from "./ui/blinker"
-
+import Link from "next/link"
 
 interface StudentCardProps {
   username: string
@@ -30,7 +30,6 @@ const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, pro
     visible: { opacity: 1, y: 0 },
   }
 
- 
   return (
     <motion.div
       variants={containerVariants}
@@ -41,21 +40,20 @@ const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, pro
       <div className="flex items-center justify-around space-x-8">
         <motion.div className="relative flex items-center gap-2"
           whileHover="hover">
-        <motion.h1 whileHover={{scale: 1.2}} variants={itemVariants} className="text-white text-2xl font-bold truncate flex-shrink-0 hover:bg-white hover:text-black hover:rounded-md ">
-          <a >{username}</a>
-          <motion.span 
-            variants={{
-              hover: { opacity: 1, x: 5 },
-              initial: { opacity: 0, x: 0 }
-            }}
-            initial="hidden"
-            animate="visible"
-            className="text-[#1D2634] hover:text-[black] text-xl font-semibold rotate-[45deg]"
-          >
-            →
-          </motion.span>
-        </motion.h1>
-        
+          <motion.h1 whileHover={{scale: 1.2}} variants={itemVariants} className="text-white text-2xl font-bold truncate flex-shrink-0 hover:bg-white hover:text-black hover:rounded-md ">
+            <Link href={`/user/${username}`}>{username}</Link>
+            <motion.span 
+              variants={{
+                hover: { opacity: 1, x: 5 },
+                initial: { opacity: 0, x: 0 }
+              }}
+              initial="hidden"
+              animate="visible"
+              className="text-[#1D2634] hover:text-[black] text-xl font-semibold rotate-[45deg]"
+            >
+              →
+            </motion.span>
+          </motion.h1>
         </motion.div>
         <motion.a
           variants={itemVariants}
@@ -81,5 +79,3 @@ const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, pro
 }
 
 export default StudentCard
-
-
