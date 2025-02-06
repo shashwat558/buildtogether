@@ -1,17 +1,17 @@
-import WebSocket, {WebSocketServer} from "ws"
-import { prisma } from "./lib/prisma";
+import { PrismaClient } from "@prisma/client";
+import  {WebSocketServer} from "ws"
+
+
+const prisma = new PrismaClient();
 
 //initiate a websocket server on port 4000
 
 const wss = new WebSocketServer({port: 4000});
 
 //type of userSocket ex:- {user123: websocket{...}}
-interface UserSockets {
-    [userId: string] : WebSocket; 
 
-}
 //stores the user ex:- users:{user123:websocket{...}}
-const users: UserSockets = {};
+const users = {};
 
 //initiates the connection
 wss.on("connection", (ws) => {
@@ -56,3 +56,6 @@ wss.on("connection", (ws) => {
         })
     })
 });
+
+
+console.log("web socket server running on ws://localhost:3000")
