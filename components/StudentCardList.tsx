@@ -3,6 +3,7 @@ import React from 'react'
 import StudentCard from './StudentCard';
 
 interface StudentProps {
+  id: string;
   username: string;
   githubUsername: string;
   projects: [
@@ -44,6 +45,7 @@ const StudentCardList:React.FC<StudentCardListProps> = ({students}) => {
         {students.map((student, index) => (
             <motion.div key={index} variants={cardVariant}>
                 <StudentCard 
+                id={student.id}
                 currentlyWorking={student.projects[0].currentlyWorking}
                 githubUsername={student.githubUsername}
                 projectTitle={student.projects[0].title}

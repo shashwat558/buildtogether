@@ -28,6 +28,7 @@ export async function GET() {
       select: {
         users: {
           select: {
+            id: true,
             username: true,
             githubUsername: true,
             projects: {

@@ -6,15 +6,17 @@ import { motion } from "framer-motion"
 import Blinker from "./ui/blinker"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
+import PingButton from "./pingButton"
 
 interface StudentCardProps {
+  id: string;
   username: string
   githubUsername: string
   projectTitle: string
   currentlyWorking: boolean
 }
 
-const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, projectTitle, currentlyWorking }) => {
+const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, projectTitle, currentlyWorking,id }) => {
 
   const {data: session} = useSession();
   const containerVariants = {
@@ -70,6 +72,7 @@ const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, pro
         <motion.p variants={itemVariants} className="text-gray-300 text-sm flex-grow truncate">
           Working on: <span className="font-semibold text-white">{projectTitle}</span>
         </motion.p>
+        <PingButton receiverId={id}/>
         {currentlyWorking && (
           <motion.div variants={itemVariants}>
             <Blinker />
