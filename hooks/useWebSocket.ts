@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const WSS_URL = "wss://localhost:3000";
+const WSS_URL = "ws://localhost:3000";
 
 interface PingProps {
     senderId: string;
@@ -16,18 +16,18 @@ const UsePingWebSocket = (userId: string) => {
     const [ws, setWs] = useState<WebSocket | null>(null);
 
     useEffect(() => {
-
+        console.log("J");
         const socket = new WebSocket(WSS_URL);
         socket.onopen = () => {
             console.log("Websocket connection started");
 
             socket.send(JSON.stringify({type: "register", userId: userId}));
         };
-
+        console.log("H")
         socket.onmessage = (event) => {
             
             const data: PingProps = JSON.parse(event.data);
-
+            console.log("fdl")
             if(data.type === "ping"){
                 console.log("received ping", data);
                 setReceivedPings((prev) => (prev ? [...prev, data] : [data]))

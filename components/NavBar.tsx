@@ -1,67 +1,94 @@
 "use client"
-import Image from 'next/image'
-import React from 'react'
-import { Button } from './ui/button'
-import Link from 'next/link'
 
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import Image from "next/image"
+import { Button } from "./ui/button"
+import Link from "next/link"
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined"
 import { motion } from "framer-motion"
-import { signOut, useSession } from 'next-auth/react'
+import { signOut, useSession } from "next-auth/react"
 
- const cardVariant = {
-        hidden: {opacity: 0, y:-20},
-        visible: {
-            opacity: 1,
-            y:0,
-            transition: {
-                duration: 1
-            }
-        }
-    }
+const cardVariant = {
+  hidden: { opacity: 0, y: -20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+    },
+  },
+}
 
 const NavBar = () => {
-  const {data: session} =useSession()
+  const { data: session } = useSession()
+
   return (
-    <motion.div initial="hidden" animate="visible" variants={cardVariant} className=' w-[50%] py-5 m-5 flex flex-row justify-between px-10 items-center rounded-lg border-purple-400 border-[1px] shadow-md shadow-purple-500 bg-[#18181B] hover:scale-95 transition-all ease-in-out duration-300 hover:shadow-lg hover:shadow-purple-400'>
-      <Link href={"/"}>
-      <div className="">
-            <Image 
+    <div className=" w-full min-w-full top-0 left-0 mb-5 right-0 z-50 flex justify-center px-4">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={cardVariant}
+        className="w-full max-w-7xl my-3 py-3 px-6 flex items-center justify-between rounded-2xl border border-purple-400/30 shadow-lg shadow-purple-500/20 bg-[#18181B]/75 backdrop-blur-md"
+      >
+        <Link href="/">
+          <div className="flex-shrink-0">
+            <Image
               src="/Hammer.svg"
-              alt='image'
-              height={60}
-              width={80}
-              className=''
+              alt="logo"
+              height={40}
+              width={50}
+              className="hover:opacity-80 transition-opacity"
             />
-        </div>
-      </Link>
-        
+          </div>
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-6 px-4">
+          {[
+            ["Dashboard", "/dashboard"],
             
-        <div className='flex flex-row items-center gap-5'>
-          {session && <Link href={"/profile"}>
-            <div className='text-white '>
-              <AccountCircleOutlinedIcon className="text-[40px] tracking-tighter" />
-            </div>
-          </Link>}
-          
-            {session?<Button onClick={async () => {
-              
-               signOut()
-            }} variant="outline" className='bg-transparent text-white text-lg cursor-pointer '>
-                Logout
-            </Button>:<Link href="/signin">
-            <Button variant="outline" className='bg-transparent text-white text-lg cursor-pointer '>
-                Login
+            
+          ].map(([title, url]) => (
+            <Link
+              key={title}
+              href={url}
+              className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+            >
+              {title}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-4">
+          {session && (
+            <Link href="/profile">
+              <div className="text-white hover:opacity-80 transition-opacity">
+                <AccountCircleOutlinedIcon className="text-[32px]" />
+              </div>
+            </Link>
+          )}
+
+          {session ? (
+            <Button
+              onClick={() => signOut()}
+              variant="outline"
+              className="bg-transparent text-white border-purple-400/50 hover:bg-purple-400/10"
+            >
+              Logout
             </Button>
-            </Link>}
-            
-                  
-
-        
-        
-
+          ) : (
+            <Link href="/signin">
+              <Button
+                variant="outline"
+                className="bg-transparent text-white border-purple-400/50 hover:bg-purple-400/10"
+              >
+                Login
+              </Button>
+            </Link>
+          )}
         </div>
-    </motion.div>
+      </motion.div>
+    </div>
   )
 }
 
 export default NavBar
+
