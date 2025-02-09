@@ -1,23 +1,36 @@
-import UsePingWebSocket from "@/hooks/useWebSocket";
-import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react"
+import { Bell } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import UsePingWebSocket from "@/hooks/useWebSocket"
 
 const PingButton = ({ receiverId }: { receiverId: string }) => {
-    const { data: session } = useSession();
-    const userId = session?.user?.id;
+  const { data: session } = useSession()
+  const userId = session?.user?.id
 
-    if (!userId) {
-        console.error("User ID is undefined in PingButton.");
-        return null;
-    }
+  if (!userId) {
+    console.error("User ID is undefined in PingButton.")
+    return null
+  }
 
-    if (userId === receiverId) {
-        console.warn("User is trying to ping themselves, hiding button.");
-        return null; // Hide button if the user tries to ping themselves
-    }
+  if (userId === receiverId) {
+    console.warn("User is trying to ping themselves, hiding button.")
+    return null // Hide button if the user tries to ping themselves
+  }
 
-    const { sendPing } = UsePingWebSocket({ userId });
+  const { sendPing } = UsePingWebSocket({ userId })
 
-    return <button onClick={() => sendPing(receiverId)}>Ping</button>;
-};
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => sendPing(receiverId)}
+      className="flex items-center space-x-2 bg-primary text-primary-foreground "
+    >
+      <Bell className="h-4 w-4 hover:text-yellow-500" />
+      <span>Ping</span>
+    </Button>
+  )
+}
 
-export default PingButton;
+export default PingButton
+

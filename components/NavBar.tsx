@@ -6,6 +6,7 @@ import Link from "next/link"
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined"
 import { motion } from "framer-motion"
 import { signOut, useSession } from "next-auth/react"
+import BellIcon from "./bellIcon"
 
 const cardVariant = {
   hidden: { opacity: 0, y: -20 },
@@ -42,19 +43,21 @@ const NavBar = () => {
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 px-4">
-          {[
-            ["Dashboard", "/dashboard"],
-            
-            
-          ].map(([title, url]) => (
+         
             <Link
-              key={title}
-              href={url}
+             
+              href={"/dashboard"}
               className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
             >
-              {title}
+              dashboard
             </Link>
-          ))}
+            <Link href={"/notifications"} className="flex text-gray-300 hover:text-white transition-colors text-sm font-medium items-center gap-1">
+             
+             Notifications
+             <BellIcon />
+              
+            </Link>
+          
         </nav>
 
         <div className="flex items-center gap-4">
