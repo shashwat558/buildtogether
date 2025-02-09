@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 
-const WSS_URL = "ws://localhost:3000";
+const WSS_URL = "ws://localhost:4000";
 
 interface PingProps {
     senderId: string;
     type: "ping";
-    receiverId: string
+    targetedUserId: string
 }
 
-const UsePingWebSocket = (userId: string) => {
+const UsePingWebSocket = ({userId}:{userId: string}) => {
     
 
     const [recievedPings, setReceivedPings] = useState<PingProps[] | null>(null);
@@ -44,8 +44,10 @@ const UsePingWebSocket = (userId: string) => {
 
 
     const sendPing = (receiverId: string) => {
+
+        console.log(receiverId);
         if(ws && ws.readyState === WebSocket.OPEN){
-            const message: PingProps = {type: "ping", senderId: userId, receiverId: receiverId};
+            const message: PingProps = {type: "ping", senderId: userId, targetedUserId: receiverId};
             ws.send(JSON.stringify(message))
         }
     };

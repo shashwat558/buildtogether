@@ -16,8 +16,12 @@ const users = {};
 //initiates the connection
 wss.on("connection", (ws) => {
     //when a message arrives
-    ws.on("message", async (message) => {
+    try{
+        ws.on("message", async (message) => {
+
         const data = JSON.parse(message.toString());
+
+        console.log("Recieved message data", data)
     //check if data is for registering
         if(data.type === "register"){
             //if yes then add it to the users object
@@ -27,7 +31,7 @@ wss.on("connection", (ws) => {
             //add the data in db
             await prisma.notification.create({
                 data: {
-                    senderId: data.userId,
+                    senderId: data.senderId,
                     receiverId: data.targetedUserId
                 }
             })
@@ -45,6 +49,9 @@ wss.on("connection", (ws) => {
 
         };
     });
+} catch(error){
+    console.log(error)
+}
     //after all close the request
     
     ws.on("close", () => {
@@ -58,4 +65,4 @@ wss.on("connection", (ws) => {
 });
 
 
-console.log("web socket server running on ws://localhost:3000")
+console.log("web socket server running on ws://localhost:4000")

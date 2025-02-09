@@ -1,19 +1,23 @@
-import UsePingWebSocket from '@/hooks/useWebSocket'
-import { useSession } from 'next-auth/react';
-import React from 'react'
+import UsePingWebSocket from "@/hooks/useWebSocket";
+import { useSession } from "next-auth/react";
 
-const PingButton = ({receiverId}: {receiverId: string}) => {
+const PingButton = ({ receiverId }: { receiverId: string }) => {
+    const { data: session } = useSession();
+    const userId = session?.user?.id;
 
-    const {data:session} = useSession();
+    if (!userId) {
+        console.error("User ID is undefined in PingButton.");
+        return null;
+    }
 
-    const {sendPing} = UsePingWebSocket(session?.user?.id ?? "");
+    if (userId === receiverId) {
+        console.warn("User is trying to ping themselves, hiding button.");
+        return null; // Hide button if the user tries to ping themselves
+    }
 
-  return ( 
-    <div>
-        <button onClick={() => sendPing(receiverId)}>ping</button>
-    </div>
+    const { sendPing } = UsePingWebSocket({ userId });
 
-  )
-}
+    return <button onClick={() => sendPing(receiverId)}>Ping</button>;
+};
 
 export default PingButton;
