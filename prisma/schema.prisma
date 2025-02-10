@@ -118,6 +118,7 @@ model Notification {
   senderId   String
   receiverId String
   status     NotificationStatus @default(pending)
+  projectName String  @default(uuid())
 
   sender   User @relation("SentPings", fields: [senderId], references: [id])
   receiver User @relation("ReceivedPings", fields: [receiverId], references: [id])

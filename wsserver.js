@@ -31,6 +31,7 @@ wss.on("connection", (ws) => {
             //add the data in db
             await prisma.notification.create({
                 data: {
+                    projectName : data.projectName,
                     senderId: data.senderId,
                     receiverId: data.targetedUserId
                 }

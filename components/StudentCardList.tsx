@@ -8,7 +8,8 @@ interface StudentProps {
   githubUsername: string;
   projects: [
     {currentlyWorking: boolean,
-      title: string
+      title: string,
+
     }
   ]
 

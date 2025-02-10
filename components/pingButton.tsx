@@ -3,7 +3,7 @@ import { Bell } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import UsePingWebSocket from "@/hooks/useWebSocket"
 
-const PingButton = ({ receiverId }: { receiverId: string }) => {
+const PingButton = ({ receiverId , projectName}: { receiverId: string, projectName: string }) => {
   const { data: session } = useSession()
   const userId = session?.user?.id
 
@@ -23,7 +23,7 @@ const PingButton = ({ receiverId }: { receiverId: string }) => {
     <Button
       variant="outline"
       size="sm"
-      onClick={() => sendPing(receiverId)}
+      onClick={() => sendPing({receiverId, projectName})}
       className="flex items-center space-x-2 bg-primary text-primary-foreground "
     >
       <Bell className="h-4 w-4 hover:text-yellow-500" />

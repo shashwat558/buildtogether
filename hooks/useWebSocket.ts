@@ -5,7 +5,8 @@ const WSS_URL = "ws://localhost:4000";
 interface PingProps {
     senderId: string;
     type: "ping";
-    targetedUserId: string
+    targetedUserId: string,
+    projectName: string
 }
 
 const UsePingWebSocket = ({userId}:{userId: string}) => {
@@ -43,11 +44,11 @@ const UsePingWebSocket = ({userId}:{userId: string}) => {
     },[userId]);
 
 
-    const sendPing = (receiverId: string) => {
+    const sendPing = ({receiverId, projectName}: {receiverId: string, projectName: string}) => {
 
         console.log(receiverId);
         if(ws && ws.readyState === WebSocket.OPEN){
-            const message: PingProps = {type: "ping", senderId: userId, targetedUserId: receiverId};
+            const message: PingProps = {type: "ping", senderId: userId, targetedUserId: receiverId, projectName: projectName};
             ws.send(JSON.stringify(message))
         }
     };
