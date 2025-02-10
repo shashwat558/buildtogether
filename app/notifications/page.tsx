@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 const Page = () => {
     const {data: session} = useSession();
 
-    const {recievedPings} = UsePingWebSocket()
+    const {recievedPings} = UsePingWebSocket({userId: session?.user?.id ?? ""});
     const [pings, setPings] = useState()
 
 

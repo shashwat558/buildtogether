@@ -60,13 +60,13 @@ const Page = () => {
 
       <SearchUser />
 
-      <h1 className='text-white text-4xl '>Your College Mates</h1>
+      <h1 className='text-white text-4xl font-bold mt-3'>Your College Mates</h1>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ProjectForm />
       </Modal>
 
-      <div className='text-white w-[950px] flex flex-col gap-3'>
+      <div className='text-white w-[950px] flex flex-col gap-3 mt-8'>
         <StudentCardList students={sameCollegeGuys?? null}/>
 
         

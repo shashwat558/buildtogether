@@ -1,11 +1,12 @@
-'use client'
+"use client"
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
-import { Loader2 } from 'lucide-react'
-import { motion } from 'framer-motion'
-import React from 'react'; // Added import for React
+import { Loader2 } from "lucide-react"
+import { motion } from "framer-motion"
+import Image from "next/image"
+import type React from "react" // Added import for React
 
 interface UserProps {
   username: string
@@ -81,11 +82,11 @@ export default function SearchUser() {
   }, [searchCollegeParams])
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-2xl mx-auto p-4 rounded-lg shadow-lg"
+      className="w-full max-w-2xl mx-auto p-4  rounded-lg shadow-lg"
     >
       
       <div className="flex flex-col md:flex-row justify-center items-start gap-5">
@@ -96,7 +97,18 @@ export default function SearchUser() {
           isLoading={isLoadingUsers}
           results={users}
           onResultClick={(item) => router.push(`/user/${item.username}`)}
-          renderResult={(user) => user.username}
+          renderResult={(user) => (
+            <div className="flex items-center space-x-3">
+              <Image
+                src={user.profileImage || "/placeholder.svg"}
+                alt={user.username}
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+              <span>{user.username}</span>
+            </div>
+          )}
         />
         <SearchBox
           placeholder="Search colleges..."
@@ -119,7 +131,7 @@ interface SearchBoxProps<T> {
   isLoading: boolean
   results: T[] | null
   onResultClick: (item: T) => void
-  renderResult: (item: T) => string
+  renderResult: (item: T) => React.ReactNode
 }
 
 function SearchBox<T>({
@@ -129,7 +141,7 @@ function SearchBox<T>({
   isLoading,
   results,
   onResultClick,
-  renderResult
+  renderResult,
 }: SearchBoxProps<T>) {
   return (
     <div className="relative w-full md:w-64">
@@ -161,3 +173,4 @@ function SearchBox<T>({
     </div>
   )
 }
+
