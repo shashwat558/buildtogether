@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const page = () => {
 
-    
+
+const Page = () => {
+  
+    const [pings, setPings] = useState()
+
+
   return (
     <div>page</div>
   )
 }
 
-export default page
+export default Page

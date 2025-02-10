@@ -9,6 +9,7 @@ import ProjectForm from '@/components/ProjectForm'
 
 import StudentCardList from '@/components/StudentCardList'
 import { motion } from 'framer-motion';
+import SearchUser from '@/components/SearchUser'
 
 
 
@@ -56,6 +57,8 @@ const Page = () => {
         New Project
       </Button>
       </motion.div>
+
+      <SearchUser />
 
       <h1 className='text-white text-4xl '>Your College Mates</h1>
 

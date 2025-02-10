@@ -74,7 +74,7 @@ const Page = () => {
     }, 300)
 
     return () => clearTimeout(timeOutId)
-  }, [searchQuery])
+  }, [searchQuery]) 
 
   
 
@@ -175,5 +175,5 @@ const Page = () => {
   )
 }
 
-export default Page
+export default Page;
 
