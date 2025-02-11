@@ -3,6 +3,7 @@
 import type React from "react"
 import { motion } from "framer-motion"
 import { UserCircle } from "lucide-react"
+import Link from "next/link"
 
 interface NotificationCardProps {
   username: string
@@ -27,7 +28,9 @@ const NotificationCard: React.FC<NotificationCardProps> = ({ username, project }
             className="flex items-center mb-4"
           >
             <UserCircle className="w-12 h-12 text-indigo-500 mr-4" />
-            <h2 className="text-2xl font-bold text-gray-800">{username}</h2>
+            <Link href={`/user/${username}`}> 
+               <h2 className="text-2xl font-bold text-gray-800 hover:scale-105 transition-all ease-in-out duration-500">{username}</h2>
+            </Link>
           </motion.div>
           <motion.p
             initial={{ opacity: 0 }}

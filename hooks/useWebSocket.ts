@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const WSS_URL = "ws://localhost:4000";
 
@@ -6,10 +6,13 @@ interface PingProps {
     senderId: string;
     type: "ping";
     targetedUserId: string,
-    projectId: string
+    projectId: string,
+    projectName: string,
+    senderName: string
 }
 
 const UsePingWebSocket = ({userId}:{userId: string}) => {
+    const socketRef = useRef<WebSocket | null>(null);
     
 
     const [recievedPings, setReceivedPings] = useState<PingProps[] | null>(null);
@@ -17,8 +20,10 @@ const UsePingWebSocket = ({userId}:{userId: string}) => {
     const [ws, setWs] = useState<WebSocket | null>(null);
 
     useEffect(() => {
+        if(!userId || socketRef.current) return ;
         console.log("J");
         const socket = new WebSocket(WSS_URL);
+        socketRef.current = socket
         socket.onopen = () => {
             console.log("Websocket connection started");
 
@@ -37,6 +42,7 @@ const UsePingWebSocket = ({userId}:{userId: string}) => {
         };
         socket.onclose = () => {
             console.log("connection ended")
+            socketRef.current = null;
         }
 
         setWs(socket);
@@ -44,11 +50,12 @@ const UsePingWebSocket = ({userId}:{userId: string}) => {
     },[userId]);
 
 
-    const sendPing = ({receiverId, projectId}: {receiverId: string, projectId: string}) => {
+    const sendPing = ({receiverId, projectId, projectName, senderName
+    }: {receiverId: string, projectId: string, projectName: string, senderName: string}) => {
 
         console.log(receiverId);
         if(ws && ws.readyState === WebSocket.OPEN){
-            const message: PingProps = {type: "ping", senderId: userId, targetedUserId: receiverId, projectId: projectId};
+            const message: PingProps = {type: "ping", senderId: userId, targetedUserId: receiverId, projectId: projectId, projectName: projectName, senderName: senderName};
             ws.send(JSON.stringify(message))
         }
     };

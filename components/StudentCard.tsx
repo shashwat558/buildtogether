@@ -74,7 +74,7 @@ const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, pro
         <motion.p variants={itemVariants} className="text-gray-300 text-sm flex-grow truncate">
           Working on: <span className="font-semibold text-white">{projectTitle}</span>
         </motion.p>
-        <PingButton receiverId={id} projectId={projectId}/>
+        <PingButton receiverId={id} projectId={projectId} projectName={projectTitle} senderName={username}/>
         {currentlyWorking && (
           <motion.div variants={itemVariants}>
             <Blinker />

@@ -19,6 +19,7 @@ model User {
   username       String?         @unique @default("")
   githubUsername String?
   profileImage   String?
+  upvote         Upvote[]
   accounts       Account[]
   Authenticator  Authenticator[]
   receivedPings  Notification[]  @relation("ReceivedPings")
@@ -96,8 +97,19 @@ model Project {
   currentlyWorking Boolean @default(true)
   authorName       String
   author           User    @relation(fields: [authorName], references: [username])
+  upvotes         Upvote[]
 }
 
+model Upvote {
+  id        String @id @default(uuid())
+  userId    String
+  projectId String
+  user      User    @relation(fields: [userId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id])
+
+  @@unique([userId, projectId])
+
+}
 model Notification {
   id         String             @id @default(uuid())
   senderId   String
@@ -105,6 +117,7 @@ model Notification {
   status     NotificationStatus @default(pending)
   projectId  String
   project    Project @relation(fields: [projectId], references: [id])
+  projectName String
   createdAt  DateTime           @default(now())
   receiver   User               @relation("ReceivedPings", fields: [receiverId], references: [id])
   sender     User               @relation("SentPings", fields: [senderId], references: [id])
