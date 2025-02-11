@@ -8,8 +8,10 @@ interface StudentProps {
   username: string;
   githubUsername: string;
   projects: [
+
     {currentlyWorking: boolean,
       title: string,
+      id: string
 
     }
   ]
@@ -54,6 +56,7 @@ const StudentCardList:React.FC<StudentCardListProps> = ({students}) => {
             <motion.div key={index} variants={cardVariant}>
                 <StudentCard 
                 id={student.id ?? ""}
+                projectId={student.projects[0]?.id}
                 currentlyWorking={student.projects[0]?.currentlyWorking ?? false}
                 githubUsername={student.githubUsername ?? ""}
                 projectTitle={student.projects[0]?.title ?? ""}

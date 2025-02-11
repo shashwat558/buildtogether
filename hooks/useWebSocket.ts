@@ -6,7 +6,7 @@ interface PingProps {
     senderId: string;
     type: "ping";
     targetedUserId: string,
-    projectName: string
+    projectId: string
 }
 
 const UsePingWebSocket = ({userId}:{userId: string}) => {
@@ -44,11 +44,11 @@ const UsePingWebSocket = ({userId}:{userId: string}) => {
     },[userId]);
 
 
-    const sendPing = ({receiverId, projectName}: {receiverId: string, projectName: string}) => {
+    const sendPing = ({receiverId, projectId}: {receiverId: string, projectId: string}) => {
 
         console.log(receiverId);
         if(ws && ws.readyState === WebSocket.OPEN){
-            const message: PingProps = {type: "ping", senderId: userId, targetedUserId: receiverId, projectName: projectName};
+            const message: PingProps = {type: "ping", senderId: userId, targetedUserId: receiverId, projectId: projectId};
             ws.send(JSON.stringify(message))
         }
     };

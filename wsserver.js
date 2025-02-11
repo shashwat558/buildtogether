@@ -31,7 +31,7 @@ wss.on("connection", (ws) => {
             //add the data in db
             await prisma.notification.create({
                 data: {
-                    projectName : data.projectName,
+                    projectId : data.projectId,
                     senderId: data.senderId,
                     receiverId: data.targetedUserId
                 }
@@ -43,7 +43,7 @@ wss.on("connection", (ws) => {
             // if target socket then ping
             if(targetedSocket){
                 targetedSocket.send(
-                    JSON.stringify({type: "ping", from: data.userId})
+                    JSON.stringify({type: "ping", senderId: data.senderId, projectId: data.projectId})
                 );
             };
              

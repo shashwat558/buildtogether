@@ -27,12 +27,20 @@ export async function GET() {
       where: { name: college.college.name },
       select: {
         users: {
+          where: {
+            projects: {
+              some: {
+                currentlyWorking: true
+              }
+            }
+          },
           select: {
             id: true,
             username: true,
             githubUsername: true,
             projects: {
               select: {
+                id: true,
                 title: true,
                 currentlyWorking: true,
               },

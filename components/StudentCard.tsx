@@ -10,14 +10,14 @@ import PingButton from "./pingButton"
 
 interface StudentCardProps {
   id: string;
-  
+  projectId: string
   username: string;
   githubUsername: string;
   projectTitle: string
   currentlyWorking: boolean
 }
 
-const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, projectTitle, currentlyWorking,id}) => {
+const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, projectTitle, currentlyWorking,id, projectId}) => {
 
   const {data: session} = useSession();
   console.log(session?.user)
@@ -74,7 +74,7 @@ const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, pro
         <motion.p variants={itemVariants} className="text-gray-300 text-sm flex-grow truncate">
           Working on: <span className="font-semibold text-white">{projectTitle}</span>
         </motion.p>
-        <PingButton receiverId={id} projectName={projectTitle}/>
+        <PingButton receiverId={id} projectId={projectId}/>
         {currentlyWorking && (
           <motion.div variants={itemVariants}>
             <Blinker />

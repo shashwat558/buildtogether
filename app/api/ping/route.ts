@@ -10,21 +10,23 @@ export async function GET(req:NextRequest) {
         return NextResponse.json({message: "User Id is required"}, {status: 500});
     }
 
-   try{ const pings = await prisma.notification.findFirst({
+   try{ const pings = await prisma.notification.findMany({
         where: {
             receiverId: userId
         },
         include: {
             sender: {select: {
-                name: true,
-                id: true
+                username: true,
+                
             }},
+            project: {select: {title: true}}
             
         },
         orderBy: {
             createdAt: "desc"
         }
     })
+    console.log(pings)
 
     return NextResponse.json(pings);
     } catch(error){
