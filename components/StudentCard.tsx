@@ -17,7 +17,7 @@ interface StudentCardProps {
   projectTitle: string
   currentlyWorking: boolean,
   upvotes: number
-  onUpvote : (id: string) => void
+  onUpvote : (id: string, isUpvote: boolean) => Promise<void>
 }
 
 const StudentCard: React.FC<StudentCardProps> = ({
@@ -100,7 +100,7 @@ const StudentCard: React.FC<StudentCardProps> = ({
         <motion.div className="flex items-center space-x-2">
           <motion.button
             whileTap={{ scale: 0.9 }}
-            onClick={() => onUpvote}
+            onClick={() => onUpvote(projectId, true)}
             className="text-green-500 hover:text-green-400"
           >
             <ArrowUp />

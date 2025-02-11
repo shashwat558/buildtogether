@@ -12,7 +12,10 @@ export interface StudentProps {
     {currentlyWorking: boolean,
       title: string,
       id: string,
-      upvotes: number
+      _count: {
+          upvotes: number
+      }
+      
 
     }[]
   
@@ -22,7 +25,7 @@ export interface StudentProps {
 
 interface StudentCardListProps {
   students: StudentProps[]
-  onUpvote: (id: string) => void;
+  onUpvote: (id: string, isUpvote: boolean) => Promise<void>;
 }
 
 const StudentCardList:React.FC<StudentCardListProps> = ({students, onUpvote}) => {
@@ -58,7 +61,7 @@ const StudentCardList:React.FC<StudentCardListProps> = ({students, onUpvote}) =>
         {clientStudents.length > 0 ? clientStudents.map((student, index) => (
             <motion.div key={index} variants={cardVariant}>
                 <StudentCard 
-                upvotes = {student.projects[0].upvotes}
+                upvotes = {student.projects[0]._count.upvotes}
                 onUpvote={onUpvote}
                 id={student.id ?? ""}
                 projectId={student.projects[0]?.id}

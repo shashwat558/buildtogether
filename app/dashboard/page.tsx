@@ -18,14 +18,18 @@ const Page = () => {
   const [sameCollegeGuys, setSameCollegeGuys] = useState<StudentProps[]>([]);
     const {data: session }= useSession();
     
-    const handleVote = (id: string, isUpvote: boolean) => {
-      fetch(`/api/project/${isUpvote ? "upvote": "downvote"}`, {
+    const handleVote = async (id: string, isUpvote: boolean) => {
+      const res = await fetch(`/api/project/${isUpvote ? "upvote": "downvote"}`, {
         method: "POST",
         body: JSON.stringify({projectId: id}),
         headers: {
           'Content-Type': "application/json"
         }
       })
+      if(!res.ok){
+        console.log("Error");
+        return;
+      }
 
       setSameCollegeGuys((prev) =>
   prev
@@ -36,12 +40,12 @@ const Page = () => {
         ...student,
         projects: student.projects.map((project, index) =>
           index === 0
-            ? { ...project, upvotes: isUpvote ? (project.upvotes || 0) + 1 : project.upvotes }
+            ? { ...project, upvotes: isUpvote ? (project._count.upvotes || 0) + 1 : project._count.upvotes }
             : project
         ),
       };
     })
-    .sort((a, b) => (b.projects[0]?.upvotes || 0) - (a.projects[0]?.upvotes || 0))
+    .sort((a, b) => (b.projects[0]?._count.upvotes || 0) - (a.projects[0]?._count.upvotes || 0))
 );
 
 
@@ -97,7 +101,7 @@ const Page = () => {
       </Modal>
 
       <div className='text-white w-[950px] flex flex-col gap-3 mt-8'>
-        <StudentCardList students={sameCollegeGuys?? null} onUpvote={() => handleVote}/>
+        <StudentCardList students={sameCollegeGuys?? null} onUpvote={handleVote}/>
 
         
       </div>
