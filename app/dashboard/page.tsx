@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import Modal from '@/components/Modal'
 import ProjectForm from '@/components/ProjectForm'
 
-import StudentCardList from '@/components/StudentCardList'
+import StudentCardList, { StudentProps } from '@/components/StudentCardList'
 import { motion } from 'framer-motion';
 import SearchUser from '@/components/SearchUser'
 
@@ -15,9 +15,39 @@ import SearchUser from '@/components/SearchUser'
 
 const Page = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [sameCollegeGuys, setSameCollegeGuys] = useState([])
+  const [sameCollegeGuys, setSameCollegeGuys] = useState<StudentProps[]>([]);
     const {data: session }= useSession();
     
+    const handleVote = (id: string, isUpvote: boolean) => {
+      fetch(`/api/project/${isUpvote ? "upvote": "downvote"}`, {
+        method: "POST",
+        body: JSON.stringify({projectId: id}),
+        headers: {
+          'Content-Type': "application/json"
+        }
+      })
+
+      setSameCollegeGuys((prev) =>
+  prev
+    .map((student) => {
+      if (student.projects.length === 0 || student.projects[0].id !== id) return student;
+
+      return {
+        ...student,
+        projects: student.projects.map((project, index) =>
+          index === 0
+            ? { ...project, upvotes: isUpvote ? (project.upvotes || 0) + 1 : project.upvotes }
+            : project
+        ),
+      };
+    })
+    .sort((a, b) => (b.projects[0]?.upvotes || 0) - (a.projects[0]?.upvotes || 0))
+);
+
+
+
+      
+    }
     
     
     if(!session){
@@ -67,7 +97,7 @@ const Page = () => {
       </Modal>
 
       <div className='text-white w-[950px] flex flex-col gap-3 mt-8'>
-        <StudentCardList students={sameCollegeGuys?? null}/>
+        <StudentCardList students={sameCollegeGuys?? null} onUpvote={() => handleVote}/>
 
         
       </div>

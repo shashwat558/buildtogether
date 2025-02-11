@@ -3,26 +3,29 @@ import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react'
 import StudentCard from './StudentCard';
 
-interface StudentProps {
+export interface StudentProps {
   id: string;
   username: string;
   githubUsername: string;
-  projects: [
+  projects: 
 
     {currentlyWorking: boolean,
       title: string,
-      id: string
+      id: string,
+      upvotes: number
 
-    }
-  ]
+    }[]
+  
+ 
 
 }
 
 interface StudentCardListProps {
   students: StudentProps[]
+  onUpvote: (id: string) => void;
 }
 
-const StudentCardList:React.FC<StudentCardListProps> = ({students}) => {
+const StudentCardList:React.FC<StudentCardListProps> = ({students, onUpvote}) => {
 
   const [clientStudents, setClientStudents] = useState<StudentProps[]>([]);
 
@@ -55,6 +58,8 @@ const StudentCardList:React.FC<StudentCardListProps> = ({students}) => {
         {clientStudents.length > 0 ? clientStudents.map((student, index) => (
             <motion.div key={index} variants={cardVariant}>
                 <StudentCard 
+                upvotes = {student.projects[0].upvotes}
+                onUpvote={onUpvote}
                 id={student.id ?? ""}
                 projectId={student.projects[0]?.id}
                 currentlyWorking={student.projects[0]?.currentlyWorking ?? false}

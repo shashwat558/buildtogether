@@ -43,6 +43,11 @@ export async function GET() {
                 id: true,
                 title: true,
                 currentlyWorking: true,
+                _count : {
+                  select: {
+                    upvotes: true
+                  }
+                }
               },
             },
           },
