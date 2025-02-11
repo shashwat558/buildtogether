@@ -20,6 +20,7 @@ interface StudentCardProps {
 const StudentCard: React.FC<StudentCardProps> = ({ username, githubUsername, projectTitle, currentlyWorking,id}) => {
 
   const {data: session} = useSession();
+  console.log(session?.user)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

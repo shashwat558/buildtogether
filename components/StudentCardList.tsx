@@ -1,5 +1,6 @@
+"use client"
 import { motion } from 'framer-motion';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import StudentCard from './StudentCard';
 
 interface StudentProps {
@@ -20,6 +21,12 @@ interface StudentCardListProps {
 }
 
 const StudentCardList:React.FC<StudentCardListProps> = ({students}) => {
+
+  const [clientStudents, setClientStudents] = useState<StudentProps[]>([]);
+
+  useEffect(() => {
+    setClientStudents(students)
+  },[students])
 
     const containerVariants = {
         hidden: {opacity: 0},
@@ -43,17 +50,17 @@ const StudentCardList:React.FC<StudentCardListProps> = ({students}) => {
     }
   return (
     <motion.div variants={containerVariants} initial="hidden" animate="visible" className='space-y-4'>
-        {students.map((student, index) => (
+        {clientStudents.length > 0 ? clientStudents.map((student, index) => (
             <motion.div key={index} variants={cardVariant}>
                 <StudentCard 
-                id={student.id}
-                currentlyWorking={student.projects[0].currentlyWorking}
-                githubUsername={student.githubUsername}
-                projectTitle={student.projects[0].title}
-                username={student.username}
+                id={student.id ?? ""}
+                currentlyWorking={student.projects[0]?.currentlyWorking ?? false}
+                githubUsername={student.githubUsername ?? ""}
+                projectTitle={student.projects[0]?.title ?? ""}
+                username={student.username ?? ""}
                 />
             </motion.div>
-        ))}
+        )): <p>No students right now..</p>}
 
 
     </motion.div>

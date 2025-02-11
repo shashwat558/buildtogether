@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,28 +8,26 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(cuid())
-  username      String?         @unique @default("")
-  name          String?
-  email         String          @unique
-  githubUsername    String?
-  emailVerified DateTime?
-  profileImage  String?
-  projects      Project[]
-  sentPings     Notification[] @relation("SentPings")  
-  receivedPings Notification[] @relation("ReceivedPings")    
-  image         String?
-  college       College? @relation(fields: [collegeId], references: [id])
-  collegeId     String?
-  accounts      Account[]
-  sessions      Session[]
-  // Optional for WebAuthn support
-  Authenticator Authenticator[]
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id             String          @id @default(cuid())
+  email          String          @unique
+  name           String?
+  createdAt      DateTime        @default(now())
+  emailVerified  DateTime?
+  image          String?
+  updatedAt      DateTime        @updatedAt
+  collegeId      String?
+  username       String?         @unique @default("")
+  githubUsername String?
+  profileImage   String?
+  accounts       Account[]
+  Authenticator  Authenticator[]
+  receivedPings  Notification[]  @relation("ReceivedPings")
+  sentPings      Notification[]  @relation("SentPings")
+  projects       Project[]
+  sessions       Session[]
+  college        College?        @relation(fields: [collegeId], references: [id])
 }
- 
+
 model Account {
   userId            String
   type              String
@@ -48,34 +40,30 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@id([provider, providerAccountId])
 }
- 
+
 model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@id([identifier, token])
 }
- 
-// Optional for WebAuthn support
+
 model Authenticator {
   credentialID         String  @unique
   userId               String
@@ -85,45 +73,41 @@ model Authenticator {
   credentialDeviceType String
   credentialBackedUp   Boolean
   transports           String?
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@id([userId, credentialID])
 }
 
-
-
 model College {
-  id                 String  @id @default(uuid())
-  name               String
-  city               String
-  state              String?
-  users              User[]
-  createdAt          DateTime    @default(now())
-
+  id        String   @id @default(uuid())
+  name      String
+  city      String
+  state     String?
+  createdAt DateTime @default(now())
+  users     User[]
 }
 
 model Project {
-  id                 String @id  @default(uuid())
-  title              String
-  description        String
-  githubLink         String
-  author             User   @relation(fields: [authorName], references: [username])
-  authorName         String
-  currentlyWorking   Boolean  @default(true)
+  id               String  @id @default(uuid())
+  title            String
+  description      String
+  githubLink       String
+  ping             Notification[]
+  currentlyWorking Boolean @default(true)
+  authorName       String
+  author           User    @relation(fields: [authorName], references: [username])
 }
 
 model Notification {
-  id         String  @id @default(uuid())
+  id         String             @id @default(uuid())
   senderId   String
   receiverId String
   status     NotificationStatus @default(pending)
-  projectName String  @default(uuid())
-
-  sender   User @relation("SentPings", fields: [senderId], references: [id])
-  receiver User @relation("ReceivedPings", fields: [receiverId], references: [id])
-
-  createdAt DateTime @default(now())
+  projectId  String
+  project    Project @relation(fields: [projectId], references: [id])
+  createdAt  DateTime           @default(now())
+  receiver   User               @relation("ReceivedPings", fields: [receiverId], references: [id])
+  sender     User               @relation("SentPings", fields: [senderId], references: [id])
 }
 
 enum NotificationStatus {
