@@ -124,7 +124,7 @@ model Notification {
 }
 
 enum NotificationStatus {
+  accept
+  reject
   pending
-  sent
-  failed
 }

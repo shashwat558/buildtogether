@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 
 interface PingProps {
+    id?: string
     senderId: string;
     type: "ping";
     targetedUserId: string;
@@ -21,6 +22,7 @@ const Page = () => {
     const [pings, setPings] = useState<PingProps[]>([]);
     const { recievedPings } = UsePingWebSocket({ userId: session?.user?.id ?? "" });
 
+
     console.log("Live WebSocket Pings:", recievedPings);
 
     // Update state when new pings arrive from WebSocket
@@ -33,7 +35,7 @@ const Page = () => {
                 sender: { username: ping.sender?.username ?? ping.senderName ?? "Unknown" }, // Handle missing sender
                 project: { title: ping.project?.title ?? ping.projectName ?? "Untitled Project" }, // Handle missing project name
             }));
-
+                    
             setPings((prev) => [...prev, ...formattedPings]);
         }
     }, [recievedPings]);
@@ -71,15 +73,39 @@ const Page = () => {
         getPings();
     }, [session?.user?.id]);
 
+    const handlePingAction = async (id:string,isAccept:boolean)=>{
+        console.log("this is id", id)
+        const response = await fetch(`/api/ping/${isAccept ? "accept": "reject"}`,
+            {method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(id)
+            },
+            
+        )
+        if(response.ok){
+            console.log("done")
+
+            setPings((prev) => prev.filter((ping) => ping.id !== id))
+        } else {
+            console.log("fuck")
+        }
+
+    }
+
     return (
         <div>
             <h2>Live Pings</h2>
             <ul className="flex gap-3 flex-wrap">
                 {pings.map((ping, index) => (
                     <NotificationCard 
+                        pingId = {ping.id?? ""}
                         key={index}
                         project={ping.project?.title || "Unknown Project"} 
                         username={ping.sender?.username ?? ping.senderName ?? "Anonymous"} 
+                        onAccept={() => handlePingAction(ping.id ?? "", true)}
+                        onReject={() => handlePingAction(ping.id ?? "", false)}
                     />
                 ))}
             </ul>
