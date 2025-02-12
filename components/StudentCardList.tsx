@@ -14,7 +14,7 @@ export interface StudentProps {
       id: string,
       _count: {
           upvotes: number
-      }
+      },
       
 
     }[]

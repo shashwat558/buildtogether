@@ -7,7 +7,7 @@ import Blinker from "./ui/blinker"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import PingButton from "./pingButton"
-
+import { useEffect, useState } from "react"
 
 interface StudentCardProps {
   id: string
@@ -15,9 +15,9 @@ interface StudentCardProps {
   username: string
   githubUsername: string
   projectTitle: string
-  currentlyWorking: boolean,
+  currentlyWorking: boolean
   upvotes: number
-  onUpvote : (id: string, isUpvote: boolean) => Promise<void>
+  onUpvote: (id: string, isUpvote: boolean) => Promise<void>
 }
 
 const StudentCard: React.FC<StudentCardProps> = ({
@@ -28,10 +28,17 @@ const StudentCard: React.FC<StudentCardProps> = ({
   id,
   upvotes,
   projectId,
-  onUpvote
+  onUpvote,
 }) => {
-  const { data: session } = useSession()
- 
+  const { data: session } = useSession();
+  const [localUpvotes, setLocalUpvotes] = useState<number>(upvotes);
+
+  const handleLocalUpvote = async  (isUpvote: boolean) => {
+    setLocalUpvotes((prev) => (isUpvote ? prev + 1: prev - 1));
+    await onUpvote(projectId, isUpvote);
+
+  }
+
   console.log(session?.user)
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -48,7 +55,9 @@ const StudentCard: React.FC<StudentCardProps> = ({
     visible: { opacity: 1, y: 0 },
   }
 
-  
+  useEffect(() => {
+
+  },[onUpvote])
 
   return (
     <motion.div
@@ -91,7 +100,7 @@ const StudentCard: React.FC<StudentCardProps> = ({
         <motion.p variants={itemVariants} className="text-gray-300 text-sm flex-grow truncate">
           Working on: <span className="font-semibold text-white">{projectTitle}</span>
         </motion.p>
-        <PingButton receiverId={id} projectId={projectId} projectName={projectTitle} senderName={username} />
+        <PingButton receiverId={id} projectId={projectId} projectName={projectTitle} senderName={session?.user?.username ?? ""} />
         {currentlyWorking && (
           <motion.div variants={itemVariants}>
             <Blinker />
@@ -100,15 +109,22 @@ const StudentCard: React.FC<StudentCardProps> = ({
         <motion.div className="flex items-center space-x-2">
           <motion.button
             whileTap={{ scale: 0.9 }}
-            onClick={() => onUpvote(projectId, true)}
+            onClick={() => handleLocalUpvote(true)}
             className="text-green-500 hover:text-green-400"
           >
             <ArrowUp />
-            <span className="ml-1">{upvotes}</span>
           </motion.button>
-          <motion.button whileTap={{ scale: 0.9 }} onClick={() => onUpvote} className="text-red-500 hover:text-red-400">
+          <span
+            className={`mx-2 font-bold ${upvotes > 0 ? "text-green-500" : upvotes < 0 ? "text-red-500" : "text-gray-500"}`}
+          >
+            {localUpvotes}
+          </span>
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => handleLocalUpvote(false)}
+            className="text-red-500 hover:text-red-400"
+          >
             <ArrowDown />
-            <span className="ml-1">{0}</span>
           </motion.button>
         </motion.div>
       </div>

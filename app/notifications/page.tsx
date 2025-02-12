@@ -55,7 +55,7 @@ const Page = () => {
 
                     const formattedData = data.map((ping: PingProps) => ({
                         ...ping,
-                        sender: { username: ping.sender?.username ?? "Unknown" },
+                        sender: { username: ping.sender?.username ?? ping.senderName??"Unknown" },
                         project: { title: ping.project?.title ?? ping.projectName ?? "Untitled Project" },
                     }));
 
@@ -79,7 +79,7 @@ const Page = () => {
                     <NotificationCard 
                         key={index}
                         project={ping.project?.title || "Unknown Project"} 
-                        username={ping.sender?.username || ping.senderName || "Anonymous"} 
+                        username={ping.sender?.username ?? ping.senderName ?? "Anonymous"} 
                     />
                 ))}
             </ul>

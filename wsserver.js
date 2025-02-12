@@ -44,7 +44,7 @@ wss.on("connection", (ws) => {
             // if target socket then ping
             if(targetedSocket){
                 targetedSocket.send(
-                    JSON.stringify({type: "ping",senderNam: data.senderName, senderId: data.senderId, projectId: data.projectId, projectName: data.projectName})
+                    JSON.stringify({type: "ping",senderName: data.senderName, senderId: data.senderId, projectId: data.projectId, projectName: data.projectName})
                 );
             };
              

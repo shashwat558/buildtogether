@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 
 const WSS_URL = "ws://localhost:4000";
 
-interface PingProps {
+export interface PingProps {
     senderId: string;
     type: "ping";
     targetedUserId: string,
