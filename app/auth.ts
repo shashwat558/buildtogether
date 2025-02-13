@@ -8,6 +8,7 @@ import Google from "next-auth/providers/google"
 declare module "next-auth" {
     interface User {
         username: string;
+        profileImage: string
     }
 }
 
@@ -105,6 +106,7 @@ export const config:NextAuthConfig = {
                 token.id = dbUser?.id
                 token.email = user.email
                 token.name = user.name
+                token.profileImage = user.profileImage
             
             }
             
@@ -121,7 +123,8 @@ export const config:NextAuthConfig = {
                     email: token.email as string,
                     name: token.name,
                     username : (token.username as string),
-                    emailVerified: null
+                    emailVerified: null,
+                    profileImage: (token.profileImage as string)
                 } 
             }
             return session;

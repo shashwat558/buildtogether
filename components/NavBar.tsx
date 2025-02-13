@@ -3,10 +3,11 @@
 import Image from "next/image"
 import { Button } from "./ui/button"
 import Link from "next/link"
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined"
+
 import { motion } from "framer-motion"
 import { signOut, useSession } from "next-auth/react"
 import BellIcon from "./bellIcon"
+
 
 const cardVariant = {
   hidden: { opacity: 0, y: -20 },
@@ -21,6 +22,9 @@ const cardVariant = {
 
 const NavBar = () => {
   const { data: session } = useSession()
+  const profileImage = (session?.user?.profileImage);
+
+  
 
   return (
     <div className=" w-full min-w-full top-0 left-0 mb-5 right-0 z-50 flex justify-center px-4">
@@ -63,9 +67,7 @@ const NavBar = () => {
         <div className="flex items-center gap-4">
           {session && (
             <Link href="/profile">
-              <div className="text-white hover:opacity-80 transition-opacity">
-                <AccountCircleOutlinedIcon className="text-[32px]" />
-              </div>
+             <Image src={profileImage ?? "/profileIcon.svg"} alt="profile image" width={60} height={60} className="text-white"/>
             </Link>
           )}
 
