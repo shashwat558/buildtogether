@@ -1,24 +1,55 @@
 "use client"
-import React from 'react'
-import {motion} from "framer-motion";
-import Card from './ui/myCard'
-import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
-import ConstructionOutlinedIcon from '@mui/icons-material/ConstructionOutlined';
+import React from 'react';
+import { Search, Users, Trophy, TrendingUp } from 'lucide-react';
+import Card from './ui/myCard';
+
+
+const features = [
+  {
+    icon: Search,
+    title: "Explore Opportunities",
+    content: "Connect with like-minded students and developers. Find the right people with complementary skills to turn your ideas into reality.",
+    color: "#F87171"
+  },
+  {
+    icon: Users,
+    title: "Collaborate Effectively",
+    content: "Work seamlessly with your team using integrated tools and workflows. Share ideas, track progress, and achieve goals together.",
+    color: "#4ADE80"
+  },
+  {
+    icon: Trophy,
+    title: "Showcase Your Talent",
+    content: "Share your completed projects and gain recognition for your skills. Build an impressive portfolio for your career growth.",
+    color: "#FBBF24"
+  },
+  {
+    icon: TrendingUp,
+    title: "Grow Your Skills",
+    content: "Gain knowledge from your peers and mentors. Share tips, resources, and experiences to help each other succeed.",
+    color: "#60A5FA"
+  }
+];
+
 const FeatureCards = () => {
   return (
-    <motion.div className='flex justify-center gap-16 items-center mt-20'>
-        <Card x={-100} icon={<SearchOutlinedIcon />} color='border-red-500' rotate={7} title='Explore Opportunities' content='Connect with like-minded students and developers. Find the right people with complementary skills to turn your ideas into reality.'/>
+    <div className="relative py-20 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((feature, index) => (
+            <Card
+              key={index}
+              icon={feature.icon}
+              title={feature.title}
+              content={feature.content}
+              color={feature.color}
+              delay={index * 0.1}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
-        <Card x={-80} icon={<GroupsOutlinedIcon />} color='border-green-500' title='Collaborate Effectively' content='Connect with like-minded students and developers. Find the right people with complementary skills to turn your ideas into reality.' rotate={-7} />
-
-        <Card x={-60} icon={<ConstructionOutlinedIcon />} color='border-yellow-500' title='Showcase Your Talent' content='Share your completed projects and gain recognition for your skills. Build an impressive portfolio for your career growth.' rotate={5}/>
-
-        <Card x={-40} icon={<TrendingUpOutlinedIcon />} color='border-blue-500' rotate={8} title='Grow-Up Your Skills' content='Gain knowledge from your peers and mentors. Share tips, resources, and experiences to help each other succeed.'/>
-        
-    </motion.div>
-  )
-}
-
-export default FeatureCards
+export default FeatureCards;
