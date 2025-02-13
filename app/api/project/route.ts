@@ -21,7 +21,10 @@ export async function POST(req:NextRequest){
                     title: title,
                     description: description,
                     githubLink: githubLink,
-                    author: {connect: {username: username ?? ""}}
+                    author: {connect: {username: username ?? ""},
+                },
+                memberIds: [username ?? ""],
+                membersCount: 1
                 }
             })
 

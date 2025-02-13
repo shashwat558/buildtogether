@@ -73,14 +73,14 @@ const Page = () => {
         getPings();
     }, [session?.user?.id]);
 
-    const handlePingAction = async (id:string,isAccept:boolean)=>{
-        console.log("this is id", id)
+    const handlePingAction = async (id:string,isAccept:boolean, senderName: string, projectId: string)=>{
+        console.log("this is id", {id, senderName, projectId})
         const response = await fetch(`/api/ping/${isAccept ? "accept": "reject"}`,
             {method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(id)
+                body: JSON.stringify({ id, senderName, projectId })
             },
             
         )
@@ -104,8 +104,8 @@ const Page = () => {
                         key={index}
                         project={ping.project?.title || "Unknown Project"} 
                         username={ping.sender?.username ?? ping.senderName ?? "Anonymous"} 
-                        onAccept={() => handlePingAction(ping.id ?? "", true)}
-                        onReject={() => handlePingAction(ping.id ?? "", false)}
+                        onAccept={() => handlePingAction(ping.id ?? "", true, ping.senderName ?? ping.sender?.username ?? "", ping.projectId ?? "")}
+                        onReject={() => handlePingAction(ping.id ?? "", false, ping.senderName ?? ping.sender?.username ?? "", ping.projectId ?? "")}
                     />
                 ))}
             </ul>

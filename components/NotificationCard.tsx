@@ -14,6 +14,7 @@ interface NotificationCardProps {
 }
 
 const NotificationCard: React.FC<NotificationCardProps> = ({ username, project, onAccept, onReject, pingId }) => {
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

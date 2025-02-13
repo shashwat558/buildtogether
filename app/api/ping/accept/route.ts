@@ -6,24 +6,39 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest){
     const session = await auth();
-
+    
+    
     if(!session){
         return NextResponse.json({message: "Unauthorized"})
 
     }
     try {
-        const pingId = await req.json();
-        console.log("this is pingid: ", pingId)
+        
+        const body = await req.json();
+        console.log("this is body",body)
+        
+        console.log("this is pingid: ", body.id)
 
-        await prisma.notification.update({
-            where: {
-                id: pingId
-            },
-            data: {
-                status: "accept"
-            }
-        }) 
-        return NextResponse.json({message: "Ping accepted"})
+        const transaction = await prisma.$transaction([
+            prisma.notification.delete({
+                where: {
+                    id: body.id
+                },
+                
+            }),
+
+            prisma.project.update({
+                where:{
+                    id: body.projectId
+                },
+                data:{
+                    memberIds : {push: body.senderName},
+                    membersCount: {increment: 1}
+                }
+            })
+        ])
+        
+        return NextResponse.json({message: "Ping accepted", transaction})
         
     } catch (error) {
         console.log(error)

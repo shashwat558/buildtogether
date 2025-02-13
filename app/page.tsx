@@ -1,7 +1,7 @@
 
 import FeatureCards from "@/components/FeatureCards"
-import { auth } from "./auth";
-import { redirect } from "next/navigation";
+// import { auth } from "./auth";
+// import { redirect } from "next/navigation";
 import { Jersey_15 } from "next/font/google";
 
 
@@ -11,11 +11,11 @@ const jersey = Jersey_15({
 })
 export default async function Home() {
 
-  const session = await auth();
+  // const session = await auth();
 
-  if(session){
-    redirect("/dashboard")
-  }
+  // if(session){
+  //   redirect("/dashboard")
+  // }
   
   return (
     <div className={`w-screen h-screen ${jersey.className}`}>

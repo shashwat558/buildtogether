@@ -94,6 +94,8 @@ model Project {
   description      String
   githubLink       String
   ping             Notification[]
+  memberIds        String[]  @default([])
+  membersCount     Int       @default(1)
   currentlyWorking Boolean @default(true)
   authorName       String
   author           User    @relation(fields: [authorName], references: [username])

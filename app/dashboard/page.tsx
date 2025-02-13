@@ -86,7 +86,7 @@ const Page = () => {
             transition: {
                 duration: 1
             }
-        }}} initial="hidden" animate="visible">
+        }}} initial="hidden" animate="visible" className='flex justify-center items-center'>
         <Button variant={'outline'} onClick={() => setIsModalOpen(true)}>
         New Project
       </Button>
