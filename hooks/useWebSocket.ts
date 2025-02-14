@@ -10,12 +10,21 @@ export interface PingProps {
     projectName: string,
     senderName: string
 }
+interface ChatMessageProps {
+    type: "chatMessage",
+    chatId: string
+    content: string
+    senderId: string
+    senderName: {username: string}
+    timeStamp: Date
 
+}
 const UsePingWebSocket = ({userId}:{userId: string}) => {
     const socketRef = useRef<WebSocket | null>(null);
     
 
     const [recievedPings, setReceivedPings] = useState<PingProps[] | null>(null);
+    const [messages, setMessages] = useState<ChatMessageProps[] | null>(null)
 
     const [ws, setWs] = useState<WebSocket | null>(null);
 
@@ -32,13 +41,18 @@ const UsePingWebSocket = ({userId}:{userId: string}) => {
         console.log("H")
         socket.onmessage = (event) => {
             
-            const data: PingProps = JSON.parse(event.data);
+            const data = JSON.parse(event.data);
             console.log("fdl")
             if(data.type === "ping"){
                 console.log("received ping", data);
                 setReceivedPings((prev) => (prev ? [...prev, data] : [data]))
 
             }
+            if(data.type === "chatMessage"){
+                console.log("recieved message", data);
+                setMessages((prev) => (prev ? [...prev, data] : [data]));
+            }
+            
         };
         socket.onclose = () => {
             console.log("connection ended")
@@ -60,7 +74,26 @@ const UsePingWebSocket = ({userId}:{userId: string}) => {
         }
     };
 
-    return {recievedPings, sendPing};
+    
+
+    const sendMessage = ({chatId, content, senderId, senderName, timeStamp}:{
+        chatId: string, content: string, senderId: string, senderName: {username: string}, timeStamp: Date
+    }) => {
+        if(ws && ws.readyState === WebSocket.OPEN){
+            const message: ChatMessageProps = {
+                type: "chatMessage",
+                chatId: chatId,
+                content: content,
+                senderId: senderId,
+                senderName: senderName,
+                timeStamp: timeStamp
+            };
+            ws.send(JSON.stringify(message))
+        }
+
+    }
+
+    return {sendPing, recievedPings, messages, sendMessage}
 }
 
 
