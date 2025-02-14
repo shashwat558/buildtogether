@@ -27,6 +27,55 @@ wss.on("connection", (ws) => {
             //if yes then add it to the users object
             users[data.userId] = ws
         //checks if data type is ping 
+        }if(data.type=== "chatMessage"){
+
+            try {
+                const [participants, message] = await prisma.$transaction([
+                prisma.message.create({
+                    data: {
+
+                        chatId: data.chatId,
+                        content: data.content,
+                        senderId: data.senderId
+
+                    },
+                    include: {
+                        sender: true
+                    }
+                }),
+                prisma.participants.findMany({
+                    where: {
+                        chatId: data.chatId
+                    },
+                    select: {
+                        userId: true
+                    }
+                })
+            ])
+
+            participants.forEach(({userId}) => {
+                const userSocket = users[userId]
+                if(userSocket){
+                    userSocket.send(
+                        JSON.stringify({
+                            type: "chatMessage",
+                            chatId: message.chatId,
+                            content: message.content,
+                            senderId: message.senderId,
+                            senderName: message.sender.username,
+                            timeStamp: message.timeStamp
+                        })
+                    )
+                }
+            })
+                
+            } catch (error) {
+                console.log(error)
+                
+            }
+
+            
+
         }else if(data.type === "ping"){
             //add the data in db
             await prisma.notification.create({

@@ -20,6 +20,9 @@ model User {
   githubUsername String?
   profileImage   String?
   upvote         Upvote[]
+
+  chatParticipants         Participants[]
+  message       Message[]   
   accounts       Account[]
   Authenticator  Authenticator[]
   receivedPings  Notification[]  @relation("ReceivedPings")
@@ -129,4 +132,34 @@ enum NotificationStatus {
   accept
   reject
   pending
+}
+
+model Chat {
+  id            String  @id @default(cuid())
+  participants  Participants[]
+  messages      Message[]
+  createdAt     DateTime  @default(now())
+
+}
+
+model Participants {
+  chatId    String
+  userId  String
+
+  chat     Chat @relation(fields: [chatId], references: [id])
+  sender User @relation(fields: [userId], references: [id])
+
+  @@unique([chatId, userId])
+}
+
+model Message {
+  id         String @id @default(cuid())
+  chatId     String
+  content    String
+  senderId   String
+  timeStamp  DateTime @default(now())
+  
+  chat      Chat  @relation(fields: [chatId], references: [id])
+  sender    User  @relation(fields: [senderId], references: [id])
+
 }
