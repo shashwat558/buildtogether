@@ -1,21 +1,16 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, LogOut, LogIn, Menu, X } from 'lucide-react';
-import { clsx } from 'clsx';
+
 import Image from 'next/image';
+import { signOut, useSession } from 'next-auth/react';
 
-interface NavBarProps {
-  session?: {
-    user?: {
-      profileImage?: string;
-    };
-  };
-  onSignOut?: () => void;
-}
 
-const NavBar: React.FC<NavBarProps> = ({ session, onSignOut }) => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+const NavBar: React.FC= () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {data: session} = useSession();
 
   const navVariants = {
     hidden: { opacity: 0, y: -20 },
@@ -62,7 +57,7 @@ const NavBar: React.FC<NavBarProps> = ({ session, onSignOut }) => {
         variants={navVariants}
         className="relative max-w-7xl mx-auto"
       >
-        {/* Glassmorphism background */}
+        
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 to-gray-800/95 backdrop-blur-md rounded-2xl border border-purple-400/30 shadow-lg shadow-purple-500/20" />
 
         <div className="relative flex items-center justify-between px-6 py-3">
@@ -78,7 +73,7 @@ const NavBar: React.FC<NavBarProps> = ({ session, onSignOut }) => {
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               className="w-10 h-10 flex items-center justify-center"
             >
-              <Image src="/Hammer.svg" alt="logo" height={40} width={50} />
+              <Image src="/Hammer.svg" alt="logo" height={50} width={50} />
             </motion.div>
             <span className="text-white font-semibold hidden sm:block">BuildTogether</span>
           </motion.a>
@@ -123,14 +118,14 @@ const NavBar: React.FC<NavBarProps> = ({ session, onSignOut }) => {
                     <Image
                       src={session.user.profileImage ?? "/profileIcon.svg"}
                       alt="Profile"
-                      className="w-full h-full object-cover"
+                      width={50} height={50}
                     />
                   </div>
                 </motion.a>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={onSignOut}
+                  onClick={() => signOut()}
                   className="flex items-center gap-2 px-4 py-2 rounded-full bg-transparent border border-purple-400/50 text-white hover:bg-purple-400/10 transition-colors"
                 >
                   <LogOut className="w-4 h-4" />

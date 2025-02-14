@@ -7,9 +7,16 @@ import { BlurIn } from '@/components/ui/blurtext';
 import FeatureCards from '@/components/FeatureCards';
 import HowItWorks from '@/components/HowItWorks';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 
 function App() {
+
+  const {data: session} = useSession();
+  if(session){
+    redirect("/dashboard")
+  }
   return (
     <div className="min-h-screen border-purple-500 border-[1px] rounded-lg bg-gray-900 text-white overflow-hidden">
       {/* Hero Section */}
@@ -28,12 +35,14 @@ function App() {
             <Sparkles className="w-8 h-8 text-purple-400" />
             <span className="text-purple-400 font-medium">Welcome to the Future</span>
           </div>
-          
-          <h1 className="text-7xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-            <BlurIn>
+          <BlurIn>
+            <h1 className="text-7xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+            
               Discover, Collaborate, Build
-            </BlurIn>
+            
           </h1>
+          </BlurIn>
+          
           
           <p className="text-xl text-gray-300 mb-12">
             Connect with peers to bring amazing projects to life
