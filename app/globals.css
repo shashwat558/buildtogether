@@ -17,6 +17,38 @@ body {
   }
 }
 
+
+  /* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f3f4f6; /* Gray-100 */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db; /* Gray-300 */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af; /* Gray-400 */
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #374151; /* Neutral-700 */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #6b7280; /* Neutral-500 */
+  }
+}
+
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;

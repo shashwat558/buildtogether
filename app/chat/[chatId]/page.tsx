@@ -40,13 +40,7 @@ const ChatPage = () => {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [chatMessages]);
+ 
 
   // Simulated data - replace with actual API calls
   useEffect(() => {
@@ -95,16 +89,7 @@ const ChatPage = () => {
   e.preventDefault();
   if (!newMessage || !selectedUser?.chatId) return;
 
-  const newMsg: Message = {
-    id: crypto.randomUUID(), // Temporary ID until backend updates
-    content: newMessage,
-    type: "chatMessage",
-    senderId: userId ?? "",
-    senderName: { username: session?.user?.name ?? "Unknown" },
-    timeStamp: new Date(),
-    status: "sent",
-    chatId: ''
-  };
+  
 
  
   sendMessage({
@@ -115,8 +100,7 @@ const ChatPage = () => {
     timeStamp: new Date(),
   });
 
-  // Update chat messages state
-  setChatMessages((prevMessages) => [...prevMessages, newMsg]);
+
 
   // Clear the input field
   setNewMessage("");
@@ -157,9 +141,9 @@ useEffect(() => {
               </div>
               <div className="overflow-y-auto h-[calc(80vh-4rem)]">
                 <AnimatePresence>
-                  {users.map((user) => (
+                  {users.map((user,index) => (
                     <motion.button
-                      key={user.id}
+                      key={index}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
@@ -208,11 +192,13 @@ useEffect(() => {
                   </div>
 
                   {/* Messages */}
-                  <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                  <motion.div  className="custom-scrollbar
+                  flex-1 p-4 space-y-4 overflow-y-auto max-h-[calc(80vh-8rem)] ">
+                    
                     <AnimatePresence>
-                      {chatMessages.map((message) => (
+                      {chatMessages.map((message,index) => (
                         <motion.div
-                          key={message.id}
+                          key={index}
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 20 }}
@@ -243,7 +229,9 @@ useEffect(() => {
                       ))}
                     </AnimatePresence>
                     <div ref={messagesEndRef} />
-                  </div>
+                    </motion.div>
+                  
+                  
 
                   {/* Message Input */}
                   <form onSubmit={handleMessageSubmit}  className="p-4 border-t border-gray-700/50">

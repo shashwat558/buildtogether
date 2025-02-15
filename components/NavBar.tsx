@@ -11,6 +11,7 @@ import { signOut, useSession } from 'next-auth/react';
 const NavBar: React.FC= () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {data: session} = useSession();
+console.log(session?.user)
 
   const navVariants = {
     hidden: { opacity: 0, y: -20 },
