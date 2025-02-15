@@ -152,7 +152,6 @@ const StudentCard: React.FC<StudentCardProps> = ({
             </div>
 
             <div className="flex items-center gap-4">
-              {currentlyWorking && <Blinker />}
               <PingButton 
                 receiverId={id} 
                 projectId={projectId} 
@@ -161,7 +160,9 @@ const StudentCard: React.FC<StudentCardProps> = ({
               />
               {session?.user?.username === username ? "": <MessageSquareMore className='cursor-pointer hover:text-purple-400' onClick={() => handleChatClick(id)}/>}
 
+              {currentlyWorking && <Blinker />} 
             </div>
+
 
             <div className="flex items-center gap-2 bg-gray-800/50 rounded-lg p-2">
               <motion.button

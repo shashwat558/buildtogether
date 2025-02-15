@@ -59,6 +59,7 @@ const Page = () => {
     } else if(session.user?.username === "default"){
       redirect("/completeProfile")
     }
+    
 
     useEffect(() => {
       const colllegeMates = async () => {

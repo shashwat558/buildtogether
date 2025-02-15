@@ -10,6 +10,7 @@ import { ImageProvider } from "@/context/imageContext";
 import Drag from "@/components/cursorFollower";
 import NextTopLoader from 'nextjs-toploader';
 
+
 const giest = Geist({
   weight: "500",
   subsets: ["latin"]
@@ -34,6 +35,7 @@ export default async  function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+  
   return (
     <html lang="en">
       <head></head>

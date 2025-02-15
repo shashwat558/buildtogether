@@ -4,7 +4,7 @@
 import type React from "react"
 import { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
-import { redirect, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -23,10 +23,11 @@ interface College {
 const Page = () => {
   const { data: session, update: sessionUpdate } = useSession()
   const userId = session?.user?.id
-  if(session?.user?.username !== "default"){
-    redirect("/dashboard");
-  }
+  
   const router = useRouter()
+  if(session?.user?.username !== "default"){
+    router.push("/dashboard");
+  }
 
   const [username, setUsername] = useState<string>("")
   const [colleges, setColleges] = useState<College[]>([])

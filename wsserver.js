@@ -26,6 +26,16 @@ wss.on("connection", (ws) => {
         if(data.type === "register"){
             //if yes then add it to the users object
             users[data.userId] = ws
+
+            await prisma.user.update({
+                where: {
+                    id: data.userId
+                },
+                data: {
+                    isOnline: true,
+                    lastSeen: new Date()
+                }
+            })
         //checks if data type is ping 
         }if(data.type=== "chatMessage"){
 
@@ -105,15 +115,25 @@ wss.on("connection", (ws) => {
 }
     //after all close the request
     
-    ws.on("close", () => {
-        Object.keys(users).forEach((userId) => {
-            if(users[userId] === ws){
-                delete users[userId]
-
-            }
-        })
+    ws.on("close", async() => {
+        const disconnectedUsersId = Object.keys(users).find(
+            (userId) => users[userId] === ws
+        )
+        if(disconnectedUsersId){
+            delete users[disconnectedUsersId]
+            await prisma.user.update({
+                where: {
+                    id: disconnectedUsersId
+                },
+                data: {
+                    isOnline: false,
+                    lastSeen: new Date()
+                }
+            })
+        }
     })
 });
 
 
 console.log("web socket server running on ws://localhost:4000")
+

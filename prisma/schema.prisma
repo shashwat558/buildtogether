@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  engineType = "library"
 }
 
 datasource db {
@@ -20,7 +21,8 @@ model User {
   githubUsername String?
   profileImage   String?
   upvote         Upvote[]
-
+  lastSeen       DateTime?   @default(now())
+  isOnline       Boolean?   @default(false)
   chatParticipants         Participants[]
   message       Message[]   
   accounts       Account[]

@@ -40,8 +40,26 @@ const ChatPage = () => {
   // Simulated data - replace with actual API calls
   useEffect(() => {
     const getChats = async () => {
-        
+        const response = await fetch("/api/chat", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        if(response.ok){
+            try {
+                const data = await response.json();
+                console.log(data)
+                
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+
+
     }
+    getChats()
   }, []);
 
   const handleSendMessage = (e: React.FormEvent) => {
