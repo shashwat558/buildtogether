@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,14 +8,14 @@ import Image from 'next/image';
 import UsePingWebSocket from '@/hooks/useWebSocket';
 
 interface Message {
-  
-  id: string;
- 
-  content: string;
-  senderId: string;
-  senderName: string;
-  timestamp: Date;
-  status: 'sent' | 'delivered' | 'read';
+  id?: string
+  type: "chatMessage",
+    chatId: string
+    content: string
+    senderId: string
+    senderName: {username: string}
+    timeStamp: Date
+  status?: 'sent' | 'delivered' | 'read';
 }
 
 interface ChatUser {
@@ -60,15 +61,20 @@ const ChatPage = () => {
             try {
                 const data = await response.json();
                
-                  setUsers(data.chats[0].participants.map((p) => ({
-                    id: p.userId,
-                    username: p.sender.username,
-                    profileImage: p.sender.profileImage,
-                    lastSeen: p.sender.lastSeen,
-                    isOnline: p.sender.isOnline
-                  })).filter((user) => user.id !== session?.user?.id)
-                )
+                  const chatUsers = data.chats.flatMap((chat: any) => 
+                    chat.participants.filter((p:any) => p.userId !== session?.user?.id).map((p:any) => ({
+                      id: p.userId,
+                      username: p.sender.username,
+                      profileImage: p.sender.profileImage,
+                      lastSeen: p.sender.lastSeen,
+                      isOnline: p.sender.isOnline,
+                      chatId: chat.id
+
+
+                    }))
+                  )
                   
+                  setUsers(chatUsers);
 
                 
                 
@@ -85,15 +91,53 @@ const ChatPage = () => {
 
   console.log(users)
 
+  const handleMessageSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!newMessage || !selectedUser?.chatId) return;
+
+  const newMsg: Message = {
+    id: crypto.randomUUID(), // Temporary ID until backend updates
+    content: newMessage,
+    type: "chatMessage",
+    senderId: userId ?? "",
+    senderName: { username: session?.user?.name ?? "Unknown" },
+    timeStamp: new Date(),
+    status: "sent",
+    chatId: ''
+  };
+
+ 
+  sendMessage({
+    chatId: selectedUser.chatId,
+    content: newMessage,
+    senderId: userId ?? "",
+    senderName: {username: session?.user?.name ?? ""},
+    timeStamp: new Date(),
+  });
+
+  // Update chat messages state
+  setChatMessages((prevMessages) => [...prevMessages, newMsg]);
+
+  // Clear the input field
+  setNewMessage("");
+};
+
+useEffect(() => {
+  if(messages && messages?.length > 0){
+    setChatMessages((prevMessages) => [...prevMessages, messages[messages.length - 1]])
+  }
+},[messages])
+
+
   
 
-  // const formatTime = (date: Date) => {
-  //   return new Intl.DateTimeFormat('en-US', {
-  //     hour: 'numeric',
-  //     minute: 'numeric',
-  //     hour12: true,
-  //   }).format(new Date(date));
-  // };
+   const formatTime = (date: Date) => {
+     return new Intl.DateTimeFormat('en-US', {
+       hour: 'numeric',
+       minute: 'numeric',
+       hour12: true,
+     }).format(new Date(date));
+  };
 
   return (
     <div className="min-h-screen  text-white p-4">
@@ -185,7 +229,7 @@ const ChatPage = () => {
                           >
                             <p>{message.content}</p>
                             <div className="flex items-center gap-1 text-xs text-gray-400 mt-1">
-                              <span>{message.timestamp.toLocaleTimeString()}</span>
+                              <span>{(formatTime(message.timeStamp))}</span>
                               {message.senderId === session?.user?.id && (
                                 message.status === 'read' ? (
                                   <CheckCheck className="w-4 h-4 text-blue-400" />
@@ -202,7 +246,7 @@ const ChatPage = () => {
                   </div>
 
                   {/* Message Input */}
-                  <form  className="p-4 border-t border-gray-700/50">
+                  <form onSubmit={handleMessageSubmit}  className="p-4 border-t border-gray-700/50">
                     <div className="flex items-center gap-2">
                       <input
                         type="text"

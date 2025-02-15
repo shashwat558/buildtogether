@@ -80,7 +80,7 @@ const UsePingWebSocket = ({userId}:{userId: string}) => {
         chatId: string, content: string, senderId: string, senderName: {username: string}, timeStamp: Date
     }) => {
         if(ws && ws.readyState === WebSocket.OPEN){
-            const message: ChatMessageProps = {
+          try { const message: ChatMessageProps = {
                 type: "chatMessage",
                 chatId: chatId,
                 content: content,
@@ -89,6 +89,10 @@ const UsePingWebSocket = ({userId}:{userId: string}) => {
                 timeStamp: timeStamp
             };
             ws.send(JSON.stringify(message))
+        }catch(error){
+            console.log(error)
+        }
+            
         }
 
     }
