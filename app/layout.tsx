@@ -9,6 +9,7 @@ import SessionProviderComponent from "@/components/SessionProviderComponent";
 import { ImageProvider } from "@/context/imageContext";
 import Drag from "@/components/cursorFollower";
 import NextTopLoader from 'nextjs-toploader';
+import Footer from "@/components/Footer";
 
 
 const giest = Geist({
@@ -54,6 +55,7 @@ export default async  function RootLayout({
         <Drag />
         
         </SessionProviderComponent>
+        <Footer />
       </body>
     </html>
   );

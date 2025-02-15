@@ -165,7 +165,7 @@ useEffect(() => {
                         <p className="font-medium">{user.username}</p>
                         <p className="text-sm text-gray-400 flex items-center gap-1">
                           <Clock className="w-3 h-3" />
-                          {user.isOnline ? 'Online' : `Last seen ${(user.lastSeen!)}`}
+                          {user.isOnline ? 'Online' : `Last seen ${formatTime(user.lastSeen!)}`}
                         </p>
                       </div>
                     </motion.button>
@@ -186,7 +186,7 @@ useEffect(() => {
                     <div>
                       <h3 className="font-bold">{selectedUser.username}</h3>
                       <p className="text-sm text-gray-400">
-                        {selectedUser.isOnline ? 'Online' : `Last seen ${(selectedUser.lastSeen!)}`}
+                        {selectedUser.isOnline ? 'Online' : `Last seen ${formatTime(selectedUser.lastSeen!)}`}
                       </p>
                     </div>
                   </div>

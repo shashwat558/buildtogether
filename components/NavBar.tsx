@@ -11,7 +11,6 @@ import { signOut, useSession } from 'next-auth/react';
 const NavBar: React.FC= () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {data: session} = useSession();
-console.log(session?.user)
 
   const navVariants = {
     hidden: { opacity: 0, y: -20 },
@@ -117,7 +116,7 @@ console.log(session?.user)
                 >
                   <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-400/50">
                     <Image
-                      src={session.user.profileImage ?? "/profileIcon.svg"}
+                      src={session.user.profileImage ?? "/builder.svg"}
                       alt="Profile"
                       width={50} height={50}
                     />
