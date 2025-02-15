@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, User, Clock, Check, CheckCheck } from 'lucide-react';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import UsePingWebSocket from '@/hooks/useWebSocket';
 
 interface Message {
   id: string;
@@ -21,9 +23,12 @@ interface ChatUser {
   isOnline?: boolean;
 }
 
+
 const ChatPage = () => {
   const { data: session } = useSession();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const userId = session?.user?.id;
+  const {sendMessage, messages} = UsePingWebSocket({userId: userId ?? ""});
+  const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [selectedUser, setSelectedUser] = useState<ChatUser | null>(null);
   const [users, setUsers] = useState<ChatUser[]>([]);
@@ -35,7 +40,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [chatMessages]);
 
   // Simulated data - replace with actual API calls
   useEffect(() => {
@@ -49,7 +54,18 @@ const ChatPage = () => {
         if(response.ok){
             try {
                 const data = await response.json();
-                console.log(data)
+               
+                  setUsers(data.chats[0].participants.map((p) => ({
+                    id: p.userId,
+                    username: p.sender.username,
+                    profileImage: p.sender.profileImage,
+                    lastSeen: p.sender.lastSeen,
+                    isOnline: p.sender.isOnline
+                  })).filter((user) => user.id !== session?.user?.id)
+                )
+                  
+
+                
                 
             } catch (error) {
                 console.log(error)
@@ -62,11 +78,13 @@ const ChatPage = () => {
     getChats()
   }, []);
 
+  console.log(users)
+
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newMessage.trim() || !selectedUser) return;
 
-    const message: Message = {
+    const chatMessage: Message = {
       id: Date.now().toString(),
       content: newMessage,
       senderId: session?.user?.id || '',
@@ -75,21 +93,21 @@ const ChatPage = () => {
       status: 'sent',
     };
 
-    setMessages([...messages, message]);
+    setChatMessages([...chatMessages, chatMessage]);
     setNewMessage('');
   };
 
-  const formatTime = (date: Date) => {
-    return new Intl.DateTimeFormat('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true,
-    }).format(new Date(date));
-  };
+  // const formatTime = (date: Date) => {
+  //   return new Intl.DateTimeFormat('en-US', {
+  //     hour: 'numeric',
+  //     minute: 'numeric',
+  //     hour12: true,
+  //   }).format(new Date(date));
+  // };
 
   return (
     <div className="min-h-screen  text-white p-4">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl min-w-[1000px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -119,7 +137,7 @@ const ChatPage = () => {
                     >
                       <div className="relative">
                         <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                          <User className="w-6 h-6 text-gray-400" />
+                         <Image src={user.profileImage ?? ""} alt='profile' height={50} width={50} className="w-full h-full object-cover"/>
                         </div>
                         {user.isOnline && (
                           <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-gray-800" />
@@ -129,7 +147,7 @@ const ChatPage = () => {
                         <p className="font-medium">{user.username}</p>
                         <p className="text-sm text-gray-400 flex items-center gap-1">
                           <Clock className="w-3 h-3" />
-                          {user.isOnline ? 'Online' : `Last seen ${formatTime(user.lastSeen!)}`}
+                          {user.isOnline ? 'Online' : `Last seen ${(user.lastSeen!)}`}
                         </p>
                       </div>
                     </motion.button>
@@ -145,12 +163,12 @@ const ChatPage = () => {
                   {/* Chat Header */}
                   <div className="p-4 border-b border-gray-700/50 flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                      <User className="w-6 h-6 text-gray-400" />
+                      <Image src={selectedUser.profileImage ?? ""} alt='profile' width={70} height={70} className='w-full h-full object-cover rounded-full'/>
                     </div>
                     <div>
                       <h3 className="font-bold">{selectedUser.username}</h3>
                       <p className="text-sm text-gray-400">
-                        {selectedUser.isOnline ? 'Online' : `Last seen ${formatTime(selectedUser.lastSeen!)}`}
+                        {selectedUser.isOnline ? 'Online' : `Last seen ${(selectedUser.lastSeen!)}`}
                       </p>
                     </div>
                   </div>
@@ -158,7 +176,7 @@ const ChatPage = () => {
                   {/* Messages */}
                   <div className="flex-1 overflow-y-auto p-4 space-y-4">
                     <AnimatePresence>
-                      {messages.map((message) => (
+                      {chatMessages.map((message) => (
                         <motion.div
                           key={message.id}
                           initial={{ opacity: 0, y: 20 }}
@@ -177,7 +195,7 @@ const ChatPage = () => {
                           >
                             <p>{message.content}</p>
                             <div className="flex items-center gap-1 text-xs text-gray-400 mt-1">
-                              <span>{formatTime(message.timestamp)}</span>
+                              <span>{message.timestamp.toLocaleTimeString()}</span>
                               {message.senderId === session?.user?.id && (
                                 message.status === 'read' ? (
                                   <CheckCheck className="w-4 h-4 text-blue-400" />

@@ -18,6 +18,7 @@ export async function GET(){
             participants: {some: {userId: session.user?.id}}
         },
         include:{
+            
             participants: {
                 select: {sender: {select: {username: true, profileImage: true, lastSeen: true, isOnline: true}},
                 userId: true, 
