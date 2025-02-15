@@ -1,11 +1,12 @@
 "use client"
 import React, {  useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, ArrowUp, ArrowDown, ExternalLink } from 'lucide-react';
+import { Github, ArrowUp, ArrowDown, ExternalLink, MessageSquareMore } from 'lucide-react';
 import Blinker from './ui/blinker';
 import { useSession } from 'next-auth/react';
 import PingButton from './pingButton';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 
 interface StudentCardProps {
   id: string;
@@ -31,11 +32,36 @@ const StudentCard: React.FC<StudentCardProps> = ({
   const { data: session } = useSession();
   const [localUpvotes, setLocalUpvotes] = useState<number>(upvotes);
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
 
   const handleLocalUpvote = async (isUpvote: boolean) => {
     setLocalUpvotes((prev) => (isUpvote ? prev + 1 : prev - 1));
     await onUpvote(projectId, isUpvote);
   };
+
+  const handleChatClick = async(userId2: string) => {
+    const response = await fetch("/api/chat/start", {
+      method: "POST",
+      body: JSON.stringify({userId2}),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+
+    try {
+      if(response.ok){
+        const data =await response.json();
+        if (data.chatId){
+          router.push(`/chat/${data.chatId}`)
+          
+        }
+      } 
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+  }
 
   const cardVariants = {
     initial: { 
@@ -133,6 +159,8 @@ const StudentCard: React.FC<StudentCardProps> = ({
                 projectName={projectTitle} 
                 senderName={session?.user?.username ?? ""} 
               />
+              {session?.user?.username === username ? "": <MessageSquareMore className='cursor-pointer hover:text-purple-400' onClick={() => handleChatClick(id)}/>}
+
             </div>
 
             <div className="flex items-center gap-2 bg-gray-800/50 rounded-lg p-2">

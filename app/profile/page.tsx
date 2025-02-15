@@ -77,7 +77,7 @@ function Profile() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="min-h-screen w-full bg-gray-900 py-8 px-4"
+      className="min-h-screen w-full py-8 px-4"
     >
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Profile Section */}
