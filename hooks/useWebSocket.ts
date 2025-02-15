@@ -5,6 +5,7 @@ const WSS_URL = "ws://localhost:4000";
 export interface PingProps {
     senderId: string;
     type: "ping";
+    pingId? : string,
     targetedUserId: string,
     projectId: string,
     projectName: string,

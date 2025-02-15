@@ -50,11 +50,11 @@ const StudentCard: React.FC<StudentCardProps> = ({
 
     try {
       if(response.ok){
-        const data =await response.json();
-        if (data.chatId){
-          router.push(`/chat/${data.chatId}`)
+        
+        
+          router.push(`/chats`);
           
-        }
+        
       } 
       
     } catch (error) {

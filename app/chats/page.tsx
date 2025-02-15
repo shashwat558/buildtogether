@@ -13,7 +13,8 @@ interface Message {
     chatId: string
     content: string
     senderId: string
-    senderName: {username: string}
+    senderName?: {username: string}
+
     timeStamp: Date
   status?: 'sent' | 'delivered' | 'read';
 }
@@ -67,8 +68,12 @@ const ChatPage = () => {
 
                     }))
                   )
+                  const pastMessages = data.chats[0].messages;
+                  
                   
                   setUsers(chatUsers);
+                  setChatMessages(pastMessages)
+                  
 
                 
                 
@@ -83,7 +88,7 @@ const ChatPage = () => {
     getChats()
   }, [session?.user?.id]);
 
-  console.log(users)
+
 
   const handleMessageSubmit = (e: React.FormEvent) => {
   e.preventDefault();

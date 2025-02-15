@@ -10,10 +10,10 @@ export async function POST(req:NextRequest){
     }
 
     try {
-        const pingId = await req.json();
+        const body = await req.json();
         await prisma.notification.delete({
             where:{
-                id: pingId
+                id: body.id
             }
         })
 

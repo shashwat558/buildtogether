@@ -6,7 +6,8 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 
 interface PingProps {
-    id?: string
+    id?: string,
+    pingId?: string,
     senderId: string;
     type: "ping";
     targetedUserId: string;
@@ -32,6 +33,7 @@ const Page = () => {
             // Transform WS response to match `PingProps`
             const formattedPings = recievedPings.map((ping: PingProps) => ({
                 ...ping,
+                id: ping.id ?? ping.pingId,
                 sender: { username: ping.sender?.username ?? ping.senderName ?? "Unknown" }, // Handle missing sender
                 project: { title: ping.project?.title ?? ping.projectName ?? "Untitled Project" }, // Handle missing project name
             }));
@@ -96,16 +98,16 @@ const Page = () => {
 
     return (
         <div>
-            <h2>Live Pings</h2>
-            <ul className="flex gap-3 flex-wrap">
+            <h2 className="text-3xl text-white">Notifications</h2>
+            <ul className="grid grid-cols-3 gap-3  mt-5">
                 {pings.map((ping, index) => (
                     <NotificationCard 
                         pingId = {ping.id?? ""}
                         key={index}
                         project={ping.project?.title || "Unknown Project"} 
                         username={ping.sender?.username ?? ping.senderName ?? "Anonymous"} 
-                        onAccept={() => handlePingAction(ping.id ?? "", true, ping.senderName ?? ping.sender?.username ?? "", ping.projectId ?? "")}
-                        onReject={() => handlePingAction(ping.id ?? "", false, ping.senderName ?? ping.sender?.username ?? "", ping.projectId ?? "")}
+                        onAccept={() => handlePingAction(ping.id ?? ping.pingId ?? "", true, ping.senderName ?? ping.sender?.username ?? "", ping.projectId ?? "")}
+                        onReject={() => handlePingAction(ping.id ?? ping.pingId??"", false, ping.senderName ?? ping.sender?.username ?? "", ping.projectId ?? "")}
                     />
                 ))}
             </ul>
