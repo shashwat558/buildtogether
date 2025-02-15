@@ -7,10 +7,12 @@ import Image from 'next/image';
 import UsePingWebSocket from '@/hooks/useWebSocket';
 
 interface Message {
+  
   id: string;
+ 
   content: string;
   senderId: string;
-  receiverId: string;
+  senderName: string;
   timestamp: Date;
   status: 'sent' | 'delivered' | 'read';
 }
@@ -21,6 +23,7 @@ interface ChatUser {
   profileImage?: string;
   lastSeen?: Date;
   isOnline?: boolean;
+  chatId: string
 }
 
 
@@ -32,6 +35,8 @@ const ChatPage = () => {
   const [newMessage, setNewMessage] = useState('');
   const [selectedUser, setSelectedUser] = useState<ChatUser | null>(null);
   const [users, setUsers] = useState<ChatUser[]>([]);
+  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -76,26 +81,11 @@ const ChatPage = () => {
 
     }
     getChats()
-  }, []);
+  }, [session?.user?.id]);
 
   console.log(users)
 
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newMessage.trim() || !selectedUser) return;
-
-    const chatMessage: Message = {
-      id: Date.now().toString(),
-      content: newMessage,
-      senderId: session?.user?.id || '',
-      receiverId: selectedUser.id,
-      timestamp: new Date(),
-      status: 'sent',
-    };
-
-    setChatMessages([...chatMessages, chatMessage]);
-    setNewMessage('');
-  };
+  
 
   // const formatTime = (date: Date) => {
   //   return new Intl.DateTimeFormat('en-US', {
@@ -212,7 +202,7 @@ const ChatPage = () => {
                   </div>
 
                   {/* Message Input */}
-                  <form onSubmit={handleSendMessage} className="p-4 border-t border-gray-700/50">
+                  <form  className="p-4 border-t border-gray-700/50">
                     <div className="flex items-center gap-2">
                       <input
                         type="text"
@@ -227,7 +217,7 @@ const ChatPage = () => {
                         type="submit"
                         className="p-2 rounded-lg bg-purple-500 hover:bg-purple-600 transition-colors"
                       >
-                        <Send className="w-5 h-5" />
+                        <Send className="w-5 h-5"  />
                       </motion.button>
                     </div>
                   </form>
