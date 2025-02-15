@@ -68,11 +68,13 @@ const ChatPage = () => {
 
                     }))
                   )
-                  const pastMessages = data.chats[0].messages;
+                  setUsers(chatUsers)
+                  if(selectedUser?.chatId){
+                    const pastMessages = data.chats.find((chat: any) => chat.id === selectedUser.chatId)?.messages || [];
+                    setChatMessages(pastMessages)
                   
-                  
-                  setUsers(chatUsers);
-                  setChatMessages(pastMessages)
+                  }
+
                   
 
                 
@@ -86,7 +88,7 @@ const ChatPage = () => {
 
     }
     getChats()
-  }, [session?.user?.id]);
+  }, [session?.user?.id, selectedUser?.chatId]);
 
 
 
@@ -112,10 +114,20 @@ const ChatPage = () => {
 };
 
 useEffect(() => {
-  if(messages && messages?.length > 0){
-    setChatMessages((prevMessages) => [...prevMessages, messages[messages.length - 1]])
+  if(messages && messages?.length > 0 && selectedUser?.chatId){
+    const newMessages = messages.filter(
+      (msg) => msg.chatId === selectedUser.chatId
+    )
+    setChatMessages((prevMessage) => [...prevMessage, newMessages[newMessages.length -1]])
   }
-},[messages])
+},[messages, selectedUser?.chatId])
+
+const handleSelectedUser = (user: ChatUser)=>{
+  setSelectedUser(user);
+  if (messages) {
+    setChatMessages(messages.filter((msg: Message) => msg.chatId === user?.chatId));
+  }
+}
 
 
   
@@ -153,7 +165,7 @@ useEffect(() => {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
                       whileHover={{ scale: 1.02 }}
-                      onClick={() => setSelectedUser(user)}
+                      onClick={() => handleSelectedUser(user)}
                       className={`w-full p-4 flex items-center gap-3 hover:bg-gray-700/30 transition-colors ${
                         selectedUser?.id === user.id ? 'bg-gray-700/50' : ''
                       }`}

@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bell, LogOut, LogIn, Menu, X } from 'lucide-react';
+import { Bell, LogOut, LogIn, Menu, X, MessageCircleMoreIcon } from 'lucide-react';
 
 import Image from 'next/image';
 import { signOut, useSession } from 'next-auth/react';
@@ -100,6 +100,20 @@ const NavBar: React.FC= () => {
                 whileTap={{ scale: 0.9 }}
               >
                 <Bell className="w-4 h-4" />
+              </motion.div>
+            </motion.a>
+            <motion.a
+              href="/chats"
+              variants={linkHoverVariants}
+              whileHover="hover"
+              className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+            >
+              Chats
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <MessageCircleMoreIcon className="w-4 h-4" />
               </motion.div>
             </motion.a>
           </div>

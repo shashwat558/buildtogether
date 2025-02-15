@@ -4,7 +4,7 @@ import { School, MapPin, Github, Mail, User, Code } from 'lucide-react';
 
 const ProjectCardSkeleton = () => {
   return (
-    <div className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-purple-500/20 shadow-lg p-6 h-[320px] animate-pulse">
+    <div className=" rounded-xl border border-purple-500/20 shadow-lg p-6 h-[320px] animate-pulse">
       <div className="flex flex-col h-full">
         {/* Title */}
         <div className="flex items-start justify-between mb-6">
