@@ -54,7 +54,8 @@ const ChatPage = () => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            cache: "force-cache"
         })
         if(response.ok){
             try {
