@@ -27,11 +27,11 @@ export async function GET(req:NextRequest) {
             createdAt: "desc"
         }
     })
-    console.log(pings)
+   
 
     return NextResponse.json(pings);
     } catch(error){
-        console.log(error);
+        
         return NextResponse.json(error)
     }
     

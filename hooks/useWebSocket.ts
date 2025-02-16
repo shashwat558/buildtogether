@@ -31,32 +31,32 @@ const UsePingWebSocket = ({userId}:{userId: string}) => {
 
     useEffect(() => {
         if(!userId || socketRef.current) return ;
-        console.log("J");
+        
         const socket = new WebSocket(WSS_URL);
         socketRef.current = socket
         socket.onopen = () => {
-            console.log("Websocket connection started");
+            
 
             socket.send(JSON.stringify({type: "register", userId: userId}));
         };
-        console.log("H")
+        
         socket.onmessage = (event) => {
             
             const data = JSON.parse(event.data);
-            console.log("fdl")
+            
             if(data.type === "ping"){
-                console.log("received ping", data);
+                
                 setReceivedPings((prev) => (prev ? [...prev, data] : [data]))
 
             }
             if(data.type === "chatMessage"){
-                console.log("recieved message", data);
+                
                 setMessages((prev) => (prev ? [...prev, data] : [data]));
             }
             
         };
         socket.onclose = () => {
-            console.log("connection ended")
+           
             socketRef.current = null;
         }
 
@@ -68,7 +68,7 @@ const UsePingWebSocket = ({userId}:{userId: string}) => {
     const sendPing = ({receiverId, projectId, projectName, senderName
     }: {receiverId: string, projectId: string, projectName: string, senderName: string}) => {
 
-        console.log(receiverId);
+        
         if(ws && ws.readyState === WebSocket.OPEN){
             const message: PingProps = {type: "ping", senderId: userId, targetedUserId: receiverId, projectId: projectId, projectName: projectName, senderName: senderName};
             ws.send(JSON.stringify(message))
@@ -90,8 +90,9 @@ const UsePingWebSocket = ({userId}:{userId: string}) => {
                 timeStamp: timeStamp
             };
             ws.send(JSON.stringify(message))
-        }catch(error){
-            console.log(error)
+        }catch{
+            console.log("something happened")
+            
         }
             
         }

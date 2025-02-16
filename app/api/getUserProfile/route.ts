@@ -7,7 +7,7 @@ export async function POST(req: NextRequest){
     const session = await auth();
 
     const {username} = await req.json();
-    console.log(username);
+    
 
     if(!session){
         return NextResponse.json({message: "unauthorized"}, {status: 400});

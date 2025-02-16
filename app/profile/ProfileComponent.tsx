@@ -1,13 +1,5 @@
-"use client"
-import React, { useEffect, useState } from 'react';
-import { School, MapPin, Github, Mail, User, Code } from 'lucide-react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import ProjectCard from '@/components/ProjectCard';
-import ProfileSkeleton from '@/components/ui/ProfileSkeleton';
-import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
-
+import {motion} from "framer-motion";
+import { redirect } from "next/dist/server/api-utils";
 
 interface UserDetailsType {
   username: string;
@@ -28,56 +20,11 @@ interface ProjectDetailType {
   githubLink: string;
 }
 
-function Profile() {
-  const [userDetails, setUserDetails] = useState<UserDetailsType | null>(null);
-  const [allProjects, setAllProjects] = useState<ProjectDetailType[] | null>(null);
-  const {data: session} = useSession();
-  if(!session){
-    redirect("/signin")
-  }
+async function ProfileComponent({userDetails,}) {
 
-  useEffect(() => {
-    const getUserDetails = async () => {
-      try {
-        const response = await fetch("/api/getMyDetals", {
-          method: "GET",
-          headers: {
-            'Content-Type': "application/json"
-          }, 
-          cache: "force-cache"
-        });
-        if (response.ok) {
-          const { user } = await response.json();
-          setUserDetails(user);
-        }
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-      }
-    };
+  
 
-    const getProjects = async () => {
-      try {
-        const response = await fetch("/api/project", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            
-          }
-          
-         
-        });
-        if (response.ok) {
-          const { projects } = await response.json();
-          setAllProjects(projects);
-        }
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      }
-    };
-
-    getUserDetails();
-    getProjects();
-  }, []);
+ 
 
   if (!userDetails) {
     return <ProfileSkeleton />;
@@ -230,4 +177,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default ProfileComponent;

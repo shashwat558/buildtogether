@@ -101,7 +101,7 @@ export const config:NextAuthConfig = {
                         email: user.email ?? ""
                     }
                 })
-                console.log(dbUser?.username + "this is my username")
+                
                 token.username = dbUser?.username
                 token.id = dbUser?.id
                 token.email = user.email

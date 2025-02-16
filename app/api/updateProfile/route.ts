@@ -5,7 +5,7 @@ export async function POST(req: Request){
     const body = await req.json();
     const {userId, username, collegeId, githubUsername, profileImage} = body;
 
-    console.log("reached here")
+    
     
 
     if(!userId || !username){
@@ -15,7 +15,7 @@ export async function POST(req: Request){
             status: 400
         })
     }
-    console.log("hii")
+    
     const updatedUser = await prisma.user.update({
         where:{
             id: userId
@@ -27,6 +27,6 @@ export async function POST(req: Request){
             profileImage: profileImage || null
         }
     })
-    console.log("here")
+    
     return NextResponse.json({success: true, message: "Profile update succesfully", user: updatedUser}, {status: 200})
 }

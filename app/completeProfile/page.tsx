@@ -77,7 +77,7 @@ const Page = () => {
       await sessionUpdate({
         newData: { username: username },
       })
-      console.log("Profile updated successfully")
+      
       router.push("/dashboard")
     } else {
       console.error("Failed to update profile")

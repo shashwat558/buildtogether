@@ -29,7 +29,7 @@ const Page = () => {
     }
 
 
-    console.log("Live WebSocket Pings:", recievedPings);
+    
 
     // Update state when new pings arrive from WebSocket
     useEffect(() => {
@@ -60,7 +60,7 @@ const Page = () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log("Fetched API Pings:", data);
+                    
 
                     const formattedData = data.map((ping: PingProps) => ({
                         ...ping,
@@ -81,7 +81,7 @@ const Page = () => {
     }, [session?.user?.id]);
 
     const handlePingAction = async (id:string,isAccept:boolean, senderName: string, projectId: string)=>{
-        console.log("this is id", {id, senderName, projectId})
+        
         const response = await fetch(`/api/ping/${isAccept ? "accept": "reject"}`,
             {method: "POST",
                 headers: {
@@ -92,11 +92,11 @@ const Page = () => {
             
         )
         if(response.ok){
-            console.log("done")
+            
 
             setPings((prev) => prev.filter((ping) => ping.id !== id))
         } else {
-            console.log("fuck")
+            return;
         }
 
     }

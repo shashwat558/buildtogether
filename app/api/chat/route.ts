@@ -11,7 +11,7 @@ export async function GET(){
     if(!session){
         return NextResponse.json({message: "Unauthorized request"});
     }
-    console.log("what")
+    
 
     const chats = await prisma.chat.findMany({
         where: {
@@ -32,7 +32,7 @@ export async function GET(){
         }
 
     })
-    console.log("reached here")
+   
 
     return NextResponse.json({chats})
 

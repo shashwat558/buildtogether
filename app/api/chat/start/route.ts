@@ -14,7 +14,7 @@ export async function POST(req:NextRequest){
 
 
         const {userId2} = await req.json();
-        console.log(userId2)
+        
 
         const chatAlreadyExist = await prisma.chat.findFirst({
             where: {
@@ -49,7 +49,7 @@ export async function POST(req:NextRequest){
 
 
     } catch (error) {
-        console.log(error)
+        console.error(error)
         return NextResponse.json({message: "An error occured"})
     }
 

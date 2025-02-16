@@ -27,7 +27,7 @@ export async function GET(request: Request) {
         return NextResponse.json(colleges);
 
     } catch (error) {
-        console.log("error in fetching colleges", error);
+        console.log(error);
         return NextResponse.json({error: "Failed in fetching colleges"})
         
     }
