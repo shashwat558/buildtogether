@@ -42,7 +42,7 @@ const Page = () => {
             ? {
                 ...project,
                 _count: {
-                  upvotes: (project._count.upvotes || 0) + (isUpvote ? 1 : -1), // Fix: Correctly update upvotes
+                  upvotes: (project._count.upvotes || 0) + (isUpvote ? 1 : -1), 
                 },
               }
             : project
