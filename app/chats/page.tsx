@@ -6,6 +6,7 @@ import { Send, User, Clock, Check, CheckCheck } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import UsePingWebSocket from '@/hooks/useWebSocket';
+import { redirect } from 'next/navigation';
 
 interface Message {
   id?: string
@@ -31,6 +32,9 @@ interface ChatUser {
 
 const ChatPage = () => {
   const { data: session } = useSession();
+  if(!session){
+    redirect("/signin")
+  }
   const userId = session?.user?.id;
   const {sendMessage, messages} = UsePingWebSocket({userId: userId ?? ""});
   const [chatMessages, setChatMessages] = useState<Message[]>([]);

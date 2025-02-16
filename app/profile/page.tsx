@@ -5,6 +5,9 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ProjectCard from '@/components/ProjectCard';
 import ProfileSkeleton from '@/components/ui/ProfileSkeleton';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+
 
 interface UserDetailsType {
   username: string;
@@ -28,6 +31,10 @@ interface ProjectDetailType {
 function Profile() {
   const [userDetails, setUserDetails] = useState<UserDetailsType | null>(null);
   const [allProjects, setAllProjects] = useState<ProjectDetailType[] | null>(null);
+  const {data: session} = useSession();
+  if(!session){
+    redirect("/signin")
+  }
 
   useEffect(() => {
     const getUserDetails = async () => {

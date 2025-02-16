@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Github, Loader2, Mail } from "lucide-react";
+import {  Loader2, Mail } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -72,18 +72,7 @@ export default function SignInButtons() {
                 </Button>
               </motion.div>
 
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Button
-                  className="w-full h-12 bg-gray-900 hover:bg-gray-800 text-white text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200"
-                  onClick={() => signIn("github")}
-                >
-                  <Github className="mr-2 h-5 w-5" />
-                  Continue with GitHub
-                </Button>
-              </motion.div>
+              
             </div>
 
             <p className="text-sm text-gray-400 mt-6">

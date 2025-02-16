@@ -3,6 +3,7 @@
 import NotificationCard from "@/components/NotificationCard";
 import UsePingWebSocket from "@/hooks/useWebSocket";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 interface PingProps {
@@ -22,6 +23,10 @@ const Page = () => {
     const { data: session } = useSession();
     const [pings, setPings] = useState<PingProps[]>([]);
     const { recievedPings } = UsePingWebSocket({ userId: session?.user?.id ?? "" });
+
+    if(!session){
+        redirect("/signin")
+    }
 
 
     console.log("Live WebSocket Pings:", recievedPings);
