@@ -5,6 +5,7 @@ import { Bell, LogOut, LogIn, Menu, X, MessageCircleMoreIcon } from 'lucide-reac
 
 import Image from 'next/image';
 import { signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 
 
@@ -62,8 +63,9 @@ const NavBar: React.FC= () => {
 
         <div className="relative flex items-center justify-between px-6 py-3">
           {/* Logo */}
-          <motion.a
-            href="/"
+          <Link href={"/"}>
+          <motion.div
+            
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="flex items-center gap-2"
@@ -74,60 +76,69 @@ const NavBar: React.FC= () => {
               className="w-10 h-10 flex items-center justify-center"
             >
               <Image src="/Hammer.svg" alt="logo" height={50} width={50} />
+             
             </motion.div>
             <span className="text-white font-semibold hidden sm:block">BuildTogether</span>
-          </motion.a>
+            
+          </motion.div>
+          </Link>
+          
+          
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <motion.a
-              href="/dashboard"
+            <motion.div
+              
               variants={linkHoverVariants}
               whileHover="hover"
               className="text-gray-300 hover:text-white transition-colors"
             >
-              Dashboard
-            </motion.a>
-            <motion.a
-              href="/notifications"
+             <Link href={"/dashboard"}>Dashboard</Link> 
+            </motion.div>
+            <motion.div
+              
               variants={linkHoverVariants}
               whileHover="hover"
               className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
             >
-              Notifications
+              <Link href={"/notifications"}>
+               Notifications
+              </Link>
+              
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <Bell className="w-4 h-4" />
               </motion.div>
-            </motion.a>
-            <motion.a
-              href="/chats"
+            </motion.div>
+            <motion.div
+              
               variants={linkHoverVariants}
               whileHover="hover"
               className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
-            >
-              Chats
+            ><Link href={"/chats"}>Chats</Link>
+              
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <MessageCircleMoreIcon className="w-4 h-4" />
               </motion.div>
-            </motion.a>
+            </motion.div>
           </div>
 
           {/* User Actions */}
           <div className="flex items-center gap-4">
             {session?.user ? (
               <>
-                <motion.a
-                  href="/profile"
+                <motion.div
+                 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="relative"
                 >
+                  <Link href={"/profile"}>
                   <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-400/50">
                     <Image
                       src={session.user.profileImage ?? "/builder.svg"}
@@ -135,7 +146,8 @@ const NavBar: React.FC= () => {
                       width={50} height={50}
                     />
                   </div>
-                </motion.a>
+                  </Link>
+                </motion.div>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -147,15 +159,15 @@ const NavBar: React.FC= () => {
                 </motion.button>
               </>
             ) : (
-              <motion.a
-                href="/signin"
+              <motion.div
+                
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-transparent border border-purple-400/50 text-white hover:bg-purple-400/10 transition-colors"
               >
                 <LogIn className="w-4 h-4" />
-                <span className="hidden sm:block">Login</span>
-              </motion.a>
+                <Link href={"/signin"}><span className="hidden sm:block">Login</span></Link>
+              </motion.div>
             )}
 
             {/* Mobile Menu Button */}

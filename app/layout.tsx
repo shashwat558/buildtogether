@@ -11,13 +11,13 @@ import Drag from "@/components/cursorFollower";
 import NextTopLoader from 'nextjs-toploader';
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react"
+import { Bounce, ToastContainer } from "react-toastify";
 
 
 const giest = Geist({
   weight: "500",
   subsets: ["latin"],
-  display: "swap",
-  preload: true
+  
 })
 
 // const jersey = Jersey_15({
@@ -79,6 +79,19 @@ export default async  function RootLayout({
           <NextTopLoader color="rgb(157, 0, 255)"/>
         <BackgroundBeams className="z-[-10]"/>
         <NavBar />
+        <ToastContainer
+         position="top-right"
+         autoClose={5000}
+         hideProgressBar={false}
+         newestOnTop={false}
+         closeOnClick={false}
+         rtl={false}
+         pauseOnFocusLoss
+         draggable
+         pauseOnHover
+         theme="dark"
+         transition={Bounce}
+/>
 
         <ImageProvider>
           

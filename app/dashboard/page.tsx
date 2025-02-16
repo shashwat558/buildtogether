@@ -10,6 +10,9 @@ import ProjectForm from '@/components/ProjectForm'
 import StudentCardList, { StudentProps } from '@/components/StudentCardList'
 import { motion } from 'framer-motion';
 import SearchUser from '@/components/SearchUser'
+import UsePingWebSocket from '@/hooks/useWebSocket'
+import { toast } from 'react-toastify'
+
 
 
 
@@ -17,6 +20,9 @@ const Page = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [sameCollegeGuys, setSameCollegeGuys] = useState<StudentProps[]>([]);
     const {data: session }= useSession();
+    const {recievedPings, messages} = UsePingWebSocket({userId: session?.user?.id ?? ""});
+
+    
     
     const handleVote = async (id: string, isUpvote: boolean) => {
       const res = await fetch(`/api/project/${isUpvote ? "upvote": "downvote"}`, {
@@ -70,6 +76,15 @@ const Page = () => {
     } else if(session.user?.username === "default"){
       redirect("/completeProfile")
     }
+
+    useEffect(() => {
+      if(recievedPings){
+        toast("You got a ping")
+      }
+      if(messages){
+        toast("You've got a message")
+      }
+    },[recievedPings, messages])
     
 
     useEffect(() => {
@@ -128,6 +143,7 @@ const Page = () => {
 
         
       </div>
+      
 
     </div>
   )
