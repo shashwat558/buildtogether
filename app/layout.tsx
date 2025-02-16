@@ -10,6 +10,7 @@ import { ImageProvider } from "@/context/imageContext";
 import Drag from "@/components/cursorFollower";
 import NextTopLoader from 'nextjs-toploader';
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/react"
 
 
 const giest = Geist({
@@ -45,6 +46,7 @@ export default async  function RootLayout({
       <body
         className={`${giest.className} antialiased bg-zinc-900 scroll-m-0 flex flex-col justify-center items-center`}
       >
+        <Analytics />
         <SessionProviderComponent session={session}>
           <NextTopLoader color="rgb(157, 0, 255)"/>
         <BackgroundBeams className="z-[-10]"/>

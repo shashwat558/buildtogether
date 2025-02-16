@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
-const WSS_URL = "ws://localhost:4000";
+const WSS_URL = "wss://buildtogether-jamp.onrender.com";
 
 export interface PingProps {
     senderId: string;
