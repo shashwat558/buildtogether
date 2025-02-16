@@ -10,8 +10,34 @@ import ProjectForm from '@/components/ProjectForm'
 import StudentCardList, { StudentProps } from '@/components/StudentCardList'
 import { motion } from 'framer-motion';
 import SearchUser from '@/components/SearchUser'
+// import { auth } from '../auth'
 
+// async function getStudents() {
+//   const session = await auth(); // Fetch session manually
 
+//   if (!session || !session.user) {
+//     throw new Error("Unauthorized: No session found");
+//   }
+
+//   const res = await fetch("http://localhost:3000/api/college", {
+//     method: "GET",
+//     cache: "no-store",
+//     headers: {
+//       "Content-Type": "application/json",
+//        // Send token
+//     },
+//   });
+
+//   if (!res.ok) {
+//     console.error("API Error:", res.status, await res.text());
+//     throw new Error(`Failed to fetch students: ${res.status}`);
+//   }
+
+//   const data = await res.json();
+//   console.log(data)
+//   return data[0]?.users || [];
+// }
+// getStudents()
 
 const Page = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
