@@ -28,6 +28,8 @@ const giest = Geist({
 export const metadata: Metadata = {
   title: "buildtogether",
   description: "An app to see what your peers are working on",
+  icons: "/Hammer.svg",
+  
 };
 
 export default async  function RootLayout({

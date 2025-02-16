@@ -31,22 +31,33 @@ const Page = () => {
         return;
       }
 
-      setSameCollegeGuys((prev) =>
-  prev
-    .map((student) => {
+     setSameCollegeGuys((prev) => {
+    const updatedStudents = prev.map((student) => {
       if (student.projects.length === 0 || student.projects[0].id !== id) return student;
 
       return {
         ...student,
         projects: student.projects.map((project, index) =>
           index === 0
-            ? { ...project, upvotes: isUpvote ? (project._count.upvotes || 0) + 1 : project._count.upvotes }
+            ? {
+                ...project,
+                _count: {
+                  upvotes: (project._count.upvotes || 0) + (isUpvote ? 1 : -1), // Fix: Correctly update upvotes
+                },
+              }
             : project
         ),
       };
-    })
-    .sort((a, b) => (b.projects[0]?._count.upvotes || 0) - (a.projects[0]?._count.upvotes || 0))
-);
+    });
+
+    
+    return [...updatedStudents].sort(
+      (a, b) => (b.projects[0]?._count.upvotes || 0) - (a.projects[0]?._count.upvotes || 0)
+    );
+  });
+
+
+
 
 
 
@@ -95,7 +106,15 @@ const Page = () => {
 
       <SearchUser />
 
-      <h1 className='text-white text-4xl font-bold mt-3'>Your College Mates</h1>
+      <motion.h1 variants={{hidden: {opacity: 0, y: -15},
+        visible: {
+          opacity: 1,
+          y:0,
+          transition: {
+            duration: 1
+          }
+        }
+    }} initial="hidden" animate="visible" className='text-white text-4xl font-bold mt-3'>Your College Mates</motion.h1>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ProjectForm />

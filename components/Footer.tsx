@@ -1,5 +1,6 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -10,7 +11,7 @@ const Footer = () => {
             Made with 
             <Heart className="w-4 h-4 text-red-500" /> 
             by
-            <span className="font-medium">shashwat</span>
+            <Link target='_blank' href={"https://github.com/shashwat558"}><span className="font-medium">shashwat</span></Link>
           </p>
         </div>
       </div>

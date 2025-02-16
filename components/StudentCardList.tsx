@@ -26,7 +26,8 @@ const StudentCardList: React.FC<StudentCardListProps> = ({ students, onUpvote })
   const [clientStudents, setClientStudents] = useState<StudentProps[]>([]);
 
   useEffect(() => {
-    setClientStudents(students);
+    setClientStudents([ ...students].sort((a, b) => b.projects[0]._count.upvotes - a.projects[0]._count.upvotes))
+    
   }, [students]);
 
   const containerVariants = {
