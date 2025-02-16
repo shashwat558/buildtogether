@@ -2,12 +2,13 @@
   "name": "buildtogether",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
+ "scripts": {
+  "dev": "next dev",
+  "build": "next build && npx prisma generate",
+  "start": "npx prisma generate && next start",
+  "lint": "next lint"
+},
+
   "type": "module",
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
