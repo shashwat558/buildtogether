@@ -2,6 +2,7 @@
   "name": "ws-backend",
   "version": "1.0.0",
   "main": "wsserver.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx prisma generate --schema=../prisma/schema.prisma && node wsserver.js"
@@ -13,5 +14,8 @@
   "dependencies": {
     "@prisma/client": "^6.3.1",
     "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.3.1"
   }
 }
