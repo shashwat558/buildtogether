@@ -103,11 +103,12 @@ const Page = () => {
               transition={{ delay: 0.1 }}
               className="space-y-2"
             >
-              <Label htmlFor="username" className="text-white text-lg">
+              <Label htmlFor="username"  className="text-white text-lg">
                 Username
               </Label>
               <Input
                 id="username"
+                required
                 type="text"
                 placeholder="Enter your username"
                 value={username}
@@ -126,6 +127,7 @@ const Page = () => {
               </Label>
               <div className="relative">
                 <Input
+                  required
                   id="githubUsername"
                   type="text"
                   placeholder="Enter your github username"
@@ -146,6 +148,7 @@ const Page = () => {
                 Select your College
               </Label>
               <Input
+              required
                 id="college"
                 type="text"
                 placeholder="Search for your college"

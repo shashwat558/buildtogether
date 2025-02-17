@@ -24,11 +24,13 @@ interface StudentCardListProps {
 
 const StudentCardList: React.FC<StudentCardListProps> = ({ students, onUpvote }) => {
   const [clientStudents, setClientStudents] = useState<StudentProps[]>([]);
+  console.log(students)
 
   useEffect(() => {
     setClientStudents([ ...students].sort((a, b) => b.projects[0]._count.upvotes - a.projects[0]._count.upvotes))
     
   }, [students]);
+
 
   const containerVariants = {
     initial: { opacity: 0 },
@@ -68,8 +70,8 @@ const StudentCardList: React.FC<StudentCardListProps> = ({ students, onUpvote })
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col items-center justify-center py-12 text-center"
         >
-          <div className="text-gray-400 text-lg">No students available at the moment</div>
-          <p className="text-gray-500 mt-2">Check back later for updates</p>
+          <div className="text-gray-400 text-lg">getting your college mates</div>
+          
         </motion.div>
       )}
     </motion.div>

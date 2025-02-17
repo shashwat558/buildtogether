@@ -17,7 +17,7 @@ model User {
   image          String?
   updatedAt      DateTime        @updatedAt
   collegeId      String?
-  username       String?         @unique @default("")
+  username       String?         @unique 
   githubUsername String?
   profileImage   String?
   upvote         Upvote[]

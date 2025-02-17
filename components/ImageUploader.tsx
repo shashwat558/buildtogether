@@ -47,7 +47,7 @@ const ImageUploader = () => {
           <p className="text-sm mt-2">Click or drag and drop</p>
         </div>
       </motion.div>
-      <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+      <input required ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
