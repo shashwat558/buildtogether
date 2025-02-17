@@ -13,6 +13,7 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 
 import GitHubButton from '@/components/GtihubButton';
+import Features from '@/components/Features';
 
 function App() {
   const {data: session} = useSession();
@@ -71,6 +72,8 @@ function App() {
 
       {/* Testimonials Carousel */}
       <TestimonialCarousel />
+
+      <Features />
     </div>
   );
 }

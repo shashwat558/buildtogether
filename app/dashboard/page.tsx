@@ -63,7 +63,7 @@ const Page = () => {
   
   if (!session) {
     redirect("/signin");
-  } else if (session.user?.username === "default") {
+  } else if (session.user?.username === "default" || session.user?.username === null) {
     redirect("/completeProfile");
   }
 
@@ -113,7 +113,7 @@ const Page = () => {
     };
 
     fetchStudents();
-  }, [session]);
+  }, []);
 
   if (loading) {
     return (

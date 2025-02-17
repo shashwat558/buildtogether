@@ -25,7 +25,7 @@ const Page = () => {
   const userId = session?.user?.id
   
   const router = useRouter()
-  if(session?.user?.username !== "default"){
+  if(session?.user?.username !== null){
     router.push("/dashboard");
   }
 
