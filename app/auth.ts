@@ -70,7 +70,7 @@ export const config:NextAuthConfig = {
                     data: {
                         email: profile?.email,
                         name: profile?.name,
-                        username: "default",
+                        
                         accounts:{
                             create:{
                                 provider: account?.provider ?? "",
