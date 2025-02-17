@@ -24,6 +24,7 @@ model User {
   lastSeen       DateTime?   @default(now())
   isOnline       Boolean?   @default(false)
   chatParticipants         Participants[]
+  skills        String[]
   message       Message[]   
   accounts       Account[]
   Authenticator  Authenticator[]
@@ -101,6 +102,7 @@ model Project {
   ping             Notification[]
   memberIds        String[]  @default([])
   membersCount     Int       @default(1)
+  techStack        String[]
   currentlyWorking Boolean @default(true)
   authorName       String
   author           User    @relation(fields: [authorName], references: [username])

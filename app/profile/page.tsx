@@ -44,7 +44,7 @@ function Profile() {
           headers: {
             'Content-Type': "application/json"
           }, 
-          cache: "force-cache"
+          
         });
         if (response.ok) {
           const { user } = await response.json();

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Github, Loader2 } from 'lucide-react';
+import {  Github, Loader2 } from 'lucide-react';
 
 
 
@@ -10,12 +10,14 @@ const ProjectForm: React.FC = () => {
         e.preventDefault();
         setLoading(true);
         const formData = new FormData(e.target as HTMLFormElement);
-
+        const techStack = formData.get("techStack") as string;
+        const stackArray = techStack.split(",") || techStack.split(" ");
         const data = {
             title: formData.get("title") as string,
             description: formData.get("description") as string,
             githubLink: formData.get("github") as string,
-            currentlyWorking: formData.get("currentlyWorking")  === "on"
+            currentlyWorking: formData.get("currentlyWorking")  === "on",
+            techStack: stackArray as string[]
         }
 
         try {
@@ -94,6 +96,25 @@ const ProjectForm: React.FC = () => {
             />
           </div>
         </div>
+
+        <div className="space-y-2">
+          <label htmlFor="github" className="block text-sm font-medium text-gray-300">
+            Tech stack
+          </label>
+          
+          <div className="relative">
+            
+            <textarea
+              rows={3}
+              id="techStack"
+              name="techStack"
+              className="w-full pl-2 pr-3 py-2 bg-slate-800 border border-slate-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white"
+              placeholder="pyhton,django,nextjs..."
+              required
+            />
+          </div>
+        </div>
+
 
         <div className="space-y-2">
           <label className="flex items-center gap-2 text-sm text-gray-300">

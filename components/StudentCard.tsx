@@ -1,12 +1,13 @@
 "use client"
 import React, {  useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, ArrowUp, ArrowDown, ExternalLink, MessageSquareMore } from 'lucide-react';
+import { Github, ArrowUp, ArrowDown, ExternalLink, MessageSquareMore} from 'lucide-react';
 import Blinker from './ui/blinker';
 import { useSession } from 'next-auth/react';
 import PingButton from './pingButton';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface StudentCardProps {
   id: string;
@@ -148,7 +149,7 @@ const StudentCard: React.FC<StudentCardProps> = ({
           >
             <div className="flex flex-col items-start">
               <span className="text-gray-400 text-sm">Current Project</span>
-              <span className="font-semibold text-white">{projectTitle}</span>
+              <Link href={`/project/${projectId}`} ><span className="font-semibold text-white">{projectTitle}</span></Link>
             </div>
 
             <div className="flex items-center gap-4">

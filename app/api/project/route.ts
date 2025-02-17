@@ -1,6 +1,8 @@
 import { auth } from "@/app/auth";
 import { prisma } from "@/lib/prisma";
 
+
+
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req:NextRequest){
@@ -13,15 +15,21 @@ export async function POST(req:NextRequest){
             const username = session.user?.username;
             const body = await req.json();
 
-            const {title, description, githubLink}:
-            {title: string, description: string, githubLink: string, author: string} = body;
+            const {title, description, githubLink, techStack}:
+            {title: string, description: string, githubLink: string, author: string, techStack: string[]} = body;
 
             const newProject = await prisma.project.create({
                 data: {
+                    techStack:techStack,
                     title: title,
                     description: description,
                     githubLink: githubLink,
                     author: {connect: {username: username ?? ""},
+
+                    
+
+                    
+                    
                 },
                 memberIds: [username ?? ""],
                 membersCount: 1
