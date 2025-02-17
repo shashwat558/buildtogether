@@ -5,9 +5,14 @@ import { Sparkles } from 'lucide-react';
 import { BlurIn } from '@/components/ui/blurtext';
 import FeatureCards from '@/components/FeatureCards';
 import HowItWorks from '@/components/HowItWorks';
+import TestimonialCarousel from '@/components/TestimonialCarousel';
+;
+
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+
+import GitHubButton from '@/components/GtihubButton';
 
 function App() {
   const {data: session} = useSession();
@@ -17,6 +22,8 @@ function App() {
   
   return (
     <div className="min-h-screen border-purple-500 border-[1px] rounded-lg bg-gray-900 text-white overflow-hidden">
+      <GitHubButton />
+      
       {/* Hero Section */}
       <div className="relative w-full pt-16 md:pt-32 pb-12 md:pb-20 px-4">
         <div className="absolute inset-0 bg-gradient-to-b from-purple-500/10 via-transparent to-transparent" />
@@ -56,73 +63,14 @@ function App() {
       {/* Feature Cards Section */}
       <FeatureCards />
 
+      {/* Statistics Section */}
+     
+
       {/* How It Works Section */}
       <HowItWorks />
 
-      {/* Testimonials Section */}
-      <div className="py-16 md:py-24 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">What People Are Saying</h2>
-            <p className="text-gray-400">Hear from our amazing community</p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-gray-800/50 p-6 rounded-xl border border-purple-500/20"
-            >
-              <p className="text-gray-300 mb-4">{"badiya(Amazing)"}</p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
-                <div>
-                  <p className="font-medium">Mera Dost(My friend)</p>
-                  <p className="text-sm text-gray-400">Full Stack Developer</p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="bg-gray-800/50 p-6 rounded-xl border border-purple-500/20"
-            >
-              <p className="text-gray-300 mb-4">{"maze aa gye bhai(It's crazy good)"}</p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
-                <div>
-                  <p className="font-medium">(another friend)</p>
-                  <p className="text-sm text-gray-400">UI/UX Designer</p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="bg-gray-800/50 p-6 rounded-xl border border-purple-500/20"
-            >
-              <p className="text-gray-300 mb-4">{"padhle b*******"}</p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-blue-500" />
-                <div>
-                  <p className="font-medium">Emma Thompson</p>
-                  <p className="text-sm text-gray-400">Backend Engineer</p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
+      {/* Testimonials Carousel */}
+      <TestimonialCarousel />
     </div>
   );
 }
