@@ -116,7 +116,7 @@ export default function SearchUser() {
           onChange={(e) => setSearchCollegeParams(e.target.value)}
           isLoading={isLoadingColleges}
           results={colleges}
-          onResultClick={(item) => router.push(`/college/${item.name}`)}
+          onResultClick={(item) => router.push(`/college/${item.id}`)}
           renderResult={(college) => college.name}
         />
       </div>
