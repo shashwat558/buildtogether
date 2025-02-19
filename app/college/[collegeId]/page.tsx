@@ -1,6 +1,7 @@
 
 
-import DashboardClient from "@/app/dashboard/DashBoardClient";
+
+import GenenricStudentsComponent from "@/components/GenericStudentsComponent";
 import { School } from "lucide-react";
 import React from "react";
 
@@ -40,7 +41,7 @@ const page = async ({params}: {params: Promise<{collegeId: string}>}) => {
        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 bg-clip-text text-transparent ">
     Builders of <span><School /></span> {users?.name}
 </h1>
-        <DashboardClient students={users.users}/>
+        <GenenricStudentsComponent students={users.users}/>
 
     </div>
     

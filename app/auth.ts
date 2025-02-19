@@ -133,6 +133,7 @@ export const config:NextAuthConfig = {
         
 
     },
+    secret: process.env.AUTH_SECRET,
     events: {
         async signOut(message) {
             console.log(`User signed out ${message}`)

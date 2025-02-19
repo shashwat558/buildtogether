@@ -7,12 +7,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req:NextRequest){
     const session = await auth();
-    if(!session){
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    
+    
     
         try {
-            const username = session.user?.username;
+            const username = session?.user?.username;
             const body = await req.json();
 
             const {title, description, githubLink, techStack}:
@@ -49,16 +48,15 @@ export async function POST(req:NextRequest){
 
 export async function GET(){
     const session = await auth();
-    if(!session){
-        
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    
+
+    
 
     try{
 
-        const projects = await prisma.project.findMany({
+        const projects = await prisma.project.findFirst({
             where: {
-                authorName: session.user?.username
+                authorName: session?.user?.username
             }, select :{
                 authorName: true,
                 title: true,

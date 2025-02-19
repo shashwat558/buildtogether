@@ -5,13 +5,11 @@ import { NextResponse } from "next/server";
 export async function GET() {
   const session = await auth();
 
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  
 
   try {
     const college = await prisma.user.findFirst({
-      where: { id: session.user?.id },
+      where: { id: session?.user?.id },
       select: {
         college: {
           select: { name: true },
