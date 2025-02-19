@@ -5,7 +5,7 @@ import { School } from "lucide-react";
 import React from "react";
 
 const getUsers = async (collegeId: string) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/colleges/getbyCollege?collegeId=${collegeId}`, {
+    const res = await fetch(`https://buildtogether.vercel.app/api/colleges/getbyCollege?collegeId=${collegeId}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
