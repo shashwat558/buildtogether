@@ -14,7 +14,8 @@ import ProfileClient from "./ProfileComponent";
             Cookie: `authjs.session-token=${sessionTokenAuthJs}`
             
           },
-          
+          next: {revalidate: 50},
+          credentials: "include"
           
           
         });
@@ -42,7 +43,9 @@ import ProfileClient from "./ProfileComponent";
             Cookie: `authjs.session-token=${sessionTokenAuthJs}`
             
           },
-          credentials: "include"
+          next: {revalidate: 50},
+          credentials: "include",
+          
           
          
         });
@@ -69,4 +72,4 @@ const page = async () => {
   )
 }
 
-export default page
+export default page;

@@ -29,7 +29,7 @@ interface ProjectDetailType {
 
 function ProfileClient({userDetails, allProjects}: {userDetails: UserDetailsType, allProjects: ProjectDetailType[]}) {
   
-const projectsArray = Array.isArray(allProjects) ? allProjects : [allProjects]; // ✅ Convert single object to array
+const projectsArray = Array.isArray(allProjects) ? allProjects : [allProjects]; 
 
   
   if (!userDetails) {
