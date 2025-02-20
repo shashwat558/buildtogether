@@ -1,9 +1,6 @@
 import { cookies } from "next/headers";
 import ProfileClient from "./ProfileComponent";
-const getCookie = async (name: string) => {
-      return (await cookies()).get(name)?.value ?? "";
-     }
-     const sessionTokenAuthJs = await getCookie("authjs.session-token");
+
     const getUserDetails = async () => {
      const getCookie = async (name: string) => {
       return (await cookies()).get(name)?.value ?? "";
@@ -73,7 +70,7 @@ const page = async () => {
   
   return (
     <div>
-      {sessionTokenAuthJs}
+      
       {process.env.PRODUCTION_URL}
       <ProfileClient allProjects={projects} userDetails={user}/>
     </div>
