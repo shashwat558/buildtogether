@@ -6,6 +6,7 @@ import ProfileClient from "./ProfileComponent";
       return (await cookies()).get(name)?.value ?? "";
      }
      const sessionTokenAuthJs = await getCookie("authjs.session-token");
+     console.log(sessionTokenAuthJs + "thos os ");
       try {
         const response = await fetch(`${process.env.PRODUCTION_URL}/api/getMyDetals`, {
           method: "GET",
@@ -20,7 +21,7 @@ import ProfileClient from "./ProfileComponent";
           
         });
         if (response.ok) {
-          
+          console.log(process.env.PRODUCTION_URL)
           const { user } = await response.json();
           
           return user;
