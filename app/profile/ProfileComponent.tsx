@@ -28,6 +28,7 @@ interface ProjectDetailType {
 }
 
 function ProfileClient({userDetails, allProjects}: {userDetails: UserDetailsType, allProjects: ProjectDetailType[]}) {
+  console.log(userDetails, allProjects)
   
 const projectsArray = Array.isArray(allProjects) ? allProjects : [allProjects]; 
 
