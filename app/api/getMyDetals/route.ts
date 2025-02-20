@@ -9,13 +9,13 @@ export async function GET(){
 
    const session = await auth();
    
-   const email = session?.user?.email;
+   
   
     
         try {
             const user = await prisma.user.findUnique({
             where: {
-                email:email ?? ""
+                email:session?.user?.email ?? ""
                 
             }, 
             select: {
