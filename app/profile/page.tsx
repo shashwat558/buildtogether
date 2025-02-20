@@ -67,8 +67,13 @@ const page = async () => {
   const user = await getUserDetails();
   
   
+  
   return (
-    <ProfileClient allProjects={projects} userDetails={user}/>
+    <div>
+      {process.env.PRODUCTION_URL}
+      <ProfileClient allProjects={projects} userDetails={user}/>
+    </div>
+    
 
   )
 }
