@@ -18,7 +18,7 @@ export async function GET(){
         },
         
     
-        include:{
+        select:{
             
             participants: {
                 select: {sender: {select: {username: true, profileImage: true, lastSeen: true, isOnline: true}},
