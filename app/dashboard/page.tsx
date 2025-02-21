@@ -5,6 +5,7 @@ import DashBoardClient from './DashBoardClient';
 import { cookies } from 'next/headers';
 import { auth } from '../auth';
 import ChatComponent from '@/components/ChatComponent';
+import { redirect } from 'next/navigation';
 
 
 
@@ -41,6 +42,9 @@ const getStudents = async () => {
 
 const getChats = async () => {
         const session = await auth();
+        if(!session){
+          redirect("/signin")
+        }
         const getCookie = async (name: string) => {
       return (await cookies()).get(name)?.value ?? "";
      }
@@ -78,7 +82,7 @@ const getChats = async () => {
 const page = async () => {
   const {data1, data2} = await getStudents();
   const chatUsers = await getChats();
-  
+  console.log(chatUsers)
 
   
   
