@@ -8,15 +8,13 @@ export async function GET(){
 
     const session = await auth()
 
-    if(!session){
-        return NextResponse.json({message: "Unauthorized request"});
-    }
+   
     
 
     const chats = await prisma.chat.findMany({
         
         where: {
-            participants: {some: {userId: session.user?.id}}
+            participants: {some: {userId: session?.user?.id}}
         },
         
     

@@ -23,7 +23,7 @@ const getPings = async () => {
                  return (await cookies()).get(name)?.value ?? "";
      }
                 const sessionTokenAuthJs = await getCookie("authjs.session-token");
-                console.log(sessionTokenAuthJs) 
+                
                 const response = await fetch(`${process.env.PRODUCTION_URL}/api/ping?userId=${session?.user?.id}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json",

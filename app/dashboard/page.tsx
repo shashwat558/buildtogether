@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React from 'react'
 import DashBoardClient from './DashBoardClient';
 import { cookies } from 'next/headers';
+import { auth } from '../auth';
+import ChatComponent from '@/components/ChatComponent';
 
 
 
@@ -36,12 +39,57 @@ const getStudents = async () => {
   
 }
 
+const getChats = async () => {
+        const session = await auth();
+        const getCookie = async (name: string) => {
+      return (await cookies()).get(name)?.value ?? "";
+     }
+     const sessionTokenAuthJs = await getCookie("authjs.session-token");
+        const response = await fetch(`${process.env.PRODUCTION_URL}/api/chat`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Cookie: `authjs.session-token=${sessionTokenAuthJs}`
+            },
+            
+        })
+        if(response.ok){
+            try {
+                const data = await response.json();
+                 
+                  const chatUsers = data.chats.flatMap((chat: any) => 
+                    chat.participants.filter((p:any) => p.userId !== session?.user?.id).map((p:any) => ({
+                      id: p.userId,
+                      username: p.sender.username,
+                      profileImage: p.sender.profileImage,
+                      lastSeen: p.sender.lastSeen,
+                      isOnline: p.sender.isOnline,
+                      chatId: chat.id
+
+
+                    }))
+                  )
+              return chatUsers;
+            } catch(error){
+              console.log(error)
+    };
+        }}
+
 const page = async () => {
   const {data1, data2} = await getStudents();
+  const chatUsers = await getChats();
+  
+
   
   
   return (
-    <DashBoardClient otherCollegeMates={data2[0]?.users} sameCollegeGuys={data1[0]?.users} />
+    <div> 
+      <ChatComponent chatUsers={chatUsers}/>
+       <DashBoardClient otherCollegeMates={data2[0]?.users} sameCollegeGuys={data1[0]?.users} />
+
+    </div>
+   
+
   )
 }
 

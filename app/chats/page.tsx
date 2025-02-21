@@ -6,7 +6,7 @@ import { Send, User, Clock, Check, CheckCheck } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import UsePingWebSocket from '@/hooks/useWebSocket';
-import { redirect } from 'next/navigation';
+import { redirect, useSearchParams } from 'next/navigation';
 
 interface Message {
   id?: string
@@ -35,6 +35,9 @@ const ChatPage = () => {
   if(!session){
     redirect("/signin")
   }
+  const searchParams = useSearchParams();
+  const chatIdFromQuery = searchParams.get("chatId")
+  console.log(chatIdFromQuery)
   const userId = session?.user?.id;
   const {sendMessage, messages} = UsePingWebSocket({userId: userId ?? ""});
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
@@ -47,7 +50,7 @@ const ChatPage = () => {
 
  
 
-  // Simulated data - replace with actual API calls
+  
   useEffect(() => {
     const getChats = async () => {
         const response = await fetch("/api/chat", {
@@ -119,6 +122,15 @@ const ChatPage = () => {
 };
 
 useEffect(() => {
+  if(chatIdFromQuery){
+    const selectedChat = users.find((user) => user.chatId === chatIdFromQuery)
+    if(selectedChat){
+      setSelectedUser(selectedChat)
+    }
+  }
+}, [chatIdFromQuery, users])
+
+useEffect(() => {
   if(messages && messages?.length > 0 && selectedUser?.chatId){
     const newMessages = messages.filter(
       (msg) => msg.chatId === selectedUser.chatId
@@ -137,7 +149,7 @@ const handleSelectedUser = (user: ChatUser)=>{
 
   
 
-   const formatTime = (date: Date) => {
+    const formatTime = (date: Date) => {
      return new Intl.DateTimeFormat('en-US', {
        hour: 'numeric',
        minute: 'numeric',
