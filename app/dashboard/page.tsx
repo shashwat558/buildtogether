@@ -82,7 +82,7 @@ const getChats = async () => {
 const page = async () => {
   const {data1, data2} = await getStudents();
   const chatUsers = await getChats();
-  console.log(chatUsers)
+  
 
   
   
