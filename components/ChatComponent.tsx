@@ -22,6 +22,7 @@ const ChatComponent = ({ chatUsers }: { chatUsers: ChatUser[] }) => {
       hour12: true,
     }).format(new Date(date));
   };
+  console.log(chatUsers)
 
   const router = useRouter();
 
