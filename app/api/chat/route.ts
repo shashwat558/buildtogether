@@ -19,11 +19,14 @@ export async function GET(){
         
     
         select:{
+            id: true,
             
             participants: {
                 select: {sender: {select: {username: true, profileImage: true, lastSeen: true, isOnline: true}},
                 userId: true, 
+                
             },
+            
                 
                                     
 
