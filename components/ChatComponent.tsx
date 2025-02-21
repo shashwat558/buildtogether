@@ -22,7 +22,7 @@ const ChatComponent = ({ chatUsers }: { chatUsers: ChatUser[] }) => {
       hour12: true,
     }).format(new Date(date));
   };
-  console.log(chatUsers)
+  const uniqueChatUsers = Array.from(new Map(chatUsers.map(user => [user.id, user])).values());
 
   const router = useRouter();
 
@@ -51,7 +51,7 @@ const ChatComponent = ({ chatUsers }: { chatUsers: ChatUser[] }) => {
 
       
       <div className="p-3 space-y-2 overflow-y-auto max-h-[calc(700px-4rem)]">
-        {chatUsers.map((user, index) => (
+        {uniqueChatUsers.map((user, index) => (
           <motion.div
             key={user.id}
             onClick={() => handleChatClick(user.chatId)}

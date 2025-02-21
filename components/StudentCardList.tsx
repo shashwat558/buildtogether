@@ -24,7 +24,7 @@ interface StudentCardListProps {
 
 const StudentCardList: React.FC<StudentCardListProps> = ({ students, onUpvote }) => {
   const [clientStudents, setClientStudents] = useState<StudentProps[]>([]);
-  console.log(students)
+  
 
   useEffect(() => {
     setClientStudents([ ...students].sort((a, b) => b.projects[0]._count.upvotes - a.projects[0]._count.upvotes))
