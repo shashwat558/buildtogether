@@ -60,7 +60,7 @@ const LeaderBoardClient = ({topProjects}: {topProjects: ProjectCardProps[]}) =>
         <motion.h1 variants={{
             hidden: {opacity: 0, y: -20},
             visible: {opacity: 1, y:0, transition: {duration: 1}}
-        }} className='text-4xl font-semibold text-white w-2/3 flex items-center'>Leaderboard  <ChartNoAxesColumn size={40} /></motion.h1>
+        }} initial="hidden" animate="visible" className='text-4xl font-semibold text-white w-2/3 flex items-center'>Leaderboard  <ChartNoAxesColumn size={40} /></motion.h1>
     
         <motion.div 
       className='w-full overflow-scroll'

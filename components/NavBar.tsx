@@ -125,6 +125,14 @@ const NavBar: React.FC= () => {
               >
                 <MessageCircleMoreIcon className="w-4 h-4" />
               </motion.div>
+              <motion.div
+              
+              variants={linkHoverVariants}
+              whileHover="hover"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+             <Link href={"/leaderboard"}>Leaderboard</Link> 
+            </motion.div>
             </motion.div>
           </div>
 
