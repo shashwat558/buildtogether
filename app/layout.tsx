@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist} from "next/font/google";
 import "./globals.css";
-import { BackgroundBeams } from "@/components/ui/background-beams";
+
 import NavBar from "@/components/NavBar";
 
 import { auth } from "./auth";
