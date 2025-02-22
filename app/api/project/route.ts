@@ -14,16 +14,18 @@ export async function POST(req:NextRequest){
             const username = session?.user?.username;
             const body = await req.json();
 
-            const {title, description, githubLink, techStack}:
-            {title: string, description: string, githubLink: string, author: string, techStack: string[]} = body;
+            const {title, description, githubLink, techStack, domain}:
+            {title: string, description: string, githubLink: string, author: string, techStack: string[], domain: string} = body;
 
             const newProject = await prisma.project.create({
                 data: {
                     techStack:techStack,
                     title: title,
+                    Domain: domain,
                     description: description,
                     githubLink: githubLink,
                     author: {connect: {username: username ?? ""},
+                    
 
                     
 

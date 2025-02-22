@@ -8,6 +8,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import type React from "react" // Added import for React
 
+
 interface UserProps {
   username: string
   profileImage: string
@@ -24,7 +25,8 @@ export default function SearchUser() {
   const [searchUserParams, setSearchUserParams] = useState("")
   const [searchCollegeParams, setSearchCollegeParams] = useState("")
   const [isLoadingUsers, setIsLoadingUsers] = useState(false)
-  const [isLoadingColleges, setIsLoadingColleges] = useState(false)
+  const [isLoadingColleges, setIsLoadingColleges] = useState(false);
+  
   const router = useRouter()
 
   useEffect(() => {
@@ -170,7 +172,8 @@ function SearchBox<T>({
           ))}
         </ul>
       )}
+     
     </div>
-  )
+  ) 
 }
 

@@ -32,7 +32,7 @@ export async function POST(req: NextRequest){
                     id: body.projectId
                 },
                 data:{
-                    memberIds : {connect: {id: body.senderName }},
+                    memberIds : {push: body.senderName},
                     membersCount: {increment: 1}
                 }
             })

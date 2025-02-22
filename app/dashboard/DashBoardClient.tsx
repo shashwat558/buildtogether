@@ -10,6 +10,7 @@ import SearchUser from '@/components/SearchUser'
 import UsePingWebSocket from '@/hooks/useWebSocket'
 import { toast } from 'react-toastify'
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
+import Link from 'next/link'
 
 const itemsPerPage = 10;
 
@@ -111,6 +112,14 @@ const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys:
 
       
       <div className='flex'>
+         <Link className=''  href={"/project/domain"}><motion.p variants={{ hidden: {opacity: 0, y:-15},
+        visible: {
+            opacity: 1,
+            y:0,
+            transition: {
+                duration: 1
+            }
+        }}} initial="hidden" animate="visible"  className=' border-[1px] border-purple-400 rounded-xl p-2 hover:text-gray-300 text-gray-500 underline text-xl'>get projects by domain <span className="rotate-[45deg] ">{"->"}</span></motion.p></Link>
         <SearchUser />
         <motion.div variants={{ hidden: {opacity: 0, y:-15},
         visible: {

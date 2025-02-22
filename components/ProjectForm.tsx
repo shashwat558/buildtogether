@@ -17,7 +17,8 @@ const ProjectForm: React.FC = () => {
             description: formData.get("description") as string,
             githubLink: formData.get("github") as string,
             currentlyWorking: formData.get("currentlyWorking")  === "on",
-            techStack: stackArray as string[]
+            techStack: stackArray as string[],
+            domain: formData.get("domain") as string
         }
 
         try {
@@ -112,6 +113,31 @@ const ProjectForm: React.FC = () => {
               placeholder="pyhton,django,nextjs..."
               required
             />
+          </div>
+        </div>
+         <div className="space-y-2">
+          <label htmlFor="github" className="block text-sm font-medium text-gray-300">
+            Domain
+          </label>
+          
+          <div className="relative">
+            
+            <select required name="domain" className="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white">
+                <option value="Web Development">Web Development</option>
+                <option value="Mobile Development">Mobile Development</option>
+                <option value="Software Development">Software Development</option>
+                <option value="AI & Machine Learning">AI & Machine Learning</option>
+                <option value="Data Science & Analytics">Data Science & Analytics</option>
+                <option value="Internet of Things (IoT)">Internet of Things (IoT)</option>
+                <option value="Cybersecurity">Cybersecurity</option>
+                <option value="Blockchain & Web3">Blockchain & Web3</option>
+                <option value="Game Development">Game Development</option>
+                <option value="DevOps & Cloud Computing">DevOps & Cloud Computing</option>
+                <option value="E-commerce & FinTech">E-commerce & FinTech</option>
+                <option value="EdTech & Learning Platforms">EdTech & Learning Platforms</option>
+                <option value="Other">Other</option>
+</select>
+
           </div>
         </div>
 

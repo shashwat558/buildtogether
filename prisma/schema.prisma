@@ -21,7 +21,6 @@ model User {
   githubUsername String?
   profileImage   String?
   upvote         Upvote[]
-  projectMembers Members[]
   lastSeen       DateTime?   @default(now())
   isOnline       Boolean?   @default(false)
   chatParticipants         Participants[]
@@ -101,22 +100,14 @@ model Project {
   description      String
   githubLink       String
   ping             Notification[]
-  memberIds        Members[]
+  memberIds        String[]  @default([])
   membersCount     Int       @default(1)
   techStack        String[]
+  Domain           String?
   currentlyWorking Boolean @default(true)
   authorName       String
   author           User    @relation(fields: [authorName], references: [username] )
   upvotes         Upvote[]
-}
-
-model Members {
-  id         String @id  @default(uuid())
-userName    String
-  projectId    String @unique
-  project    Project @relation(fields: [projectId], references: [id])
-  user       User  @relation(fields: [userName], references: [username])
-  @@unique([projectId, userName])
 }
 
 model Upvote {
@@ -177,4 +168,3 @@ model Message {
   sender    User  @relation(fields: [senderId], references: [id], onDelete: Cascade)
 
 }
-

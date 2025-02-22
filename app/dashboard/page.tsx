@@ -55,7 +55,7 @@ const getChats = async () => {
                 "Content-Type": "application/json",
                 Cookie: `authjs.session-token=${sessionTokenAuthJs}`
             },
-            
+            next: {revalidate: 100}            
         })
         if(response.ok){
             try {

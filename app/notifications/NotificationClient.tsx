@@ -1,6 +1,6 @@
 "use client";
 
-import ChatBot from "@/components/chatBot";
+
 import NotificationCard from "@/components/NotificationCard";
 import UsePingWebSocket from "@/hooks/useWebSocket";
 import { useSession } from "next-auth/react";
@@ -88,7 +88,7 @@ const NotificationClient = ({pings}: {pings: PingProps[]}) => {
                     />
                 ))}
             </ul>
-            <ChatBot />
+            
         </div>
     );
 };
