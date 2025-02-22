@@ -72,12 +72,12 @@ export default async  function RootLayout({
         
       </head>
       <body
-        className={`${giest.className} antialiased bg-zinc-900 scroll-m-0 flex flex-col justify-center items-center`}
+        className={`${giest.className} antialiased  scroll-m-0 flex flex-col justify-center items-center bg-[#18181B]`}
       >
         <Analytics />
         <SessionProviderComponent session={session}>
           <NextTopLoader color="rgb(157, 0, 255)"/>
-        <BackgroundBeams className="z-[-10]"/>
+        
         <NavBar />
         <ToastContainer
          position="top-right"
