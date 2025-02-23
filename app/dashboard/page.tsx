@@ -92,7 +92,7 @@ const page = async () => {
   
   return (
     <div> 
-      {data2 && <ChatComponent chatUsers={chatUsers}/>}
+      <ChatComponent chatUsers={chatUsers}/>
        <DashBoardClient otherCollegeMates={data2[0]?.users} sameCollegeGuys={data1[0]?.users} />
 
     </div>
