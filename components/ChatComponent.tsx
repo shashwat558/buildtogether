@@ -70,7 +70,7 @@ const ChatComponent = ({ chatUsers }: { chatUsers: ChatUser[] }) => {
             animate="visible"
             className="group relative bg-gray-800/30 hover:bg-gray-700/50 rounded-xl p-3 transition-all duration-200"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 cursor-pointer">
               
               <div className="relative">
                 <div className="w-12 h-12 rounded-full overflow-hidden">

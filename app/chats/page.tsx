@@ -6,7 +6,8 @@ import { Send, User, Clock, Check, CheckCheck } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import UsePingWebSocket from '@/hooks/useWebSocket';
-import { redirect, useSearchParams } from 'next/navigation';
+import { redirect, useSearchParams, useRouter } from 'next/navigation';
+
 
 interface Message {
   id?: string
@@ -37,8 +38,9 @@ const ChatPage = () => {
   }
   const searchParams = useSearchParams();
   const chatIdFromQuery = searchParams.get("chatId")
-  console.log(chatIdFromQuery)
+  
   const userId = session?.user?.id;
+  const router = useRouter()
   const {sendMessage, messages} = UsePingWebSocket({userId: userId ?? ""});
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
@@ -141,6 +143,7 @@ useEffect(() => {
 
 const handleSelectedUser = (user: ChatUser)=>{
   setSelectedUser(user);
+  router.push(`/chats?chatId=${user?.chatId}`)
   if (messages) {
     setChatMessages(messages.filter((msg: Message) => msg.chatId === user?.chatId));
   }

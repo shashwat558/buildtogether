@@ -17,6 +17,8 @@ const itemsPerPage = 10;
 const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys: StudentProps[], otherCollegeMates: StudentProps[]}) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [currentPage, setCurrentPage] = useState(1);
+  const [prevPingCount, setPrevPingCount] = useState(0);
+  const [prevMessageCount, setPrevMessageCount] = useState(0);
 
   const selectedList = sameCollegeGuys.length > 0 ? sameCollegeGuys : otherCollegeMates;
   const totalItems = selectedList.length;
@@ -61,13 +63,15 @@ const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys:
   }
 
   useEffect(() => {
-    if (recievedPings) {
+    if ((recievedPings?.length ?? 0) > prevPingCount) {
       toast("You got a ping");
+      setPrevPingCount(recievedPings?.length ?? 0)
     }
-    if (messages) {
+    if ((messages?.length ?? 0) > prevMessageCount) {
       toast("You've got a message");
+      setPrevMessageCount(messages?.length?? 0)
     }
-  }, [recievedPings, messages]);
+  }, [recievedPings, messages, prevPingCount, prevMessageCount]);
 
   return (
     <div>
@@ -119,7 +123,7 @@ const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys:
             transition: {
                 duration: 1
             }
-        }}} initial="hidden" animate="visible"  className=' border-[1px] border-purple-400 rounded-xl p-2 hover:text-gray-300 text-gray-500 underline text-xl'>get projects by domain <span className="rotate-[45deg] ">{"->"}</span></motion.p></Link>
+        }}} initial="hidden" animate="visible"  className='bg-white border-[1px] border-purple-400 rounded-xl p-2 hover:text-gray-900 text-gray-700 underline text-xl'>Projects by domain <span className="rotate-[45deg] ">{"->"}</span></motion.p></Link>
         <SearchUser />
         <motion.div variants={{ hidden: {opacity: 0, y:-15},
         visible: {

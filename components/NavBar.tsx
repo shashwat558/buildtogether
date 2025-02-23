@@ -1,17 +1,32 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, LogOut, LogIn, Menu, X, MessageCircleMoreIcon } from 'lucide-react';
 
 import Image from 'next/image';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import UsePingWebSocket from '@/hooks/useWebSocket';
 
 
 
 const NavBar: React.FC= () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [prevPingCount, setPrevPingCount] = useState(0);
+  const [prevMessagesCount, setPrevMessagesCount] = useState(0);
   const {data: session} = useSession();
+  const {recievedPings, messages} = UsePingWebSocket({userId: session?.user?.id ?? ""});
+  console.log(recievedPings)
+  
+   
+  useEffect(() => {
+  setPrevPingCount(recievedPings?.length ?? 0);
+  setPrevMessagesCount(messages?.length ?? 0);
+}, [recievedPings?.length, messages?.length]);
+
+
+
+ 
 
   const navVariants = {
     hidden: { opacity: 0, y: -20 },
@@ -102,7 +117,7 @@ const NavBar: React.FC= () => {
               className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
             >
               <Link href={"/notifications"}>
-               Notifications
+               Notifications <span>{prevPingCount !== 0 ? prevPingCount: ""}</span>
               </Link>
               
               <motion.div
@@ -117,7 +132,7 @@ const NavBar: React.FC= () => {
               variants={linkHoverVariants}
               whileHover="hover"
               className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
-            ><Link href={"/chats"}>Chats</Link>
+            ><Link href={"/chats"}>Chats <span>{prevMessagesCount !== 0 ? prevMessagesCount : ""}</span></Link>
               
               <motion.div
                 whileHover={{ scale: 1.1 }}
@@ -125,14 +140,15 @@ const NavBar: React.FC= () => {
               >
                 <MessageCircleMoreIcon className="w-4 h-4" />
               </motion.div>
-              <motion.div
+              
+            </motion.div>
+            <motion.div
               
               variants={linkHoverVariants}
               whileHover="hover"
               className="text-gray-300 hover:text-white transition-colors"
             >
              <Link href={"/leaderboard"}>Leaderboard</Link> 
-            </motion.div>
             </motion.div>
           </div>
 
