@@ -49,7 +49,7 @@ const getChats = async () => {
       return (await cookies()).get(name)?.value ?? "";
      }
      const sessionTokenAuthJs = await getCookie("authjs.session-token");
-        const response = await fetch(`${process.env.PRODUCTION_URL}/api/chat`, {
+        const response = await fetch(`${process.env.PRODUCTION_URL}/api/chat/onlyusers?id=${session.user?.id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
