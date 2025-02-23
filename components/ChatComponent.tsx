@@ -85,7 +85,7 @@ const ChatComponent = ({ chatUsers }: { chatUsers: ChatUser[] }) => {
                   ) : (
                     <div className="w-full h-full bg-gray-600 flex items-center justify-center">
                       <span className="text-xl text-gray-300">
-                        {user.username.charAt(0).toUpperCase()}
+                        {user.username}
                       </span>
                     </div>
                   )}

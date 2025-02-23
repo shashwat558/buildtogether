@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { auth } from "../auth";
 import NotificationClient from "./NotificationClient";
+import { redirect } from "next/navigation";
 
 interface PingProps {
     id?: string,
@@ -54,7 +55,11 @@ const getPings = async () => {
 
 
 const page = async () => {
+    const session = await auth();
 
+    if(!session){
+        redirect("/signin")
+    }
     const pings = await getPings();
     
   return (

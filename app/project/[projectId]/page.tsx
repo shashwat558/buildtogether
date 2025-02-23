@@ -1,11 +1,12 @@
 "use client"
-import { useParams } from 'next/navigation'
+import { redirect, useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Github, Users, Boxes, CheckCircle, XCircle } from 'lucide-react'
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
+import { useSession } from 'next-auth/react'
 
 interface ProjectDetails {
   id: string;
@@ -34,7 +35,11 @@ const staggerContainer = {
 };
 
 const Page = () => {
-  const [projectDetails, setProjectDetails] = useState<ProjectDetails | null>(null)
+  const [projectDetails, setProjectDetails] = useState<ProjectDetails | null>(null);
+  const {data:session} = useSession();
+  if(!session){
+    redirect("/signin")
+  }
   const [loading, setLoading] = useState(true)
   const { projectId } = useParams();
   const sanitizedProjectId = projectId ?? String(projectId) ?? "";
