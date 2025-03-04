@@ -25,6 +25,7 @@ model User {
   isOnline       Boolean?   @default(false)
   chatParticipants         Participants[]
   skills        String[]
+  comments      Comment[]
   message       Message[]   
   accounts       Account[]
   Authenticator  Authenticator[]
@@ -103,6 +104,7 @@ model Project {
   memberIds        String[]  @default([])
   membersCount     Int       @default(1)
   techStack        String[]
+  comments         Comment[]
   Domain           String?
   currentlyWorking Boolean @default(true)
   authorName       String
@@ -110,6 +112,16 @@ model Project {
   upvotes         Upvote[]
 }
 
+model Comment {
+  id        String @id @default(uuid())
+  projectId String
+  userId    String
+  content   String
+  createdAt DateTime  @default(now())
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+}
 model Upvote {
   id        String @id @default(uuid())
   userId    String

@@ -66,7 +66,7 @@ const NavBar: React.FC= () => {
   };
 
   return (
-    <div className="w-full  top-0 left-0 right-0 z-50 px-4 py-3">
+    <div className="w-full sm:w-full top-0 left-0 right-0 z-50 px-4 py-3">
       <motion.nav
         initial="hidden"
         animate="visible"

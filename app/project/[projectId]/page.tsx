@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
 import { useSession } from 'next-auth/react'
+import CommentSection from '@/components/CommentSection'
 
 interface ProjectDetails {
   id: string;
@@ -287,6 +288,7 @@ const Page = () => {
           </motion.div>
         </motion.div>
       </motion.div>
+      <CommentSection />
     </div>
   )
 }

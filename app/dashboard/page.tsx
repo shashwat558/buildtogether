@@ -83,6 +83,7 @@ const page = async () => {
   const {data1, data2} = await getStudents();
   const chatUsers = await getChats();
   const session = await auth();
+  
   if(!session){
     redirect("/signin")
   }

@@ -15,6 +15,8 @@ import Link from 'next/link'
 const itemsPerPage = 10;
 
 const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys: StudentProps[], otherCollegeMates: StudentProps[]}) => {
+
+  console.log(sameCollegeGuys, otherCollegeMates)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [currentPage, setCurrentPage] = useState(1);
   const [prevPingCount, setPrevPingCount] = useState(0);
@@ -88,7 +90,7 @@ const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys:
         }}
         initial="hidden"
         animate="visible"
-        className="relative bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-2xl mb-5 shadow-lg"
+        className="relative bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-2xl mb-5 shadow-lg max-sm:w-auto max-sm:ml-5 max-sm:mr-5"
       >
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
@@ -98,8 +100,8 @@ const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys:
         >
           <Sparkles className="w-6 h-6 text-yellow-600 animate-pulse" />
         </motion.div>
-        <div className="flex items-center gap-3">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 text-transparent bg-clip-text">
+        <div className="flex items-center max-sm:justify-center gap-3">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 text-transparent bg-clip-text text-center">
             {gretting()}
           </h2>
           <span className="text-3xl font-bold text-blue-400">
@@ -107,7 +109,7 @@ const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys:
           </span>
           <span className="text-3xl">👋</span>
         </div>
-        <p className="mt-2 text-gray-400 font-medium">
+        <p className="mt-2 text-gray-400 font-medium text-center">
           {"Ready to explore what's new today?"}
         </p>
       </motion.div>
