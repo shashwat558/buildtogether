@@ -94,7 +94,7 @@ const page = async () => {
   return (
     <div> 
       <ChatComponent chatUsers={chatUsers}/>
-       <DashBoardClient otherCollegeMates={data2[0]?.users} sameCollegeGuys={data1[0]?.users} />
+       <DashBoardClient otherCollegeMates={data2[0]?.users ?? null} sameCollegeGuys={data1[0]?.users ?? null} />
 
     </div>
    

@@ -52,6 +52,7 @@ export async function GET() {
         },
       },
     });
+    console.log(collegeStudents)
 
     return NextResponse.json(collegeStudents , { status: 200 });
   } catch (error) {

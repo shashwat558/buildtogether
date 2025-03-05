@@ -14,7 +14,7 @@ import Link from 'next/link'
 
 const itemsPerPage = 10;
 
-const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys: StudentProps[], otherCollegeMates: StudentProps[]}) => {
+const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys: StudentProps[] | null, otherCollegeMates: StudentProps[] | null}) => {
 
   console.log(sameCollegeGuys, otherCollegeMates)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -22,12 +22,12 @@ const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys:
   const [prevPingCount, setPrevPingCount] = useState(0);
   const [prevMessageCount, setPrevMessageCount] = useState(0);
 
-  const selectedList = sameCollegeGuys.length > 0 ? sameCollegeGuys : otherCollegeMates;
-  const totalItems = selectedList.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const selectedList = (sameCollegeGuys && sameCollegeGuys.length > 0) ? sameCollegeGuys : otherCollegeMates;
+  const totalItems = (selectedList && selectedList.length);
+  const totalPages = Math.ceil((totalItems ?? 0) / itemsPerPage);
 
-  const paginatedData = (selectedList).slice(
-    (currentPage - 1) * itemsPerPage, (currentPage * itemsPerPage)
+  const paginatedData = ( selectedList && selectedList.slice(
+    (currentPage - 1) * itemsPerPage, (currentPage * itemsPerPage))
   )
 
   const gretting= (): string => {
@@ -155,7 +155,7 @@ const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys:
         animate="visible" 
         className='text-white text-4xl font-bold mt-3'
       >
-        {paginatedData.length > 0 ? "Your College Mates" : "No one from your college, check out others!"}
+        { paginatedData && paginatedData.length > 0 ? "Your College Mates" : "No one from your college, check out others!"}
       </motion.h1>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
@@ -163,7 +163,7 @@ const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys:
       </Modal>
 
       <div className='text-white w-[950px] flex flex-col gap-3 mt-8'>
-        <StudentCardList students={paginatedData.length > 0 ? paginatedData : paginatedData} onUpvote={handleVote}/>
+        <StudentCardList students={paginatedData && paginatedData.length > 0 ? paginatedData : []} onUpvote={handleVote}/>
       </div>
 
       {totalPages > 1 && (
