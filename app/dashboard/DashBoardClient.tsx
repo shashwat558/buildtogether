@@ -16,7 +16,7 @@ const itemsPerPage = 10;
 
 const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys: StudentProps[] | null, otherCollegeMates: StudentProps[] | null}) => {
 
-  console.log(sameCollegeGuys, otherCollegeMates)
+  
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [currentPage, setCurrentPage] = useState(1);
   const [prevPingCount, setPrevPingCount] = useState(0);

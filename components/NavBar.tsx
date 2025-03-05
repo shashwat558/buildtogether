@@ -16,7 +16,7 @@ const NavBar: React.FC= () => {
   const [prevMessagesCount, setPrevMessagesCount] = useState(0);
   const {data: session} = useSession();
   const {recievedPings, messages} = UsePingWebSocket({userId: session?.user?.id ?? ""});
-  console.log(recievedPings)
+  
   
    
   useEffect(() => {
