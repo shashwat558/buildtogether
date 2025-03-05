@@ -74,7 +74,7 @@ export default async  function RootLayout({
         
       </head>
       <body
-        className={`${giest.className} antialiased  scroll-m-0 flex flex-col justify-center items-center bg-[#18181B]`}
+        className={`${giest.className} antialiased  scroll-m-0 flex flex-col justify-center items-center bg-[#18181B] max-sm:overflow-x-hidden`}
       >
         <Analytics />
         <SessionProviderComponent session={session}>

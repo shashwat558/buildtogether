@@ -114,13 +114,13 @@ const StudentCard: React.FC<StudentCardProps> = ({
     >
       <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 transform scale-[2] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
       
-      <div className="relative max-sm:w-[100vw] w-full bg-gradient-to-r from-gray-800/90 to-gray-900/90 p-6 rounded-xl border border-gray-700/50 shadow-lg backdrop-blur-sm">
+      <div className="relative max-sm:w-[355px] w-full bg-gradient-to-r from-gray-800/90 to-gray-900/90 p-6 max-sm:p-3 rounded-xl border border-gray-700/50 shadow-lg backdrop-blur-sm">
         <div className="flex items-center justify-between space-x-6 flex-wrap">
           <motion.div 
             variants={contentVariants}
             className="flex items-center gap-4 flex-grow"
           >
-            <div className="flex flex-col">
+            <div className="flex flex-col max-sm:flex-row max-sm:gap-2">
               <motion.a
                 href={session?.user?.username === username ? "/profile" : `/user/${username}`}
                 className="text-2xl font-bold text-white hover:text-purple-400 transition-colors duration-300"
@@ -145,7 +145,7 @@ const StudentCard: React.FC<StudentCardProps> = ({
 
           <motion.div 
             variants={contentVariants}
-            className="flex items-center gap-6"
+            className="flex items-center gap-6 max-sm:gap-3 max-sm:mr-3"
           >
             <div className="flex flex-col items-start">
               <span className="text-gray-400 text-sm">Current Project</span>

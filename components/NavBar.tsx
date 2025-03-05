@@ -90,7 +90,7 @@ const NavBar: React.FC= () => {
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               className="w-10 h-10 flex items-center justify-center"
             >
-              <Image src="/Hammer.svg" alt="logo" height={50} width={50} />
+              <Image src="/Hammer.svg" alt="logo" height={50} width={50} priority/>
              
             </motion.div>
             <span className="text-white font-semibold hidden sm:block">BuildTogether</span>
