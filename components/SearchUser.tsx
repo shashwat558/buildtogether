@@ -88,7 +88,7 @@ export default function SearchUser() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-2xl  mx-auto p-4 max-sm:w-auto rounded-lg shadow-lg ml-24"
+      className="w-full max-w-2xl  mx-auto p-4  rounded-lg shadow-lg mr-2 ml-2 max-sm:max-w-[100vw]"
     >
       
       <div className="flex flex-col md:flex-row  justify-center max-sm:justify-center max-sm:items-center items-center gap-5">

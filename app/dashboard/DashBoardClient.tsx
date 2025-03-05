@@ -76,48 +76,49 @@ const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys:
   }, [recievedPings, messages, prevPingCount, prevMessageCount]);
 
   return (
-    <div>
-      <motion.div 
-        variants={{
-          hidden: { opacity: 0, y: -15 },
-          visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-              duration: 0.5
-            }
-          }
-        }}
-        initial="hidden"
-        animate="visible"
-        className="relative bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-2xl mb-5 shadow-lg max-sm:w-auto max-sm:ml-5 max-sm:mr-5"
-      >
-        <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.3 }}
-          className="absolute -top-3 -right-3"
-        >
-          <Sparkles className="w-6 h-6 text-yellow-600 animate-pulse" />
-        </motion.div>
-        <div className="flex items-center max-sm:justify-center gap-3">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 text-transparent bg-clip-text text-center">
-            {gretting()}
-          </h2>
-          <span className="text-3xl font-bold text-blue-400">
-            {session?.user?.username}
-          </span>
-          <span className="text-3xl">👋</span>
-        </div>
-        <p className="mt-2 text-gray-400 font-medium text-center">
-          {"Ready to explore what's new today?"}
-        </p>
-      </motion.div>
+    <div className='max-sm:overflow-x-hidden'>
+      <motion.div
+  variants={{
+    hidden: { opacity: 0, y: -15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 },
+    },
+  }}
+  initial="hidden"
+  animate="visible"
+  className="relative bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 sm:p-6 rounded-2xl mb-5 shadow-lg w-full max-w-lg mx-auto max-sm:overflow-hidden max-sm:w-[370px]"
+>
+  <motion.div
+    initial={{ scale: 0.95, opacity: 0 }}
+    animate={{ scale: 1, opacity: 1 }}
+    transition={{ delay: 0.2, duration: 0.3 }}
+    className="absolute -top-3 -right-3"
+  >
+    <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-600 animate-pulse" />
+  </motion.div>
+
+  <div className="flex flex-col sm:flex-row items-center sm:justify-center gap-2 sm:gap-3">
+    <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 text-transparent bg-clip-text text-center sm:text-left">
+      {gretting()}
+    </h2>
+    <span className="text-2xl sm:text-3xl font-bold text-blue-400">
+      {session?.user?.username}
+    </span>
+    <span className="text-2xl sm:text-3xl">👋</span>
+  </div>
+
+  <p className="mt-2 text-gray-400 font-medium text-center">
+    {"Ready to explore what's new today?"}
+  </p>
+</motion.div>
+
 
       
 
       
-      <div className='flex'>
+      <div className='flex max-sm:flex-col max-sm:justify-center items-center'>
          <Link className=''  href={"/project/domain"}><motion.p variants={{ hidden: {opacity: 0, y:-15},
         visible: {
             opacity: 1,
@@ -153,7 +154,7 @@ const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys:
         }} 
         initial="hidden" 
         animate="visible" 
-        className='text-white text-4xl font-bold mt-3'
+        className='text-white text-4xl font-bold mt-3 max-sm:text-center'
       >
         { paginatedData && paginatedData.length > 0 ? "Your College Mates" : "No one from your college, check out others!"}
       </motion.h1>

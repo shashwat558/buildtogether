@@ -48,7 +48,7 @@ const StudentCardList: React.FC<StudentCardListProps> = ({ students, onUpvote })
       variants={containerVariants}
       initial="initial"
       animate="animate"
-      className="space-y-6 w-full max-w-7xl mx-auto px-4"
+      className="space-y-6 w-full max-w-7xl mx-auto px-4 max-sm:w-[100vw]"
     >
       {clientStudents.length > 0 ? (
         clientStudents.map((student) => (

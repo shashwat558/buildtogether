@@ -39,7 +39,7 @@ const ChatComponent = ({ chatUsers }: { chatUsers: ChatUser[] }) => {
       }}
       initial="hidden"
       animate="visible"
-      className="fixed top-[20%] left-2 w-[320px] h-[700px] bg-gradient-to-b from-gray-900 to-gray-800 shadow-2xl rounded-2xl overflow-hidden"
+      className="fixed top-[20%] left-2 w-[320px] h-[700px] bg-gradient-to-b from-gray-900 to-gray-800 shadow-2xl rounded-2xl overflow-hidden max-sm:hidden"
     >
       {/* Header */}
       <div className="bg-gray-800/50 p-4 border-b border-gray-700">

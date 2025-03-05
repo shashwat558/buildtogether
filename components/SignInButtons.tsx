@@ -22,7 +22,7 @@ export default function SignInButtons() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-4">
+    <div className="sm:min-h-200px min-h-screen w-full flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-gradient-to-r blur-3xl" />
       
       <motion.div

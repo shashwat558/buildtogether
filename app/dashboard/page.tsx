@@ -93,7 +93,8 @@ const page = async () => {
   
   
   return (
-    <div> 
+    <div className='max-sm:overflow-x-hidden'> 
+
       <ChatComponent chatUsers={chatUsers}/>
        <DashBoardClient otherCollegeMates={data2[0]?.users ?? []} sameCollegeGuys={data1[0]?.users ?? []} />
 

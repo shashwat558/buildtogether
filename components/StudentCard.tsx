@@ -114,8 +114,8 @@ const StudentCard: React.FC<StudentCardProps> = ({
     >
       <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 transform scale-[2] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
       
-      <div className="relative w-full bg-gradient-to-r from-gray-800/90 to-gray-900/90 p-6 rounded-xl border border-gray-700/50 shadow-lg backdrop-blur-sm">
-        <div className="flex items-center justify-between space-x-6">
+      <div className="relative max-sm:w-[100vw] w-full bg-gradient-to-r from-gray-800/90 to-gray-900/90 p-6 rounded-xl border border-gray-700/50 shadow-lg backdrop-blur-sm">
+        <div className="flex items-center justify-between space-x-6 flex-wrap">
           <motion.div 
             variants={contentVariants}
             className="flex items-center gap-4 flex-grow"
