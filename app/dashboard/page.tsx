@@ -21,7 +21,7 @@ const getStudents = async () => {
         "Content-Type": "application/json",
         Cookie: `authjs.session-token=${sessionTokenAuthJs}`
       },
-      next: {revalidate: 50}
+      cache: "no-store"
     }),
     fetch(`${process.env.PRODUCTION_URL}/api/colleges/other-colleges`, {
       method: "GET",
@@ -30,7 +30,7 @@ const getStudents = async () => {
         Cookie: `authjs.session-token=${sessionTokenAuthJs}`
       },
       
-      next: {revalidate: 100}
+      cache: "no-store"
     })
   ])
   const data1 = res1.ok ? await res1.json() : null;
@@ -83,6 +83,7 @@ const page = async () => {
   const {data1, data2} = await getStudents();
   const chatUsers = await getChats();
   const session = await auth();
+  console.log(process.env.PRODUCTION_URL)
   
   if(!session){
     redirect("/signin")
@@ -94,7 +95,7 @@ const page = async () => {
   return (
     <div> 
       <ChatComponent chatUsers={chatUsers}/>
-       <DashBoardClient otherCollegeMates={data2[0]?.users ?? null} sameCollegeGuys={data1[0]?.users ?? null} />
+       <DashBoardClient otherCollegeMates={data2[0]?.users ?? []} sameCollegeGuys={data1[0]?.users ?? []} />
 
     </div>
    
