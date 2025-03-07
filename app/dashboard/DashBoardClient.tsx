@@ -126,7 +126,7 @@ const DashBoardClient = ({sameCollegeGuys, otherCollegeMates}: {sameCollegeGuys:
             transition: {
                 duration: 1
             }
-        }}} initial="hidden" animate="visible"  className='bg-white border-[1px] border-purple-400 rounded-xl p-2 hover:text-gray-900 text-gray-700 underline text-xl'>Projects by domain <span className="rotate-[45deg] ">{"->"}</span></motion.p></Link>
+        }}} initial="hidden" animate="visible" className='flex items-center'><Button  variant={"outline"}>Projects by domain<span className="rotate-[-45deg] ">{"->"}</span></Button></motion.p></Link>
         <SearchUser />
         <motion.div variants={{ hidden: {opacity: 0, y:-15},
         visible: {

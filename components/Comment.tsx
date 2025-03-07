@@ -1,16 +1,26 @@
-import React from 'react'
+import React from 'react';
 
-const Comment = () => {
-  return (
-    <div className='w-full border-b-[0.5px] border-gray-600'>
-        <div className='w-full flex flex-col p-3 text-white'>
-            <h1>@shashwat</h1>
-            <p className='w-full'>this is really great project and test test test test test test test </p>
-            <p>created at: 12/20/2024</p>
 
-        </div>
-    </div>
-  )
+interface CommentProps {
+  username: string;
+  content: string;
+  createdAt: string;
 }
 
-export default Comment
+const Comment = ({ username, content, createdAt }: CommentProps) => {
+  return (
+    <div className='w-full border-[0.5px] border-white/10 rounded-lg bg-white/5 backdrop-blur-sm transition-all hover:bg-white/10'>
+      <div className='w-full flex flex-col p-4 text-white gap-2'>
+        <div className="flex items-center justify-between">
+          <h1 className="font-medium text-purple-400">@{username}</h1>
+          <p className="text-sm text-white/50">
+            {createdAt}
+          </p>
+        </div>
+        <p className='w-full text-white/80'>{content}</p>
+      </div>
+    </div>
+  );
+}
+
+export default Comment;

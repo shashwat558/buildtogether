@@ -288,7 +288,7 @@ const Page = () => {
           </motion.div>
         </motion.div>
       </motion.div>
-      <CommentSection />
+      <CommentSection projectId={projectId as string} />
     </div>
   )
 }
