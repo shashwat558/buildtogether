@@ -1,46 +1,46 @@
 "use client";
 import { MessageCircle } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+// import React, { useEffect, useState } from 'react'
 
 import { Input } from './ui/input'
-import {useCommentStore} from "../app/store/actions/commentActions";
-import Comment from './Comment';
+// import {useCommentStore} from "../app/store/actions/commentActions";
+// import Comment from './Comment';
 
-    const formatTime = (date: Date) => {
-     return new Intl.DateTimeFormat('en-US', {
-       hour: 'numeric',
-       minute: 'numeric',
-       hour12: true,
-     }).format(new Date(date));
-  };
-
-
-const CommentSection = ({projectId}: {projectId: string}) => {
-
-  const {setComments, comments} = useCommentStore();
-
-  const [newComment, setNewComment] = useState("");
+  //   const formatTime = (date: Date) => {
+  //    return new Intl.DateTimeFormat('en-US', {
+  //      hour: 'numeric',
+  //      minute: 'numeric',
+  //      hour12: true,
+  //    }).format(new Date(date));
+  // };
 
 
+const CommentSection = () => {
 
-  useEffect(() => {
-    const getComment = async () => {
-      const res = await fetch(`/api/comment?projectId=${projectId}`, {
+  // const {setComments, comments} = useCommentStore();
 
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
+  // const [newComment, setNewComment] = useState("");
 
-      })
-      if(res.ok){
-        const data = await res.json();
-         console.log(data)
-        setComments(data)
-      }
-    }
-    getComment()
-  },[projectId, setComments])
+
+
+  // useEffect(() => {
+  //   const getComment = async () => {
+  //     const res = await fetch(`/api/comment?projectId=${projectId}`, {
+
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       }
+
+  //     })
+  //     if(res.ok){
+  //       const data = await res.json();
+  //        console.log(data)
+  //       setComments(data)
+  //     }
+  //   }
+  //   getComment()
+  // },[projectId, setComments])
   return (
     <div className='w-full bg-transparent'>
         <div className='w-full p-8 flex flex-col'>
@@ -49,11 +49,7 @@ const CommentSection = ({projectId}: {projectId: string}) => {
             <Input className='w-full' type='text'/>
 
             <div className='flex flex-col overflow-y-scroll'>
-              {comments && comments.map((comment) => ({
-               
-                <Comment content={comment.content} createdAt={ formatTime(new Date()) } username={"shashwat"}/>
-
-              }))}
+              
             </div>
 
         </div>
