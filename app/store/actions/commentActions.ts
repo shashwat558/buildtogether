@@ -1,7 +1,7 @@
 import {create} from "zustand";
 export interface Comment {
     id: string
-    userId: string
+    username: string
     projectId : string
     content : string
     createdAt: Date

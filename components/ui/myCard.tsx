@@ -27,7 +27,7 @@ const Card = ({ icon: Icon, title, content, color, delay }: CardProps) => {
         scale: 1.05,
         transition: { duration: 0.2 }
       }}
-      className="group relative w-72 p-6 rounded-2xl bg-gradient-to-r from-gray-900/80 to-gray-800/80 border border-gray-700/50 backdrop-blur-sm hover:border-gray-600/50 transition-all duration-300"
+      className="group relative w-72 p-6 rounded-2xl bg-gradient-to-r from-gray-900/80 to-gray-800/80 border border-gray-700/50 backdrop-blur-sm hover:border-gray-600/50 transition-all duration-300 shrink-0"
     >
       <div className="absolute inset-0 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity" />
       

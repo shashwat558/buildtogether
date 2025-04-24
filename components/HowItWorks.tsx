@@ -35,7 +35,7 @@ const HowItWorks = () => {
       animate={{ opacity: 1 }}
       className="w-full py-32 flex flex-col items-center relative overflow-hidden"
     >
-      {/* Background gradient effects */}
+     
       <div className="absolute inset-0 bg-gradient-to-b from-purple-500/10 via-transparent to-transparent" />
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl" />
       <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
@@ -47,10 +47,12 @@ const HowItWorks = () => {
         className="relative w-full max-w-4xl text-center mb-16"
       >
         <div className="flex items-center justify-center gap-3 mb-4">
-          <Sparkles className="w-8 h-8 text-purple-400" />
+          <Sparkles className="w-8 h-8 text-purple-400 " style={{
+            animation: "spin 5s linear infinite"
+          }} />
           <span className="text-purple-400 font-medium">How It Works</span>
         </div>
-        <h1 className="text-6xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+        <h1 className="text-6xl max-sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
           <BlurIn>
             Get Started in Three Simple Steps
           </BlurIn>
@@ -75,7 +77,7 @@ const HowItWorks = () => {
                 scale: 1.02,
                 transition: { duration: 0.2 }
               }}
-              className="group flex items-center gap-6 p-8 rounded-2xl bg-gradient-to-r from-gray-900/80 to-gray-800/80 border border-gray-700/50 backdrop-blur-sm hover:border-gray-600/50 transition-all duration-300 w-[600px]"
+              className="group flex max-sm:flex-col  items-center gap-6 p-8 rounded-2xl bg-gradient-to-r from-gray-900/80 to-gray-800/80 border border-gray-700/50 backdrop-blur-sm hover:border-gray-600/50 transition-all duration-300 w-[600px] max-sm:w-[350px]"
             >
               <motion.div 
                 initial={{ rotate: 0 }}

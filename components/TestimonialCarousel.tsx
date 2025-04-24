@@ -45,7 +45,7 @@ const testimonials = [
 
 const TestimonialCarousel = () => {
   return (
-    <div className="py-16 md:py-24 px-4">
+    <div className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 overflow-x-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -53,8 +53,8 @@ const TestimonialCarousel = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">What People Are Saying</h1>
-          <p className="text-gray-400">Hear from our amazing community</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">What People Are Saying</h1>
+          <p className="text-gray-400 text-sm sm:text-base">Hear from our amazing community</p>
         </motion.div>
 
         <Carousel
@@ -64,9 +64,12 @@ const TestimonialCarousel = () => {
           }}
           className="w-full"
         >
-          <CarouselContent className="-ml-2 md:-ml-4">
+          <CarouselContent className="-ml-2 sm:-ml-4">
             {testimonials.map((testimonial, index) => (
-              <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+              <CarouselItem
+                key={index}
+                className="pl-2 sm:pl-4 basis-[90%] sm:basis-1/2 lg:basis-1/3"
+              >
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -78,13 +81,15 @@ const TestimonialCarousel = () => {
                       <Star key={i} className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                     ))}
                   </div>
-                  <p className="text-gray-300 mb-4 flex-grow">{`"${testimonial.text}"`}</p>
-                  <div className="flex items-center gap-3">
+                  <p className="text-gray-300 mb-4 flex-grow text-sm sm:text-base">
+                    {`"${testimonial.text}"`}
+                  </p>
+                  <div className="flex items-center gap-3 mt-auto">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold">
                       {testimonial.author[0]}
                     </div>
                     <div>
-                      <p className="font-medium">{`"${testimonial.author}"`}</p>
+                      <p className="font-medium text-sm sm:text-base">{testimonial.author}</p>
                       <p className="text-sm text-gray-400">{testimonial.role}</p>
                     </div>
                   </div>
