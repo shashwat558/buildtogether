@@ -47,11 +47,13 @@ export async function POST(req: NextRequest){
     try {
         await prisma.comment.create({
             data: {
-                userId: userId,
-                projectId: projectId,
+                user: {
+                    connect: { id: userId }
+                },
+                project: {
+                    connect: { id: projectId }
+                },
                 content: content
-
-
             }
         })
         
